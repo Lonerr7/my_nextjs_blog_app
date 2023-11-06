@@ -1,14 +1,12 @@
 import type { Metadata } from 'next';
-import { Inter } from 'next/font/google';
-import './reset.css';
+import { workSans } from './ui/fonts';
 import './globals.css';
+import './reset.css';
 import Providers from './components/Providers';
 import Navbar from './components/Navigation/Navbar';
 import Header from './components/semantic/Header';
 import Main from './components/semantic/Main';
 import Footer from './components/semantic/Footer';
-
-const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
   title: 'Next Blog App',
@@ -22,7 +20,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={inter.className}>
+      <body className={`${workSans.className} antialiased`}>
         <Providers>
           <Header>
             <Navbar />

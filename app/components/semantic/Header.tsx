@@ -6,7 +6,7 @@ interface Props {
 
 const Header: FC<Props> = ({ children }) => {
   return (
-    <header className="py-2">
+    <header className="py-8">
       <div className="app-container">{children}</div>
     </header>
   );
