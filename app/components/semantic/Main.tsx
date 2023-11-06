@@ -6,7 +6,7 @@ interface Props {
 
 const Main: FC<Props> = ({ children }) => {
   return (
-    <main>
+    <main className="mb-auto">
       <div className="app-container">{children}</div>
     </main>
   );

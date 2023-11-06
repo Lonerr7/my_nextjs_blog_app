@@ -20,12 +20,16 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={`${workSans.className} antialiased`}>
+      <body
+        className={`${workSans.className} antialiased flex flex-col h-screen justify-between`}
+      >
         <Providers>
           <Header>
             <Navbar />
           </Header>
-          <Main>{children}</Main>
+          <Main>
+            {children}
+          </Main>
           <Footer>Footer</Footer>
         </Providers>
       </body>

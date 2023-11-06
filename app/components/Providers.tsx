@@ -2,6 +2,7 @@
 
 import { FC, useEffect, useState } from 'react';
 import { ThemeProvider, useTheme } from 'next-themes';
+import { SessionProvider } from 'next-auth/react';
 
 interface Props {
   children: React.ReactNode;
@@ -20,9 +21,11 @@ const Providers: FC<Props> = ({ children }) => {
   }
 
   return (
-    <ThemeProvider enableSystem attribute="class">
-      {children}
-    </ThemeProvider>
+    <SessionProvider>
+      <ThemeProvider enableSystem attribute="class">
+        {children}
+      </ThemeProvider>
+    </SessionProvider>
   );
 };
 

@@ -19,24 +19,23 @@ const ThemeSwitcher: FC = () => {
     return (
       <Image
         src={swithcerLoading}
-        width={48}
-        height={28}
         alt="theme swithcer"
+        style={{ width: 'auto', height: 'auto' }}
       />
     );
   }
 
   return (
     <button
+    className='mr-4'
       onClick={() => {
         resolvedTheme === 'dark' ? setTheme('light') : setTheme('dark');
       }}
     >
       <Image
         src={resolvedTheme === 'light' ? swithcerLight : swithcerDark}
-        width={48}
-        height={28}
         alt="theme swithcer"
+        style={{ width: 'auto', height: 'auto' }}
       />
     </button>
   );

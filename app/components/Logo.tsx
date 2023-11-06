@@ -28,6 +28,7 @@ const Logo: FC = () => {
         alt="logo"
         width={158}
         height={36}
+        priority
       />
     </Link>
   );
