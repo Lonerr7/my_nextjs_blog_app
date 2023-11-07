@@ -8,8 +8,6 @@ import { getServerSession } from 'next-auth/next';
 const Navbar: FC = async () => {
   const session = await getServerSession();
 
-  console.log(session);
-
   return (
     <nav className="flex items-center justify-between">
       {/* Logo */}

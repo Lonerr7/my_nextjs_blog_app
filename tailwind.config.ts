@@ -17,8 +17,15 @@ const config: Config = {
         '158': '9.875rem',
         '36': '2.25rem',
       },
+      colors: {
+        'light-black': '#3B3C4A',
+        'bg-dark': '#181A2A',
+        'secondary-900': '#141624',
+        'light-blue': '#4B6BFB',
+      },
     },
   },
+
   plugins: [],
   darkMode: 'class',
 };
