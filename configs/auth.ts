@@ -2,6 +2,7 @@ import { AuthOptions } from 'next-auth';
 import GoogleProvider from 'next-auth/providers/google';
 import Credentials from 'next-auth/providers/credentials';
 import { connectToDB } from '@/utils/connectToDB';
+import User from '@/models/User';
 
 export const authConfig: AuthOptions = {
   providers: [
@@ -17,14 +18,27 @@ export const authConfig: AuthOptions = {
           label: 'Confirm your password',
           type: 'password',
           required: true,
-        }, //!
+        },
       },
       async authorize(credentials) {
-        if (!credentials?.email || credentials?.password) {
+        if (
+          !credentials?.email ||
+          !credentials?.password ||
+          !credentials?.passwordConfirm
+        ) {
           return null;
         }
 
+        console.log(`credentials`, credentials);
+
         await connectToDB();
+        const userToBeLoggedIn = await User.findOne({
+          email: credentials.email,
+        });
+
+        if (userToBeLoggedIn) {
+          return userToBeLoggedIn;
+        }
 
         // Если мы проверили пользователя и его нельзя авторизовать
         return null;
