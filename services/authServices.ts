@@ -21,11 +21,17 @@ export const registerUser = async ({
     });
 
     if (!response.ok) {
-      throw new Error('ERROR!!!!');
+      const error = await response.json();
+
+      if (error?.errors) {
+        throw new Error(error.errors.passwordConfirm.message);
+      } else {
+        throw new Error(error.message);
+      }
     }
 
-    return response.json();
-  } catch (error) {
-    console.log(error);
+    return { user: await response.json() };
+  } catch (error: any) {
+    return { error: error.message };
   }
 };

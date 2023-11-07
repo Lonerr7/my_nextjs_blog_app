@@ -10,6 +10,7 @@ const SingInForm: FC = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [passwordConfirm, setPasswordConfirm] = useState('');
+  const [errorMessage, setErrorMessage] = useState('');
 
   const router = useRouter();
 
@@ -32,23 +33,24 @@ const SingInForm: FC = () => {
   const submitForm = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    if (password !== passwordConfirm) {
-      console.log(`passwords are not the same`);
-      return;
-    }
+    // if (password !== passwordConfirm) {
+    //   console.log(`passwords are not the same`);
+    //   return;
+    // }
 
-    const user = await registerUser({
+    const { user, error } = await registerUser({
       username,
       email,
       password,
       passwordConfirm,
     });
 
-    if (!user) {
+    console.log(user, error);
+
+    if (!user && error) {
+      setErrorMessage(error);
       return;
     }
-
-    console.log('user', user);
 
     const response = await signIn('credentials', {
       email: user.email,
@@ -56,8 +58,6 @@ const SingInForm: FC = () => {
       passwordConfirm: user.passwordConfirm,
       callbackUrl: '/',
     });
-
-    // console.log(`response from signIn from nextauth`, response);
 
     if (response && !response.error) {
       router.push('/');
@@ -113,8 +113,9 @@ const SingInForm: FC = () => {
           required
         />
       </div>
-
       <button type="submit">Submit</button>
+
+      {errorMessage ? <p>{errorMessage}</p> : null}
     </form>
   );
 };
