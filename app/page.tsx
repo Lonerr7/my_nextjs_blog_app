@@ -1,3 +1,9 @@
-export default function Home() {
-  return <div></div>;
+import { getServerSession } from 'next-auth';
+
+export default async function Home() {
+  const session = await getServerSession();
+
+  console.log(`home session`, session);
+
+  return <div>HOME</div>;
 }

@@ -2,7 +2,6 @@
 
 import { registerUser } from '@/services/authServices';
 import { signIn } from 'next-auth/react';
-import { useRouter } from 'next/navigation';
 import { FC, useState, FormEvent } from 'react';
 
 const SingInForm: FC = () => {
@@ -11,8 +10,6 @@ const SingInForm: FC = () => {
   const [password, setPassword] = useState('');
   const [passwordConfirm, setPasswordConfirm] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
-
-  const router = useRouter();
 
   const handleUsernameChange = (e: FormEvent<HTMLInputElement>) => {
     setUsername(e.currentTarget.value);
@@ -33,10 +30,12 @@ const SingInForm: FC = () => {
   const submitForm = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    // if (password !== passwordConfirm) {
-    //   console.log(`passwords are not the same`);
-    //   return;
-    // }
+    if (password !== passwordConfirm) {
+      setErrorMessage('Passwords are not the same!');
+      return;
+    }
+
+    console.log(username, email, password, passwordConfirm);
 
     const { user, error } = await registerUser({
       username,
@@ -45,26 +44,17 @@ const SingInForm: FC = () => {
       passwordConfirm,
     });
 
-    console.log(user, error);
-
     if (!user && error) {
       setErrorMessage(error);
       return;
     }
 
-    const response = await signIn('credentials', {
-      email: user.email,
-      password: user.password,
-      passwordConfirm: user.passwordConfirm,
+    await signIn('credentials', {
+      email,
+      password,
+      passwordConfirm,
       callbackUrl: '/',
     });
-
-    if (response && !response.error) {
-      router.push('/');
-    } else {
-      console.log(`from here`);
-      console.log(response);
-    }
   };
 
   return (

@@ -1,6 +1,7 @@
 import { Schema, model, models } from 'mongoose';
+import bcrypt from 'bcrypt';
 
-const UserSchema = new Schema({
+const userSchema = new Schema({
   email: {
     type: String,
     unique: [true, 'This email already exists!'],
@@ -34,6 +35,22 @@ const UserSchema = new Schema({
   image: String,
 });
 
-const User = models.User || model('User', UserSchema);
+// === Middlewares ===
+userSchema.pre('save', async function (next) {
+  // Only run this function when password is created or modified
+  if (!this.isModified('password')) {
+    return next();
+  }
+
+  // Hash the password
+  this.password = await bcrypt.hash(this.password, 12);
+
+  // Delete passwordConfirm
+  // @ts-ignore
+  this.passwordConfirm = undefined;
+  next();
+});
+
+const User = models.User || model('User', userSchema);
 
 export default User;

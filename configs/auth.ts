@@ -29,14 +29,14 @@ export const authConfig: AuthOptions = {
           return null;
         }
 
-        console.log(`credentials`, credentials);
-
         await connectToDB();
         const userToBeLoggedIn = await User.findOne({
           email: credentials.email,
         });
 
         if (userToBeLoggedIn) {
+          // 1) Check if user's password === password a user has entered
+
           return userToBeLoggedIn;
         }
 
