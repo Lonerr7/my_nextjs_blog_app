@@ -3,28 +3,30 @@
 import { registerUser } from '@/services/authServices';
 import { signIn } from 'next-auth/react';
 import { FC, useState, FormEvent } from 'react';
+import GoogleButton from './GoogleButton';
+
+interface FormState {
+  username: string;
+  email: string;
+  password: string;
+  passwordConfirm: string;
+}
 
 const SingInForm: FC = () => {
-  const [username, setUsername] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [passwordConfirm, setPasswordConfirm] = useState('');
+  const [{ email, password, passwordConfirm, username }, setFormState] =
+    useState<FormState>({
+      username: '',
+      email: '',
+      password: '',
+      passwordConfirm: '',
+    });
   const [errorMessage, setErrorMessage] = useState('');
 
-  const handleUsernameChange = (e: FormEvent<HTMLInputElement>) => {
-    setUsername(e.currentTarget.value);
-  };
-
-  const handleEmailChange = (e: FormEvent<HTMLInputElement>) => {
-    setEmail(e.currentTarget.value);
-  };
-
-  const handlePasswordChange = (e: FormEvent<HTMLInputElement>) => {
-    setPassword(e.currentTarget.value);
-  };
-
-  const handlePasswordConfirm = (e: FormEvent<HTMLInputElement>) => {
-    setPasswordConfirm(e.currentTarget.value);
+  const handleFormChange = (inputValue: string, key: keyof FormState) => {
+    setFormState((prevState) => ({
+      ...prevState,
+      [key]: inputValue,
+    }));
   };
 
   const submitForm = async (e: FormEvent<HTMLFormElement>) => {
@@ -34,8 +36,6 @@ const SingInForm: FC = () => {
       setErrorMessage('Passwords are not the same!');
       return;
     }
-
-    console.log(username, email, password, passwordConfirm);
 
     const { user, error } = await registerUser({
       username,
@@ -58,52 +58,78 @@ const SingInForm: FC = () => {
   };
 
   return (
-    <form onSubmit={submitForm}>
+    <form
+      className="dark:bg-bg-light-dark max-w-[500px] mx-[auto] text-center p-5"
+      onSubmit={submitForm}
+    >
       <div>
-        <label htmlFor="username">Username</label>
+        <label className="block" htmlFor="username"></label>
         <input
+          className="w-[100%] py-2 px-4 rounded-lg"
           type="text"
           name="username"
           id="username"
           value={username}
-          onChange={handleUsernameChange}
+          onChange={(e) => {
+            handleFormChange(e.currentTarget.value, 'username');
+          }}
           required
+          placeholder="Enter your username..."
         />
       </div>
       <div>
-        <label htmlFor="email">Email</label>
+        <label className="block" htmlFor="email">
+          Email
+        </label>
         <input
+          className=""
           type="email"
           name="email"
           id="email"
           value={email}
-          onChange={handleEmailChange}
+          onChange={(e) => {
+            handleFormChange(e.currentTarget.value, 'email');
+          }}
           required
+          placeholder="Enter your email..."
         />
       </div>
       <div>
-        <label htmlFor="username">Password</label>
+        <label className="block" htmlFor="username">
+          Password
+        </label>
         <input
           type="password"
           name="password"
           id="password"
           value={password}
-          onChange={handlePasswordChange}
+          onChange={(e) => {
+            handleFormChange(e.currentTarget.value, 'password');
+          }}
           required
+          placeholder="Enter your password..."
         />
       </div>
       <div>
-        <label htmlFor="passwordConfirm">Confirm your password</label>
+        <label className="block" htmlFor="passwordConfirm">
+          Confirm your password
+        </label>
         <input
           type="password"
           name="passwordConfirm"
           id="passwordConfirm"
           value={passwordConfirm}
-          onChange={handlePasswordConfirm}
+          onChange={(e) => {
+            handleFormChange(e.currentTarget.value, 'passwordConfirm');
+          }}
           required
+          placeholder="Confirm your password..."
         />
       </div>
       <button type="submit">Submit</button>
+
+      <p>or</p>
+      <GoogleButton />
 
       {errorMessage ? <p>{errorMessage}</p> : null}
     </form>

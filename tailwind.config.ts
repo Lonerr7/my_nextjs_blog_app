@@ -22,6 +22,7 @@ const config: Config = {
         'bg-dark': '#181A2A',
         'secondary-900': '#141624',
         'light-blue': '#4B6BFB',
+        'bg-light-dark': '#22243a',
       },
     },
   },
