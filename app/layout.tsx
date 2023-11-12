@@ -21,7 +21,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body
-        className={`${workSans.className} antialiased flex flex-col h-screen justify-between dark:bg-bg-dark`}
+        className={`${workSans.className} antialiased flex flex-col h-screen justify-between bg-bg-light dark:bg-bg-dark`}
       >
         <Providers>
           <Header>
