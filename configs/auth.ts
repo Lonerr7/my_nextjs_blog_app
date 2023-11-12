@@ -3,12 +3,13 @@ import GoogleProvider from 'next-auth/providers/google';
 import Credentials from 'next-auth/providers/credentials';
 import { connectToDB } from '@/utils/connectToDB';
 import User from '@/models/User';
-import { MongoDBAdapter } from '@auth/mongodb-adapter';
-import clientPromise from '@/adapters/mongoDBAdapter';
+
 import { comparePassword } from '@/utils/comparePassword';
 
 export const authConfig: AuthOptions = {
-  adapter: MongoDBAdapter(clientPromise, {}),
+  session: {
+    strategy: 'jwt',
+  },
   providers: [
     GoogleProvider({
       clientId: process.env.GOOGLE_CLIENT_ID!,
@@ -25,6 +26,8 @@ export const authConfig: AuthOptions = {
         },
       },
       async authorize(credentials) {
+        console.log(`from authorize`);
+
         if (
           !credentials?.email ||
           !credentials?.password ||
@@ -54,6 +57,31 @@ export const authConfig: AuthOptions = {
       },
     }),
   ],
+  callbacks: {
+    jwt({ token, account, profile, user }) {
+      console.log(`jwt user`, user);
+
+      if (user) {
+        return {
+          ...token,
+          id: user._id,
+          username: user.username,
+        };
+      }
+
+      return token;
+    },
+    session({ session, token }) {
+      return {
+        ...session,
+        user: {
+          ...session.user,
+          id: token.id,
+          username: token.username,
+        },
+      };
+    },
+  },
   pages: {
     signIn: '/signin',
   },

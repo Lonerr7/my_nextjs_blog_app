@@ -26,7 +26,6 @@ const config: Config = {
       },
     },
   },
-
   plugins: [],
   darkMode: 'class',
 };

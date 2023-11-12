@@ -6,7 +6,6 @@ const SignIn: FC = () => {
     <div>
       <h1 className="text-5xl text-center font-bold mb-24">Sign In</h1>
       <SingInForm />
-   
     </div>
   );
 };
