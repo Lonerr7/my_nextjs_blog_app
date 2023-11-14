@@ -4,6 +4,7 @@ import { handleFormChange } from '@/utils/handleFormChange';
 import { SignInResponse, signIn } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import { FC, useState, FormEvent, useEffect } from 'react';
+import { toast } from 'react-hot-toast';
 
 interface FormState {
   email: string;
@@ -18,17 +19,17 @@ const LogInForm: FC = () => {
       password: '',
       passwordConfirm: '',
     });
-  const [errorMessage, setErrorMessage] = useState('');
   const [signInResponse, setSignInResponse] = useState<
     SignInResponse | undefined
   >();
+
   const router = useRouter();
 
   const submitForm = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     if (password !== passwordConfirm) {
-      setErrorMessage('Passwords are not the same!');
+      toast.error('Passwords are not the same!');
       return;
     }
 
@@ -38,12 +39,15 @@ const LogInForm: FC = () => {
       passwordConfirm,
       redirect: false,
     });
+
     setSignInResponse(response);
   };
 
   useEffect(() => {
     if (signInResponse && signInResponse.ok) {
       router.refresh();
+    } else if (signInResponse && signInResponse.error === 'CredentialsSignin') {
+      toast.error('Wrong email or password');
     }
 
     // eslint-disable-next-line
@@ -132,8 +136,6 @@ const LogInForm: FC = () => {
       >
         Submit
       </button>
-
-      {errorMessage ? <p>{errorMessage}</p> : null}
     </form>
   );
 };

@@ -15,6 +15,11 @@ const NavList: FC = () => {
         </Link>
       </li>
       <li className="mr-2">
+        <Link className="dark:text-white text-light-black" href="/users">
+          Users
+        </Link>
+      </li>
+      <li className="mr-2">
         <Link className="dark:text-white text-light-black" href="/blogs">
           Blogs
         </Link>

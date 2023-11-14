@@ -4,6 +4,8 @@ import ThemeSwitcher from '../ThemeSwitcher';
 import NavList from './NavList';
 import SignOut from '../common/SignOut';
 import { getServerSession } from 'next-auth/next';
+import { plusJakartaSans } from '@/app/ui/fonts';
+import Link from 'next/link';
 
 const Navbar: FC = async () => {
   const session = await getServerSession();
@@ -11,7 +13,12 @@ const Navbar: FC = async () => {
   return (
     <nav className="flex items-center justify-between">
       {/* Logo */}
-      <Logo />
+      <Link className="flex items-center" href="/">
+        <Logo />
+        <span className={`${plusJakartaSans.className} text-xl`}>
+          Meta <span>Blog</span>
+        </span>
+      </Link>
 
       {/* Navbar */}
       {session && <NavList />}

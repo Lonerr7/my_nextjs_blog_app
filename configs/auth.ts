@@ -3,7 +3,6 @@ import GoogleProvider from 'next-auth/providers/google';
 import Credentials from 'next-auth/providers/credentials';
 import { connectToDB } from '@/utils/connectToDB';
 import User from '@/models/User';
-
 import { comparePassword } from '@/utils/comparePassword';
 
 export const authConfig: AuthOptions = {
@@ -58,7 +57,7 @@ export const authConfig: AuthOptions = {
     }),
   ],
   callbacks: {
-    jwt({ token, account, profile, user }) {
+    jwt({ token, user }) {
       console.log(`jwt user`, user);
 
       if (user) {

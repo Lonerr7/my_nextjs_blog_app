@@ -3,6 +3,7 @@
 import { FC, useEffect, useState } from 'react';
 import { ThemeProvider } from 'next-themes';
 import { SessionProvider } from 'next-auth/react';
+import { Toaster } from 'react-hot-toast';
 
 interface Props {
   children: React.ReactNode;
@@ -21,7 +22,10 @@ const Providers: FC<Props> = ({ children }) => {
 
   return (
     <ThemeProvider enableSystem attribute="class">
-      <SessionProvider>{children}</SessionProvider>
+      <SessionProvider>
+        <Toaster />
+        {children}
+      </SessionProvider>
     </ThemeProvider>
   );
 };
