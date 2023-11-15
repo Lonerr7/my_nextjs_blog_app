@@ -5,7 +5,7 @@ import { plusJakartaSans } from '@/app/ui/fonts';
 
 const Footer: FC = () => {
   return (
-    <footer>
+    <footer className="py-8">
       <div className="app-container">
         <div className="flex justify-between items-center">
           <Link className={`${plusJakartaSans.className} flex`} href="/">

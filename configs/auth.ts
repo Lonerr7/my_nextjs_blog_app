@@ -25,8 +25,6 @@ export const authConfig: AuthOptions = {
         },
       },
       async authorize(credentials) {
-        console.log(`from authorize`);
-
         if (
           !credentials?.email ||
           !credentials?.password ||
@@ -51,15 +49,13 @@ export const authConfig: AuthOptions = {
             return userToBeLoggedIn;
         }
 
-        // Если мы проверили пользователя и его нельзя авторизовать
+        // Если мы проверили пользователя и его нельзя авторизовать или пользователя нет в БД
         return null;
       },
     }),
   ],
   callbacks: {
     jwt({ token, user }) {
-      console.log(`jwt user`, user);
-
       if (user) {
         return {
           ...token,

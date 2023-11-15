@@ -1,11 +1,13 @@
 'use client';
 
 import { registerUser } from '@/services/authServices';
-import { signIn } from 'next-auth/react';
-import { FC, useState, FormEvent } from 'react';
+import { SignInResponse, signIn } from 'next-auth/react';
+import { FC, useState, FormEvent, useEffect } from 'react';
 import GoogleButton from './GoogleButton';
 import Link from 'next/link';
 import { handleFormChange } from '@/utils/handleFormChange';
+import { toast } from 'react-hot-toast';
+import { useRouter } from 'next/navigation';
 
 interface FormState {
   username: string;
@@ -22,13 +24,15 @@ const SingInForm: FC = () => {
       password: '',
       passwordConfirm: '',
     });
-  const [errorMessage, setErrorMessage] = useState('');
+  const [canRedirect, setCanRedirect] = useState(false);
+
+  const router = useRouter();
 
   const submitForm = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     if (password !== passwordConfirm) {
-      setErrorMessage('Passwords are not the same!');
+      toast.error('Passwords are not the same!');
       return;
     }
 
@@ -40,17 +44,40 @@ const SingInForm: FC = () => {
     });
 
     if (!user && error) {
-      setErrorMessage(error);
+      toast.error(error);
       return;
     }
 
-    await signIn('credentials', {
-      email,
-      password,
-      passwordConfirm,
-      callbackUrl: '/',
-    });
+    // Signing user in and showing status messages and erros with react-hot-toast
+    toast.promise(
+      signIn('credentials', {
+        email,
+        password,
+        passwordConfirm,
+        redirect: false,
+      }),
+      {
+        loading: 'Signing in...',
+        success: (data: SignInResponse | undefined) => {
+          if (data && data.ok) {
+            setCanRedirect(true);
+          }
+
+          return 'Success!';
+        },
+        error: (err) => `Error! ${err.toString()}`,
+      }
+    );
   };
+
+  // Redirecting programatically if everything is ok
+  useEffect(() => {
+    setTimeout(() => {
+      router.refresh();
+    }, 1000);
+
+    // eslint-disable-next-line
+  }, [canRedirect]);
 
   return (
     <form
@@ -175,8 +202,6 @@ const SingInForm: FC = () => {
         </Link>
         <GoogleButton />
       </div>
-
-      {errorMessage ? <p>{errorMessage}</p> : null}
     </form>
   );
 };
