@@ -33,6 +33,8 @@ const LogInForm: FC = () => {
       return;
     }
 
+    const toastId = toast.loading('Loading');
+
     const response = await signIn('credentials', {
       email,
       password,
@@ -40,6 +42,7 @@ const LogInForm: FC = () => {
       redirect: false,
     });
 
+    toast.dismiss(toastId);
     setSignInResponse(response);
   };
 
