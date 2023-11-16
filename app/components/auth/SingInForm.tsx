@@ -7,12 +7,14 @@ import GoogleButton from './GoogleButton';
 import Link from 'next/link';
 import { toast } from 'react-hot-toast';
 import { useRouter } from 'next/navigation';
-import { AuthFormState } from '@/types/authTypes';
+import { RegisterFormState } from '@/types/authTypes';
 import FormControl from '../ui/FormControl';
+
+// TODO: задать вопрос на stackoverflow по поводу типов
 
 const SingInForm: FC = () => {
   const [{ email, password, passwordConfirm, username }, setFormState] =
-    useState<AuthFormState>({
+    useState<RegisterFormState>({
       username: '',
       email: '',
       password: '',
@@ -89,7 +91,7 @@ const SingInForm: FC = () => {
           setFromState={setFormState}
         />
         <FormControl
-          value={email}
+          value={password}
           stateFieldToChange="password"
           labelValue="Password"
           setFromState={setFormState}
