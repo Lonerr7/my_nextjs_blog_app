@@ -1,7 +1,6 @@
 'use client';
 
 import { LoginFormState } from '@/types/authTypes';
-import { handleFormChange } from '@/utils/handleFormChange';
 import { SignInResponse, signIn } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import { FC, useState, FormEvent, useEffect } from 'react';
