@@ -61,18 +61,21 @@ const LogInForm: FC = () => {
         labelValue="Email"
         stateFieldToChange="email"
         setFromState={setFormState}
+        htmlFor="email"
       />
       <FormControl
         value={password}
         labelValue="Password"
         stateFieldToChange="password"
         setFromState={setFormState}
+        htmlFor="password"
       />
       <FormControl
         value={passwordConfirm}
         labelValue="Confirm your password"
         stateFieldToChange="passwordConfirm"
         setFromState={setFormState}
+        htmlFor="passwordConfirm"
       />
       <button
         className="flex w-full justify-center rounded-md bg-indigo-600 mb-5 px-3 py-1.5 text-md font-semibold leading-6 text-white shadow-sm transition delay-30 hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"

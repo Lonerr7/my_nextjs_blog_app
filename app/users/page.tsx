@@ -1,14 +1,15 @@
 import { getUsers } from '@/services/userServices';
 import { IUser } from '@/types/userTypes';
+import UserSm from '../components/Users/UserSm';
 
 const Users = async () => {
   const users: IUser[] | string = await getUsers();
 
   return (
-    <div>
+    <ul>
       {typeof users === 'object' &&
-        users.map((user) => <div key={user._id}>{user.username}</div>)}
-    </div>
+        users.map((user) => <UserSm key={user._id} />)}
+    </ul>
   );
 };
 

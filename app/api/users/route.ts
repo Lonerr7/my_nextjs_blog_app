@@ -9,6 +9,8 @@ export const GET = async () => {
     await connectToDB();
     const allUsers: IUser[] = await User.find();
 
+    console.log(`allUsers`, allUsers);
+
     return new Response(JSON.stringify(allUsers), { status: 200 });
   } catch (error: any) {
     return new Response(JSON.stringify({ ...error }), { status: 400 });

@@ -10,8 +10,6 @@ import { useRouter } from 'next/navigation';
 import { RegisterFormState } from '@/types/authTypes';
 import FormControl from '../ui/FormControl';
 
-// TODO: задать вопрос на stackoverflow по поводу типов
-
 const SingInForm: FC = () => {
   const [{ email, password, passwordConfirm, username }, setFormState] =
     useState<RegisterFormState>({
@@ -82,24 +80,28 @@ const SingInForm: FC = () => {
           value={username}
           stateFieldToChange="username"
           labelValue="Username"
+          htmlFor="username"
           setFromState={setFormState}
         />
         <FormControl
           value={email}
           stateFieldToChange="email"
           labelValue="Email"
+          htmlFor="email"
           setFromState={setFormState}
         />
         <FormControl
           value={password}
           stateFieldToChange="password"
           labelValue="Password"
+          htmlFor="password"
           setFromState={setFormState}
         />
         <FormControl
           value={passwordConfirm}
           stateFieldToChange="passwordConfirm"
           labelValue="Confirm your password"
+          htmlFor="passwordConfirm"
           setFromState={setFormState}
         />
         <button
