@@ -1,11 +1,12 @@
 import Link from 'next/link';
 import { FC } from 'react';
+import Avatar from './Avatar';
 
 const UserSm: FC = () => {
   return (
     <li>
       <Link href="/">
-        <div>{/* photo */}</div>
+        <Avatar />
         <div>
           <p>Name Surname</p>
           <p>status</p>
