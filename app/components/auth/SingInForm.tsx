@@ -118,7 +118,7 @@ const SingInForm: FC = () => {
 
       <div className="flex items-center xsm:flex-col justify-between ">
         <Link
-          className="block w-[48%] rounded-md p-2 text-center font-medium bg-light-black text-white transition delay-30 hover:opacity-80 xsm:w-full xsm:mb-4"
+          className="block w-[48%] rounded-md p-3 text-center font-medium bg-light-black text-white transition delay-30 hover:opacity-80 xsm:w-full xsm:mb-4"
           href="/login"
         >
           Log In

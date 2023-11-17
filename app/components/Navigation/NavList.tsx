@@ -9,10 +9,10 @@ const NavList: FC = () => {
   const pathname = usePathname();
 
   return (
-    <ul className="w-2/5 flex justify-between text-xl">
+    <ul className="w-2/5 flex justify-between">
       <li className="mr-2">
         <Link
-          className={clsx('dark:text-white text-light-black', {
+          className={clsx('link dark:text-white text-light-black', {
             'font-bold': pathname === '/',
           })}
           href="/"
@@ -22,7 +22,7 @@ const NavList: FC = () => {
       </li>
       <li className="mr-2">
         <Link
-          className={clsx('dark:text-white text-light-black', {
+          className={clsx('link dark:text-white text-light-black', {
             'font-bold': pathname === '/my-page',
           })}
           href="/my-page"
@@ -32,7 +32,7 @@ const NavList: FC = () => {
       </li>
       <li className="mr-2">
         <Link
-          className={clsx('dark:text-white text-light-black', {
+          className={clsx('link dark:text-white text-light-black', {
             'font-bold': pathname === '/users',
           })}
           href="/users"
@@ -42,7 +42,7 @@ const NavList: FC = () => {
       </li>
       <li className="mr-2">
         <Link
-          className={clsx('dark:text-white text-light-black', {
+          className={clsx('link dark:text-white text-light-black', {
             'font-bold': pathname === '/blogs',
           })}
           href="/blogs"
@@ -52,7 +52,7 @@ const NavList: FC = () => {
       </li>
       <li className="mr-2">
         <Link
-          className={clsx('dark:text-white text-light-black', {
+          className={clsx('link dark:text-white text-light-black', {
             'font-bold': pathname === '/create',
           })}
           href="/create"

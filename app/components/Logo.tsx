@@ -21,13 +21,11 @@ const Logo: FC<Props> = ({ logoHeight, logoWidth, logoBlue }) => {
 
   if (!resolvedTheme) {
     return (
-      <div className="w-36 h-36">
+      <div className="w-36 h-36 mr-[10px]">
         <Skeleton className="w-full h-full" />
       </div>
     );
   }
-
-  // Todo: доделать лого (текст и его размеры динамически через пропсы)
 
   return (
     <Image

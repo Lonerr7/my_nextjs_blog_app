@@ -10,7 +10,7 @@ const Footer: FC = () => {
         <div className="flex justify-between items-center">
           <Link className={`${plusJakartaSans.className} flex`} href="/">
             <Logo logoBlue />
-            <div className="flex flex-col">
+            <div className="flex flex-col dark:text-white">
               <span className="text-xl">
                 Meta <span className="font-extrabold">Blog</span>
               </span>

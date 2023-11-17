@@ -33,6 +33,16 @@ const userSchema = new Schema({
     },
   },
   image: String,
+  status: {
+    type: String,
+    max: [100, 'Too many characters for the status!'],
+  },
+  socials: {
+    instagram: { type: String, lowercase: true, trim: true },
+    twitter: { type: String, lowercase: true, trim: true },
+    youtube: { type: String, lowercase: true, trim: true },
+    facebook: { type: String, lowercase: true, trim: true },
+  },
 });
 
 // === Middlewares ===

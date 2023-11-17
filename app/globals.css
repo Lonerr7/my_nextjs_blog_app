@@ -7,3 +7,7 @@
   margin: 0 auto;
   padding: 0 15px;
 }
+
+.link {
+  @apply inline-block transition-[opacity] delay-[30ms] hover:opacity-70;
+}
