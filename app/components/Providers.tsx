@@ -23,7 +23,11 @@ const Providers: FC<Props> = ({ children }) => {
   return (
     <ThemeProvider enableSystem attribute="class">
       <SessionProvider>
-        <Toaster />
+        <Toaster
+          toastOptions={{
+            className: 'dark:bg-bg-light-dark dark:text-white',
+          }}
+        />
         {children}
       </SessionProvider>
     </ThemeProvider>
