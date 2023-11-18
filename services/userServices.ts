@@ -1,12 +1,12 @@
 import { IUser } from '@/types/userTypes';
+import { unstable_noStore as noStore } from 'next/cache';
 
-export const getUsers = async () => {
+export const getUsers = async (query: string) => {
   try {
-    const response = await fetch('http://localhost:3000/api/users', {
-      next: {
-        revalidate: 15,
-      },
-    });
+    noStore();
+    const response = await fetch(
+      `http://localhost:3000/api/users?query=${query}`
+    );
 
     const data = await response.json();
 

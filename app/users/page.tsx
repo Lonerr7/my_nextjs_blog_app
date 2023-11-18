@@ -1,25 +1,20 @@
-import { getUsers } from '@/services/userServices';
-import { IUser } from '@/types/userTypes';
-import UserSm from '../components/Users/UserSm';
+import { FC } from 'react';
 import Search from '../components/common/Search';
+import UsersList from '../components/Users/Users';
 
-const Users = async () => {
-  const users: IUser[] | string = await getUsers();
+interface Props {
+  searchParams?: {
+    query?: string;
+  };
+}
+
+const Users: FC<Props> = async ({ searchParams }) => {
+  const query = searchParams?.query || '';
 
   return (
     <section>
       <Search palceholder="Search for a user" />
-      <ul className="grid grid-cols-3 gap-6">
-        {typeof users === 'object' &&
-          users.map((user) => (
-            <UserSm
-              key={user._id}
-              username={user.username}
-              status={user.status}
-              avatarUrl={user.image}
-            />
-          ))}
-      </ul>
+      <UsersList query={query} />
     </section>
   );
 };

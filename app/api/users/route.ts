@@ -1,15 +1,22 @@
 import User from '@/models/User';
 import { IUser } from '@/types/userTypes';
 import { connectToDB } from '@/utils/connectToDB';
+import { NextRequest } from 'next/server';
 
-export const GET = async () => {
-  console.log(`from get request`);
-
+export const GET = async (req: NextRequest) => {
   try {
-    await connectToDB();
-    const allUsers: IUser[] = await User.find();
+    const searchParams = req.nextUrl.searchParams;
+    const query = searchParams.get('query');
+    let searchOptions;
 
-    console.log(`allUsers`, allUsers);
+    if (query) {
+      searchOptions = { username: { $regex: query, $options: 'i' } };
+    } else {
+      searchOptions = {};
+    }
+
+    await connectToDB();
+    const allUsers: IUser[] = await User.find(searchOptions);
 
     return new Response(JSON.stringify(allUsers), { status: 200 });
   } catch (error: any) {
