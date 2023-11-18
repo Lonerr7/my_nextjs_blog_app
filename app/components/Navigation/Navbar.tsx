@@ -30,7 +30,7 @@ const Navbar: FC = async () => {
       <div className="flex items-center justify-between">
         <ThemeSwitcher />
         {session && (
-          <Link className="link mr-4 dark:text-white" href="/">
+          <Link className="link mr-4 dark:text-white" href="/my-page">
             Hello, <span className="font-bold">{session.user.username}</span>
           </Link>
         )}
