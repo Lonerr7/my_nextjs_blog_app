@@ -3,6 +3,7 @@
 import { useSearchParams, usePathname, useRouter } from 'next/navigation';
 import { FC } from 'react';
 import { IoMdSearch } from 'react-icons/io';
+import { useDebouncedCallback } from 'use-debounce';
 
 interface Props {
   palceholder: string;
@@ -13,7 +14,7 @@ const Search: FC<Props> = ({ palceholder }) => {
   const pathname = usePathname();
   const { replace } = useRouter();
 
-  const handleSearch = (searchTerm: string) => {
+  const handleSearch = useDebouncedCallback((searchTerm: string) => {
     const params = new URLSearchParams(searchParams);
 
     if (searchTerm) {
@@ -23,7 +24,7 @@ const Search: FC<Props> = ({ palceholder }) => {
     }
 
     replace(`${pathname}?${params.toString()}`);
-  };
+  }, 300);
 
   return (
     <div className="mx-auto w-full mb-8">
