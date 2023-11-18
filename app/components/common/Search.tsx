@@ -33,7 +33,7 @@ const Search: FC<Props> = ({ palceholder }) => {
       </label>
       <div className="relative w-1/2 mx-auto">
         <input
-          className="pl-7 pr-5 py-3 w-full rounded-lg"
+          className="pl-7 pr-5 py-3 w-full rounded-lg focus:ring-2 focus:ring-inset focus:ring-indigo-600 dark:bg-item-bg-dark"
           type="text"
           id="search"
           name="search"
@@ -41,7 +41,7 @@ const Search: FC<Props> = ({ palceholder }) => {
           onChange={(e) => handleSearch(e.target.value)}
           defaultValue={`${searchParams.get('query')?.toString()}` && ''}
         />
-        <IoMdSearch className="absolute top-[13px] left-[3px]" size={18} />
+        <IoMdSearch className="absolute top-[13px] left-[6px]" size={18} />
       </div>
     </div>
   );

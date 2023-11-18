@@ -10,7 +10,7 @@ import { useRouter } from 'next/navigation';
 import { RegisterFormState } from '@/types/authTypes';
 import FormControl from '../ui/FormControl';
 
-const SingInForm: FC = () => {
+const SignInForm: FC = () => {
   const [{ email, password, passwordConfirm, username }, setFormState] =
     useState<RegisterFormState>({
       username: '',
@@ -105,7 +105,7 @@ const SingInForm: FC = () => {
           setFromState={setFormState}
         />
         <button
-          className="flex w-full justify-center rounded-md bg-indigo-600 mb-5 px-3 py-1.5 text-md font-semibold leading-6 text-white shadow-sm transition delay-30 hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+          className="flex w-full justify-center rounded-md bg-indigo-600 mb-5 px-3 py-1.5 text-md font-semibold leading-6 text-white shadow-sm transition delay-30 hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 dark:focus-visible:outline-white"
           type="submit"
         >
           Submit
@@ -120,7 +120,7 @@ const SingInForm: FC = () => {
 
       <div className="flex items-center xsm:flex-col justify-between ">
         <Link
-          className="block w-[48%] rounded-md p-3 text-center font-medium bg-light-black text-white transition delay-30 hover:opacity-80 xsm:w-full xsm:mb-4"
+          className="block w-[48%] rounded-md p-3 text-center font-medium bg-light-black text-white transition delay-30 hover:opacity-80 xsm:w-full xsm:mb-4 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 dark:focus-visible:outline-white"
           href="/login"
         >
           Log In
@@ -131,4 +131,4 @@ const SingInForm: FC = () => {
   );
 };
 
-export default SingInForm;
+export default SignInForm;

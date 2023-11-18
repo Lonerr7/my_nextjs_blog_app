@@ -11,7 +11,7 @@ const GoogleButton: FC = () => {
 
   return (
     <button
-      className="w-[48%] flex items-center rounded-md p-2 shadow-lg bg-google-blue text-white transition delay-30 hover:opacity-80 xsm:w-full xsm:justify-center"
+      className="w-[48%] flex items-center rounded-md p-2 shadow-lg bg-google-blue text-white transition delay-30 hover:opacity-80 xsm:w-full xsm:justify-center focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 dark:focus-visible:outline-white"
       onClick={() => signIn('google', { callbackUrl })}
     >
       <FcGoogle className="mr-4" size={24} />
