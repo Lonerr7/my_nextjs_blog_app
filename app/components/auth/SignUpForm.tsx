@@ -10,7 +10,7 @@ import { useRouter } from 'next/navigation';
 import { RegisterFormState } from '@/types/authTypes';
 import FormControl from '../ui/FormControl';
 
-const SignInForm: FC = () => {
+const SignUpForm: FC = () => {
   const [{ email, password, passwordConfirm, username }, setFormState] =
     useState<RegisterFormState>({
       username: '',
@@ -105,10 +105,10 @@ const SignInForm: FC = () => {
           setFromState={setFormState}
         />
         <button
-          className="flex w-full justify-center rounded-md bg-indigo-600 mb-5 px-3 py-1.5 text-md font-semibold leading-6 text-white shadow-sm transition delay-30 hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 dark:focus-visible:outline-white"
+          className="flex w-full justify-center rounded-md bg-indigo-600 mb-5 px-3 py-1.5 text-md font-semibold leading-6 text-white shadow-sm transition delay-30 hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 active:outline-black dark:focus-visible:outline-white"
           type="submit"
         >
-          Submit
+          Sign up
         </button>
 
         <div className="flex items-center justify-center mb-6">
@@ -131,4 +131,4 @@ const SignInForm: FC = () => {
   );
 };
 
-export default SignInForm;
+export default SignUpForm;

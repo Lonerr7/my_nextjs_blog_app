@@ -5,9 +5,12 @@ export const POST = async (req: Request) => {
   try {
     const data = await req.json();
     await connectToDB();
-    const existingUser = await User.findOne({ username: data.username });
+    const [userByEmail, userByUsername] = await Promise.all([
+      User.exists({ email: data.email }),
+      User.exists({ username: data.username }),
+    ]);
 
-    if (!existingUser) {
+    if (!userByEmail && !userByUsername) {
       const newUser = await User.create({ ...data });
       return new Response(JSON.stringify(newUser), { status: 201 });
     }
