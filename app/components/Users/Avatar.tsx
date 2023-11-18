@@ -6,22 +6,24 @@ import Image from 'next/image';
 interface Props {
   avatarURL?: string;
   small?: boolean;
+  customClassName?: string;
 }
 
-const Avatar: FC<Props> = ({ avatarURL, small }) => {
+const Avatar: FC<Props> = ({ avatarURL, small, customClassName }) => {
   let width: number;
   let height: number;
 
   if (small) {
-    width = 50;
-    height = 50;
+    width = 125;
+    height = 125;
   } else {
-    width = 150;
-    height = 150;
+    width = 350;
+    height = 350;
   }
 
   return (
     <Image
+      className={`${customClassName} ${small && `rounded-[50%]`}`}
       src={avatarURL ? avatarURL : mockAvatar}
       width={width}
       height={height}

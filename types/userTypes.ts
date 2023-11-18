@@ -3,6 +3,8 @@ export interface IUser {
   username: string;
   address?: string;
   socials: UserSocials;
+  status?: string;
+  image?: string;
 }
 
 export interface UserSocials {
