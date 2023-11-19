@@ -16,6 +16,7 @@ const UsersList: FC<Props> = async ({ query }) => {
         users.map((user) => (
           <UserSm
             key={user._id}
+            id={user._id}
             username={user.username}
             status={user.status}
             avatarUrl={user.image}

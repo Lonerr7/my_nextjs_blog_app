@@ -1,19 +1,12 @@
 import User from '@/models/User';
 import { IUser } from '@/types/userTypes';
 import { connectToDB } from '@/utils/connectToDB';
+import { generateMongooseSearchOptions } from '@/utils/generateMongooseSearchOptions';
 import { NextRequest } from 'next/server';
 
 export const GET = async (req: NextRequest) => {
   try {
-    const searchParams = req.nextUrl.searchParams;
-    const query = searchParams.get('query');
-    let searchOptions;
-
-    if (query) {
-      searchOptions = { username: { $regex: query, $options: 'i' } };
-    } else {
-      searchOptions = {};
-    }
+    const searchOptions = generateMongooseSearchOptions(req)
 
     await connectToDB();
     const allUsers: IUser[] = await User.find(searchOptions);

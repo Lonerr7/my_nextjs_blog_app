@@ -5,7 +5,7 @@ export const getUsers = async (query: string) => {
   try {
     noStore();
     const response = await fetch(
-      `http://localhost:3000/api/users?query=${query}`
+      `${process.env.NEXTAUTH_URL}/api/users?query=${query}`
     );
 
     const data = await response.json();
@@ -17,5 +17,25 @@ export const getUsers = async (query: string) => {
     return data as IUser[];
   } catch (error: any) {
     return 'Error when fetching';
+  }
+};
+
+const ITEMS_PER_PAGE = 9;
+export const getUsersPages = async (query: string) => {
+  try { 
+    noStore();
+    const response = await fetch(
+      `${process.env.NEXTAUTH_URL}/api/usersDocsNumber?query=${query}`
+    );
+
+    if (!response.ok) {
+      throw new Error('Error when fetching pages count');
+    }
+
+    const data: number = await response.json();
+
+    return Math.ceil(data / ITEMS_PER_PAGE);
+  } catch (error) {
+    return error;
   }
 };
