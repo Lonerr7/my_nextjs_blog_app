@@ -3,6 +3,7 @@ import Search from '../components/common/Search';
 import UsersList from '../components/Users/Users';
 import UsersLoadingSkeleton from '../components/ui/skeletons/UsersLoadingSkeleton';
 import { getUsersPages } from '@/services/userServices';
+import Pagination from '../components/ui/Pagination';
 
 interface Props {
   searchParams?: {
@@ -22,6 +23,9 @@ const Users: FC<Props> = async ({ searchParams }) => {
       <Suspense key={query} fallback={<UsersLoadingSkeleton />}>
         <UsersList query={query} />
       </Suspense>
+      <div className="mt-5 flex w-full justify-center">
+        <Pagination totalPages={totalPages} />
+      </div>
     </section>
   );
 };

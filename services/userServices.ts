@@ -20,22 +20,19 @@ export const getUsers = async (query: string) => {
   }
 };
 
-const ITEMS_PER_PAGE = 9;
+const ITEMS_PER_PAGE = 6;
 export const getUsersPages = async (query: string) => {
-  try { 
+  try {
     noStore();
     const response = await fetch(
       `${process.env.NEXTAUTH_URL}/api/usersDocsNumber?query=${query}`
     );
 
-    if (!response.ok) {
-      throw new Error('Error when fetching pages count');
-    }
-
     const data: number = await response.json();
 
     return Math.ceil(data / ITEMS_PER_PAGE);
   } catch (error) {
-    return error;
+    console.error('Database Error:', error);
+    throw new Error('Failed to fetch total number of users');
   }
 };
