@@ -4,12 +4,14 @@ import { FC, useEffect, useState } from 'react';
 import { ThemeProvider } from 'next-themes';
 import { SessionProvider } from 'next-auth/react';
 import { Toaster } from 'react-hot-toast';
+import { Session } from 'next-auth';
 
 interface Props {
   children: React.ReactNode;
+  session: Session;
 }
 
-const Providers: FC<Props> = ({ children }) => {
+const Providers: FC<Props> = ({ children, session }) => {
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
@@ -22,7 +24,7 @@ const Providers: FC<Props> = ({ children }) => {
 
   return (
     <ThemeProvider enableSystem attribute="class">
-      <SessionProvider>
+      <SessionProvider session={session}>
         <Toaster
           toastOptions={{
             className: 'dark:bg-bg-light-dark dark:text-white',

@@ -39,7 +39,11 @@ const Search: FC<Props> = ({ palceholder }) => {
           name="search"
           placeholder={`${palceholder}...`}
           onChange={(e) => handleSearch(e.target.value)}
-          defaultValue={`${searchParams.get('query')?.toString()}` && ''}
+          defaultValue={`${
+            searchParams.get('query')?.toString() === undefined
+              ? ''
+              : searchParams.get('query')?.toString()
+          }`}
         />
         <IoMdSearch className="absolute top-[13px] left-[6px]" size={18} />
       </div>

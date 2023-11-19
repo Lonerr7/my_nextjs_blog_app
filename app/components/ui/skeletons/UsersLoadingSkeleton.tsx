@@ -20,9 +20,6 @@ const UsersLoadingSkeleton = () => {
       <UserLoadingSkeleton />
       <UserLoadingSkeleton />
       <UserLoadingSkeleton />
-      <UserLoadingSkeleton />
-      <UserLoadingSkeleton />
-      <UserLoadingSkeleton />
     </div>
   );
 };

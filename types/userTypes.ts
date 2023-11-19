@@ -5,6 +5,7 @@ export interface IUser {
   socials: UserSocials;
   status?: string;
   image?: string;
+  job?: string;
 }
 
 export interface UserSocials {

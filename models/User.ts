@@ -43,6 +43,10 @@ const userSchema = new Schema({
     youtube: { type: String, lowercase: true, trim: true },
     facebook: { type: String, lowercase: true, trim: true },
   },
+  job: {
+    type: String,
+    max: [40, 'Too many characters for a job!'],
+  },
 });
 
 // === Middlewares ===

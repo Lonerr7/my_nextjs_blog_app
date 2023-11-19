@@ -4,6 +4,11 @@ import UsersList from '../components/Users/Users';
 import UsersLoadingSkeleton from '../components/ui/skeletons/UsersLoadingSkeleton';
 import { getUsersPages } from '@/services/userServices';
 import Pagination from '../components/ui/Pagination';
+import { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: 'Users | Meta Blog',
+};
 
 interface Props {
   searchParams?: {
@@ -20,7 +25,7 @@ const Users: FC<Props> = async ({ searchParams }) => {
   return (
     <section>
       <Search palceholder="Search for a user" />
-      <Suspense key={query} fallback={<UsersLoadingSkeleton />}>
+      <Suspense key={query + currentPage} fallback={<UsersLoadingSkeleton />}>
         <UsersList query={query} currentPage={currentPage} />
       </Suspense>
       <div className="mt-5 flex w-full justify-center">

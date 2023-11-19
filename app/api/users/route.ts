@@ -1,21 +1,20 @@
+import { USERS_ITEMS_PER_PAGE } from '@/configs/requestConfig';
 import User from '@/models/User';
-import { ITEMS_PER_PAGE } from '@/services/userServices';
 import { IUser } from '@/types/userTypes';
 import { connectToDB } from '@/utils/connectToDB';
 import { generateMongooseSearchOptions } from '@/utils/generateMongooseSearchOptions';
+
 import { NextRequest } from 'next/server';
 
-export const GET = async (req: NextRequest) => {
+export const GET = async (req: NextRequest, res: Response) => {
   try {
     const searchOptions = generateMongooseSearchOptions(req);
     const page = req.nextUrl.searchParams.get('page');
 
     await connectToDB();
     const allUsers: IUser[] = await User.find(searchOptions)
-      .limit(ITEMS_PER_PAGE)
-      .skip((Number(page) - 1) * ITEMS_PER_PAGE);
-
-    console.log(`page ${page}`, allUsers);
+      .limit(USERS_ITEMS_PER_PAGE)
+      .skip((Number(page) - 1) * USERS_ITEMS_PER_PAGE);
 
     return new Response(JSON.stringify(allUsers), { status: 200 });
   } catch (error: any) {
