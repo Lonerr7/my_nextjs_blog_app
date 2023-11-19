@@ -5,10 +5,11 @@ import { getUsers } from '@/services/userServices';
 
 interface Props {
   query: string;
+  currentPage: number;
 }
 
-const UsersList: FC<Props> = async ({ query }) => {
-  const users: IUser[] | string = await getUsers(query);
+const UsersList: FC<Props> = async ({ query, currentPage }) => {
+  const users: IUser[] | string = await getUsers(query, currentPage);
 
   return (
     <ul className="grid grid-cols-3 gap-6">

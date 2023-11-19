@@ -1,11 +1,11 @@
 import { IUser } from '@/types/userTypes';
 import { unstable_noStore as noStore } from 'next/cache';
 
-export const getUsers = async (query: string) => {
+export const getUsers = async (query: string, page: number) => {
   try {
     noStore();
     const response = await fetch(
-      `${process.env.NEXTAUTH_URL}/api/users?query=${query}`
+      `${process.env.NEXTAUTH_URL}/api/users?query=${query}&page=${page}`
     );
 
     const data = await response.json();
@@ -20,7 +20,7 @@ export const getUsers = async (query: string) => {
   }
 };
 
-const ITEMS_PER_PAGE = 6;
+export const ITEMS_PER_PAGE = 6;
 export const getUsersPages = async (query: string) => {
   try {
     noStore();
