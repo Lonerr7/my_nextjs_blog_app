@@ -25,6 +25,15 @@ const SignUpForm: FC = () => {
   const submitForm = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
+    if (username.length <= 2) {
+      toast.error('Username is too short!');
+      return;
+    }
+    if (username.length > 20) {
+      toast.error('Username is too long!');
+      return;
+    }
+
     if (password !== passwordConfirm) {
       toast.error('Passwords are not the same!');
       return;
@@ -37,6 +46,9 @@ const SignUpForm: FC = () => {
       passwordConfirm,
     });
 
+    console.log(error);
+
+    // universal error handler
     if (!user && error) {
       toast.error(error);
       return;

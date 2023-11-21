@@ -24,10 +24,16 @@ export const registerUser = async ({
       const error = await response.json();
 
       if (error?.errors) {
-        throw new Error(error.errors.passwordConfirm.message);
-      } else {
-        throw new Error(error.message);
+        // Checking if its mongoose error => passing it to catch block
+        if (error.errors.username) {
+          throw new Error(error.errors.username.message);
+        } else if (error.errors.passwordConfirm) {
+          throw new Error(error.errors.passwordConfirm.message);
+        }
       }
+      // else {
+      //   throw new Error(error.message);
+      // }
     }
 
     return { user: await response.json() };

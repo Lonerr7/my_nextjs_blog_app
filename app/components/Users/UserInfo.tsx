@@ -13,8 +13,14 @@ const UserInfo: FC<Props> = ({ isMyPage, user }) => {
       <p>{user.username}</p>
       {isMyPage ? (
         <form action={updateMyUsername}>
-          <input defaultValue={user.username} />
-          <button>Change Username</button>
+          <label htmlFor="username">Username</label>
+          <input
+            id="username"
+            name="username"
+            type="text"
+            defaultValue={user.username}
+          />
+          <button type="submit">Change Username</button>
         </form>
       ) : null}
     </div>

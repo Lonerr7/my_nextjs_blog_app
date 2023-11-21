@@ -9,6 +9,7 @@ export const getUsers = async (query: string, page: number) => {
       {
         next: {
           revalidate: 15,
+          tags: ['getUsers'],
         },
       }
     );
@@ -41,12 +42,12 @@ export const getUsersPages = async (query: string) => {
   }
 };
 
-export const getSingleUser = async (userId: string) => {
+export const getSingleUser = async (userId: string, tag: 'myself' | 'user') => {
   try {
     noStore();
     const response = await fetch(
       `${process.env.NEXTAUTH_URL}/api/singleUser?id=${userId}`,
-      { credentials: 'include' }
+      { next: { tags: [tag] } }
     );
 
     const data = await response.json();

@@ -21,6 +21,8 @@ export const POST = async (req: Request) => {
       { status: 409 }
     );
   } catch (error: any) {
+    // console.log(error.errors.username.properties.message);
+
     return new Response(JSON.stringify({ ...error }), { status: 400 });
   }
 };

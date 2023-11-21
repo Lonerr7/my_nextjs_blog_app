@@ -7,9 +7,14 @@ import { getServerSession } from 'next-auth/next';
 import { plusJakartaSans } from '@/app/ui/fonts';
 import Link from 'next/link';
 import { authConfig } from '@/configs/auth';
+import { getSingleUser } from '@/services/userServices';
+import { IUser } from '@/types/userTypes';
 
 const Navbar: FC = async () => {
   const session = await getServerSession(authConfig);
+  const user: string | IUser = await getSingleUser(session?.user.id!, 'myself');
+
+  console.log(`navbar session`, session);
 
   return (
     <nav className="flex items-center justify-between text-xl">
@@ -31,7 +36,10 @@ const Navbar: FC = async () => {
         <ThemeSwitcher />
         {session && (
           <Link className="link mr-4 dark:text-white" href="/my-page">
-            Hello, <span className="font-bold">{session.user.username}</span>
+            Hello,{' '}
+            <span className="font-bold">
+              {typeof user !== 'string' && user.username}
+            </span>
           </Link>
         )}
         {session && <SignOut />}
