@@ -58,8 +58,12 @@ export const getSingleUser = async (userId: string, tag: 'myself' | 'user') => {
       throw new Error('Error when fetching a user');
     }
 
-    return data;
+    return {
+      user: data as IUser,
+    };
   } catch (error: any) {
-    return error.message;
+    return {
+      error: error.message as string,
+    };
   }
 };

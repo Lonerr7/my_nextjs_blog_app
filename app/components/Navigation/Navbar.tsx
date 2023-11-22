@@ -8,17 +8,13 @@ import { plusJakartaSans } from '@/app/ui/fonts';
 import Link from 'next/link';
 import { authConfig } from '@/configs/auth';
 import { getSingleUser } from '@/services/userServices';
-import { IUser } from '@/types/userTypes';
 
 const Navbar: FC = async () => {
   const session = await getServerSession(authConfig);
-  const user: string | IUser = await getSingleUser(session?.user.id!, 'myself');
-
-  console.log(`navbar session`, session);
+  const { user } = await getSingleUser(session?.user.id!, 'myself');
 
   return (
     <nav className="flex items-center justify-between text-xl">
-      {/* Logo */}
       <Link className="flex items-center" href="/">
         <Logo />
         <span
@@ -28,18 +24,13 @@ const Navbar: FC = async () => {
         </span>
       </Link>
 
-      {/* Navbar */}
       {session && <NavList />}
 
-      {/* Profile or Login with Theme Swithcer */}
       <div className="flex items-center justify-between">
         <ThemeSwitcher />
         {session && (
           <Link className="link mr-4 dark:text-white" href="/my-page">
-            Hello,{' '}
-            <span className="font-bold">
-              {typeof user !== 'string' && user.username}
-            </span>
+            Hello, <span className="font-bold">{user && user.username}</span>
           </Link>
         )}
         {session && <SignOut />}

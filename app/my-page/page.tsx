@@ -12,12 +12,12 @@ export const metadata: Metadata = {
 
 const MyPage: FC = async () => {
   const session = await getServerSession(authConfig);
-  const user: IUser | string = await getSingleUser(session?.user.id!, 'myself');
+  const { user, error } = await getSingleUser(session?.user.id!, 'myself');
 
-  if (typeof user === 'string') {
+  if (error) {
     return (
       <section>
-        <p>{user}</p>
+        <p>{error}</p>
       </section>
     );
   }

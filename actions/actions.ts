@@ -7,7 +7,6 @@ import { getServerSession } from 'next-auth';
 import { revalidateTag } from 'next/cache';
 
 // TODO на утро 21.11: Обновлять только те поля, которые были изменены ()
-//! Не работает валидация mongoose (могу добавить пустое имя пользователя или слишком больше имя)
 
 export const updateMyUsername = async (formData: FormData) => {
   const { username } = {
@@ -20,7 +19,11 @@ export const updateMyUsername = async (formData: FormData) => {
 
   try {
     await connectToDB();
-    const myself = await User.findByIdAndUpdate(session?.user.id, { username });
+    await User.findByIdAndUpdate(
+      session?.user.id,
+      { username },
+      { runValidators: true }
+    );
 
     revalidateTag('myself');
     revalidateTag('getUsers');

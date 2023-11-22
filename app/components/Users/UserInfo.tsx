@@ -4,13 +4,13 @@ import { FC } from 'react';
 
 interface Props {
   isMyPage?: boolean;
-  user: IUser;
+  user?: IUser;
 }
 
 const UserInfo: FC<Props> = ({ isMyPage, user }) => {
   return (
     <div>
-      <p>{user.username}</p>
+      <p>{user?.username}</p>
       {isMyPage ? (
         <form action={updateMyUsername}>
           <label htmlFor="username">Username</label>
@@ -18,7 +18,7 @@ const UserInfo: FC<Props> = ({ isMyPage, user }) => {
             id="username"
             name="username"
             type="text"
-            defaultValue={user.username}
+            defaultValue={user?.username}
           />
           <button type="submit">Change Username</button>
         </form>

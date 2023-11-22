@@ -36,7 +36,8 @@ export const registerUser = async ({
       // }
     }
 
-    return { user: await response.json() };
+    const user = await response.json();
+    return { user };
   } catch (error: any) {
     return { error: error.message };
   }

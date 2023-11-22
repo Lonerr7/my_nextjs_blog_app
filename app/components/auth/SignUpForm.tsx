@@ -33,7 +33,6 @@ const SignUpForm: FC = () => {
       toast.error('Username is too long!');
       return;
     }
-
     if (password !== passwordConfirm) {
       toast.error('Passwords are not the same!');
       return;
