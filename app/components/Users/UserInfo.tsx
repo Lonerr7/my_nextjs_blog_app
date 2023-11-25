@@ -1,9 +1,9 @@
 import { IUser } from '@/types/userTypes';
 import { FC } from 'react';
-import UpdateUserForm from './UpdateUserForm';
 import Avatar from './Avatar';
 import { SlPencil } from 'react-icons/sl';
 import Link from 'next/link';
+import UserSocials from './UserSocials/UserSocials';
 
 interface Props {
   isMyPage?: boolean;
@@ -40,7 +40,7 @@ const UserInfo: FC<Props> = ({ isMyPage, user }) => {
           </p>
         ) : null}
 
-        {true ? <ul className="mt-6">socials</ul> : null}
+        {user?.socials ? <UserSocials socials={user.socials} /> : null}
       </div>
     </div>
   );
