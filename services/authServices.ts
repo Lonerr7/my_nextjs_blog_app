@@ -20,24 +20,24 @@ export const registerUser = async ({
       }),
     });
 
-    if (!response.ok) {
-      const error = await response.json();
+    const data = await response.json();
 
-      if (error?.errors) {
+    if (!response.ok) {
+      if (data?.errors) {
         // Checking if its mongoose error => passing it to catch block
-        if (error.errors.username) {
-          throw new Error(error.errors.username.message);
-        } else if (error.errors.passwordConfirm) {
-          throw new Error(error.errors.passwordConfirm.message);
+        if (data.errors.username) {
+          throw new Error(data.errors.username.message);
+        } else if (data.errors.passwordConfirm) {
+          throw new Error(data.errors.passwordConfirm.message);
+        } else if (data.errors.password) {
+          throw new Error(data.errors.password.message);
         }
+      } else {
+        throw new Error(data.message);
       }
-      // else {
-      //   throw new Error(error.message);
-      // }
     }
 
-    const user = await response.json();
-    return { user };
+    return { user: data };
   } catch (error: any) {
     return { error: error.message };
   }

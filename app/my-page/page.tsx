@@ -3,7 +3,6 @@ import { FC } from 'react';
 import { getServerSession } from 'next-auth';
 import { authConfig } from '@/configs/auth';
 import { getSingleUser } from '@/services/userServices';
-import { IUser } from '@/types/userTypes';
 import UserInfo from '../components/Users/UserInfo';
 
 export const metadata: Metadata = {

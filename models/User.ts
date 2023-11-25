@@ -9,15 +9,21 @@ const userSchema = new Schema({
   },
   username: {
     type: String,
-    min: [3, 'Username is too short!'],
-    max: [20, "Username shouldn't be more than 20 characters"],
+    minLength: [3, 'Username is too short!'],
+    maxLength: [20, "Username shouldn't be more than 20 characters"],
     required: [true, 'Please enter your username'],
     unique: [true, 'This username already exists'],
   },
   password: {
     type: String,
-    min: [6, 'Password should be 6 characters and no more than 25 characters'],
-    max: [25, 'Password should be 6 characters and no more than 25 characters'],
+    minLength: [
+      6,
+      'Password should be 6 characters and no more than 25 characters',
+    ],
+    maxLength: [
+      25,
+      'Password should be 6 characters and no more than 25 characters',
+    ],
     required: [true, 'Please, enter your password'],
     select: false,
   },
@@ -30,13 +36,13 @@ const userSchema = new Schema({
         // @ts-ignore
         return el === this.password;
       },
-      message: 'Passwords are not the same',
+      message: 'Passwords are not the sameWWWWWWWW',
     },
   },
   image: String,
   status: {
     type: String,
-    max: [100, 'Too many characters for the status!'],
+    maxLength: [100, 'Too many characters for the status!'],
   },
   socials: {
     instagram: { type: String, lowercase: true, trim: true },
@@ -46,7 +52,7 @@ const userSchema = new Schema({
   },
   job: {
     type: String,
-    max: [40, 'Too many characters for a job!'],
+    maxLength: [40, 'Too many characters for a job!'],
   },
 });
 

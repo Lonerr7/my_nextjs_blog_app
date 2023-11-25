@@ -45,8 +45,6 @@ const SignUpForm: FC = () => {
       passwordConfirm,
     });
 
-    console.log(error);
-
     // universal error handler
     if (!user && error) {
       toast.error(error);

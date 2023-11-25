@@ -4,6 +4,8 @@ import { connectToDB } from '@/utils/connectToDB';
 export const POST = async (req: Request) => {
   try {
     const data = await req.json();
+    console.log(data);
+    
     await connectToDB();
     const [userByEmail, userByUsername] = await Promise.all([
       User.exists({ email: data.email }),
@@ -12,6 +14,8 @@ export const POST = async (req: Request) => {
 
     if (!userByEmail && !userByUsername) {
       const newUser = await User.create({ ...data });
+      console.log(newUser);
+
       return new Response(JSON.stringify(newUser), { status: 201 });
     }
 

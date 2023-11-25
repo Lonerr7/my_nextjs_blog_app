@@ -31,7 +31,7 @@ export const updateMyUsername = async (formData: FormData) => {
     console.error(error);
 
     return {
-      message: 'ERROR updating a user!',
+      message: 'Error when updating a user!',
     };
   }
 };
