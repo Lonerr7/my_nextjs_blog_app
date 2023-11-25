@@ -33,10 +33,6 @@ export const authConfig: AuthOptions = {
           return null;
         }
 
-        if (credentials.password !== credentials.passwordConfirm) {
-          return null;
-        }
-
         await connectToDB();
         const userToBeLoggedIn = await User.findOne({
           email: credentials.email,
@@ -79,6 +75,9 @@ export const authConfig: AuthOptions = {
           email: undefined,
         },
       };
+    },
+    signIn() {
+      return true;
     },
   },
 

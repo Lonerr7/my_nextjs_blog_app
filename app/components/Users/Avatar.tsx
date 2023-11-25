@@ -7,15 +7,26 @@ interface Props {
   avatarURL?: string;
   small?: boolean;
   customClassName?: string;
+  customWidth?: number;
+  customHeight?: number;
 }
 
-const Avatar: FC<Props> = ({ avatarURL, small, customClassName }) => {
+const Avatar: FC<Props> = ({
+  avatarURL,
+  small,
+  customClassName,
+  customWidth,
+  customHeight,
+}) => {
   let width: number;
   let height: number;
 
   if (small) {
     width = 125;
     height = 125;
+  } else if (customWidth && customHeight) {
+    width = customWidth;
+    height = customHeight;
   } else {
     width = 350;
     height = 350;

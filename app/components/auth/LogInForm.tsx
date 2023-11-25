@@ -38,6 +38,8 @@ const LogInForm: FC = () => {
     });
 
     toast.dismiss(toastId);
+    console.log(response);
+
     setSignInResponse(response);
   };
 

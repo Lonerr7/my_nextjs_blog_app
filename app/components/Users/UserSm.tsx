@@ -18,8 +18,12 @@ const UserSm: FC<Props> = ({ id, username, avatarUrl, status }) => {
       >
         <Avatar customClassName="mr-4" avatarURL={avatarUrl} small />
         <div className="min-h-[60px]">
-          <p className="font-bold">{username}</p>
-          <p>{status}</p>
+          <p className="font-bold mb-2">{username}</p>
+          <p>
+            {status && status.length > 30
+              ? `${status.slice(0, 30)}...`
+              : status}
+          </p>
         </div>
       </Link>
     </li>

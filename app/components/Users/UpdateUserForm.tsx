@@ -10,8 +10,6 @@ interface Props {
 }
 
 const UpdateUserForm: FC<Props> = ({ user }) => {
-  // Посмотреть про хуки useFormState и useFormStatus
-
   const clientAction = async (formData: FormData) => {
     const error = await updateMyUsername(formData);
 

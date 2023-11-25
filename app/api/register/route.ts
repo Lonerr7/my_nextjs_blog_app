@@ -3,19 +3,24 @@ import { connectToDB } from '@/utils/connectToDB';
 
 export const POST = async (req: Request) => {
   try {
-    const data = await req.json();
-    console.log(data);
-    
+    const { username, email, password, passwordConfirm } = await req.json();
+
     await connectToDB();
     const [userByEmail, userByUsername] = await Promise.all([
-      User.exists({ email: data.email }),
-      User.exists({ username: data.username }),
+      User.exists({ email }),
+      User.exists({ username }),
     ]);
 
     if (!userByEmail && !userByUsername) {
-      const newUser = await User.create({ ...data });
-      console.log(newUser);
+      const newUser = await User.create({
+        email,
+        username,
+        password,
+        passwordConfirm,
+      });
 
+      // resetting the password so we don't return it (we take password from the input to log the user in)
+      newUser.password = undefined;
       return new Response(JSON.stringify(newUser), { status: 201 });
     }
 
@@ -25,8 +30,6 @@ export const POST = async (req: Request) => {
       { status: 409 }
     );
   } catch (error: any) {
-    // console.log(error.errors.username.properties.message);
-
     return new Response(JSON.stringify({ ...error }), { status: 400 });
   }
 };

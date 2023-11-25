@@ -27,11 +27,16 @@ export const updateMyUsername = async (formData: FormData) => {
 
     revalidateTag('myself');
     revalidateTag('getUsers');
-  } catch (error) {
-    console.error(error);
-
-    return {
-      message: 'Error when updating a user!',
-    };
+  } catch (error: any) {
+    if (error.errors.username) {
+      return {
+        message: error.errors.username.message,
+      };
+    } else {
+      console.error(error);
+      return {
+        message: 'Error when updating a user!',
+      };
+    }
   }
 };

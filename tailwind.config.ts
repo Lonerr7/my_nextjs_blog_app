@@ -26,6 +26,10 @@ const config: Config = {
         'bg-light-dark': '#22243a',
         'google-blue': 'rgb(66 133 244)',
         'item-bg-dark': '#2e2f40',
+        'text-gray': '#696A75',
+        'light-gray': '#f1f1f1',
+        'dark-blue': '#242535',
+        'dark-gray': '#BABABF',
       },
     },
     screens: {
