@@ -7,17 +7,46 @@ import { handleServerActionError } from '@/utils/handleServerActionError';
 import { getServerSession } from 'next-auth';
 import { revalidateTag } from 'next/cache';
 import { redirect } from 'next/navigation';
+import { z } from 'zod';
 
 // TODO на утро 21.11: Обновлять только те поля, которые были изменены ()
+
+const EditMyInfoSchema = z.object({
+  username: z
+    .string()
+    .min(3, 'Username must be 3 characters or more')
+    .max(20, 'Username must not be more than 20 characters'),
+  job: z.string().max(40, 'Job must not be more than 40 characters').optional(),
+  status: z
+    .string()
+    .max(100, 'Status must not be more than 100 characters')
+    .optional(),
+  facebook: z
+    .string()
+    .max(100, 'Facebook must not be more than 100 characters')
+    .optional(),
+  instagram: z
+    .string()
+    .max(100, 'Instagram must not be more than 100 characters')
+    .optional(),
+  twitter: z
+    .string()
+    .max(100, 'Twitter must not be more than 100 characters')
+    .optional(),
+  youtube: z
+    .string()
+    .max(100, 'Youtube must not be more than 100 characters')
+    .optional(),
+});
 
 export const updateMyInfo = async (formData: FormData) => {
   const {
     username,
     job,
     image,
+    status,
     facebook,
     instagram,
-    status,
     twitter,
     youtube,
   } = {
@@ -47,6 +76,17 @@ export const updateMyInfo = async (formData: FormData) => {
       youtube: youtube || '',
     },
   };
+
+  // Validating input fields before sendning a request
+  const validatedFields = EditMyInfoSchema.safeParse(query);
+
+  if (!validatedFields.success) {
+    console.log(validatedFields.error);
+
+    return {
+      message: validatedFields.error.issues[0].message,
+    };
+  }
 
   try {
     await connectToDB();

@@ -42,6 +42,10 @@ const userSchema = new Schema({
   image: {
     type: String,
   },
+  job: {
+    type: String,
+    maxLength: [40, 'Too many characters for a job!'],
+  },
   status: {
     type: String,
     maxLength: [100, 'Too many characters for the status!'],
@@ -71,10 +75,6 @@ const userSchema = new Schema({
       trim: true,
       maxLength: [100, 'Too many characters for facebook'],
     },
-  },
-  job: {
-    type: String,
-    maxLength: [40, 'Too many characters for a job!'],
   },
 });
 

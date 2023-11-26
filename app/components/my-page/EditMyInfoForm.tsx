@@ -1,9 +1,9 @@
 'use client';
 
 import { FC } from 'react';
-import { updateMyInfo } from '@/actions/actions';
+import { updateMyInfo } from '@/actions/myPageActions';
 import FormStatelessControl from '../ui/FormStatelessControl';
-import {toast} from 'react-hot-toast';
+import { toast } from 'react-hot-toast';
 
 // Данные поля по умолчанию строки, я оставил знак вопроса для того, чтобы не забыть, что они могу быть пустой строкой, то есть falsy value
 interface Props {
@@ -31,7 +31,7 @@ const EditMyInfoForm: FC<Props> = ({
     const response = await updateMyInfo(formData);
 
     if (response?.message) {
-      toast.error(response.message)
+      toast.error(response.message);
     }
   };
 
@@ -42,6 +42,7 @@ const EditMyInfoForm: FC<Props> = ({
         labelValue="Username"
         defaultvalue={username}
         placeholder="Enter your username"
+        required
       />
       <FormStatelessControl
         htmlFor="job"

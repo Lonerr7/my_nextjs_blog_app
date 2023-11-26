@@ -2,7 +2,7 @@
 
 import { IUser } from '@/types/userTypes';
 import { FC } from 'react';
-import { updateMyUsername } from '@/actions/actions';
+import { updateMyUsername } from '@/actions/myPageActions';
 import toast from 'react-hot-toast';
 
 interface Props {
