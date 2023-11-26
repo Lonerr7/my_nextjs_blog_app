@@ -1,6 +1,8 @@
-import { FC } from 'react';
+'use client';
 
-import mockAvatar from '@/public/mockAvatar.jpg';
+import { FC, useState } from 'react';
+
+import ImageViewer from 'react-simple-image-viewer';
 import Image from 'next/image';
 
 interface Props {
@@ -9,7 +11,9 @@ interface Props {
   customClassName?: string;
   customWidth?: number;
   customHeight?: number;
+  fullscreen?: boolean;
 }
+const mockAvatar = '/mockAvatar.jpg';
 
 const Avatar: FC<Props> = ({
   avatarURL,
@@ -17,7 +21,14 @@ const Avatar: FC<Props> = ({
   customClassName,
   customWidth,
   customHeight,
+  fullscreen,
 }) => {
+  const [isViewerOpen, setIsViewerOpen] = useState(false);
+  const images = avatarURL ? [avatarURL] : [mockAvatar];
+
+  const openImageViewer = () => setIsViewerOpen(true);
+  const closeImageViewer = () => setIsViewerOpen(false);
+
   let width: number;
   let height: number;
 
@@ -33,13 +44,31 @@ const Avatar: FC<Props> = ({
   }
 
   return (
-    <Image
-      className={`${customClassName} ${small && `rounded-[50%]`}`}
-      src={avatarURL ? avatarURL : mockAvatar}
-      width={width}
-      height={height}
-      alt="avatar"
-    />
+    <div>
+      <Image
+        className={`${customClassName} ${small && `rounded-[50%]`} ${
+          fullscreen && 'cursor-pointer'
+        }`}
+        src={avatarURL ? avatarURL : '/mockAvatar.jpg'}
+        alt="avatar"
+        onClick={openImageViewer}
+        width={width}
+        height={height}
+      />
+      {fullscreen && isViewerOpen ? (
+        <ImageViewer
+          src={images}
+          onClose={closeImageViewer}
+          backgroundStyle={{
+            backgroundColor: 'rgba(0,0,0,0.9)',
+            zIndex: 200,
+            padding: 50,
+          }}
+          closeOnClickOutside={true}
+          disableScroll
+        />
+      ) : null}
+    </div>
   );
 };
 

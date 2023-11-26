@@ -25,7 +25,12 @@ const UserInfo: FC<Props> = ({ isMyPage, user }) => {
 
       <div className="mx-auto flex flex-col items-center max-w-[668px]">
         <div className="flex items-center mb-6">
-          <Avatar customClassName="mr-4" avatarURL={user?.image} small />
+          <Avatar
+            customClassName="mr-4"
+            avatarURL={user?.image}
+            small
+            fullscreen
+          />
           <div>
             <p className="text-xl font-medium	mb-2">{user?.username}</p>
             <p className="dark:text-dark-gray">
