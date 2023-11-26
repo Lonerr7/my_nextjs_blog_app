@@ -54,10 +54,7 @@ const LogInForm: FC = () => {
   }, [signInResponse]);
 
   return (
-    <form
-      className="bg-white rounded-lg shadow-sm dark:bg-bg-light-dark max-w-[500px] mx-[auto] p-5"
-      onSubmit={submitForm}
-    >
+    <form className="form" onSubmit={submitForm}>
       <FormControl
         value={email}
         labelValue="Email"

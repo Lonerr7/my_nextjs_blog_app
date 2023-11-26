@@ -83,7 +83,7 @@ const SignUpForm: FC = () => {
   }, [canRedirect]);
 
   return (
-    <div className="bg-white rounded-lg shadow-sm dark:bg-bg-light-dark max-w-[500px] mx-[auto] p-5">
+    <div className="form">
       <form onSubmit={submitForm}>
         <FormControl
           value={username}

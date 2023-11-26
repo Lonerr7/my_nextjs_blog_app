@@ -4,6 +4,7 @@ import { FC } from 'react';
 import { updateMyInfo } from '@/actions/myPageActions';
 import FormStatelessControl from '../ui/FormStatelessControl';
 import { toast } from 'react-hot-toast';
+import FormButton from '../ui/FormButton';
 
 // Данные поля по умолчанию строки, я оставил знак вопроса для того, чтобы не забыть, что они могу быть пустой строкой, то есть falsy value
 interface Props {
@@ -36,7 +37,7 @@ const EditMyInfoForm: FC<Props> = ({
   };
 
   return (
-    <form className="w-1/2 mx-auto" action={clientAction}>
+    <form className="form my-page__form" action={clientAction}>
       <FormStatelessControl
         htmlFor="username"
         labelValue="Username"
@@ -81,7 +82,7 @@ const EditMyInfoForm: FC<Props> = ({
         placeholder="Enter your twitter"
       />
 
-      <button type="submit">Change</button>
+      <FormButton btnText="Edit my page" loadingText="Sending" />
     </form>
   );
 };
