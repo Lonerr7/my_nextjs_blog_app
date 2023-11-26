@@ -1,9 +1,9 @@
 'use client';
 
-import { MyInfoToChange } from '@/types/myPageTypes';
-import { useState, FC } from 'react';
-import FormControl from '../ui/FormControl';
+import { FC } from 'react';
 import { updateMyInfo } from '@/actions/actions';
+import FormStatelessControl from '../ui/FormStatelessControl';
+import {toast} from 'react-hot-toast';
 
 // Данные поля по умолчанию строки, я оставил знак вопроса для того, чтобы не забыть, что они могу быть пустой строкой, то есть falsy value
 interface Props {
@@ -27,67 +27,57 @@ const EditMyInfoForm: FC<Props> = ({
   youtube,
   status,
 }) => {
-  const [formState, setFormState] = useState<MyInfoToChange>({
-    username: username || '',
-    image: image || '',
-    job: job || '',
-    facebook: facebook || '',
-    instagram: instagram || '',
-    twitter: twitter || '',
-    youtube: youtube || '',
-    status: status || '',
-  });
+  const clientAction = async (formData: FormData) => {
+    const response = await updateMyInfo(formData);
+
+    if (response?.message) {
+      toast.error(response.message)
+    }
+  };
 
   return (
-    <form action={updateMyInfo}>
-      <FormControl
+    <form className="w-1/2 mx-auto" action={clientAction}>
+      <FormStatelessControl
         htmlFor="username"
         labelValue="Username"
-        setFromState={setFormState}
-        stateFieldToChange="username"
-        value={formState.username}
+        defaultvalue={username}
+        placeholder="Enter your username"
       />
-      <FormControl
+      <FormStatelessControl
         htmlFor="job"
         labelValue="Job"
-        setFromState={setFormState}
-        stateFieldToChange="job"
-        value={formState.job}
+        defaultvalue={job}
+        placeholder="Enter your job"
       />
-      <FormControl
+      <FormStatelessControl
         htmlFor="status"
         labelValue="Status"
-        setFromState={setFormState}
-        stateFieldToChange="status"
-        value={formState.status}
+        defaultvalue={status}
+        placeholder="Enter your status"
       />
-      <FormControl
+      <FormStatelessControl
         htmlFor="instagram"
         labelValue="Instagram"
-        setFromState={setFormState}
-        stateFieldToChange="instagram"
-        value={formState.instagram}
+        defaultvalue={instagram}
+        placeholder="Enter your instagram"
       />
-      <FormControl
+      <FormStatelessControl
         htmlFor="facebook"
         labelValue="Facebook"
-        setFromState={setFormState}
-        stateFieldToChange="facebook"
-        value={formState.facebook}
+        defaultvalue={facebook}
+        placeholder="Enter your facebook"
       />
-      <FormControl
+      <FormStatelessControl
         htmlFor="youtube"
         labelValue="Youtube"
-        setFromState={setFormState}
-        stateFieldToChange="youtube"
-        value={formState.youtube}
+        defaultvalue={youtube}
+        placeholder="Enter your youtube"
       />
-      <FormControl
+      <FormStatelessControl
         htmlFor="twitter"
         labelValue="Twitter"
-        setFromState={setFormState}
-        stateFieldToChange="twitter"
-        value={formState.twitter}
+        defaultvalue={twitter}
+        placeholder="Enter your twitter"
       />
 
       <button type="submit">Change</button>

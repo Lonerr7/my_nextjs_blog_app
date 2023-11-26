@@ -47,10 +47,30 @@ const userSchema = new Schema({
     maxLength: [100, 'Too many characters for the status!'],
   },
   socials: {
-    instagram: { type: String, lowercase: true, trim: true },
-    twitter: { type: String, lowercase: true, trim: true },
-    youtube: { type: String, lowercase: true, trim: true },
-    facebook: { type: String, lowercase: true, trim: true },
+    instagram: {
+      type: String,
+      lowercase: true,
+      trim: true,
+      maxLength: [100, 'Too many characters for instagram'],
+    },
+    twitter: {
+      type: String,
+      lowercase: true,
+      trim: true,
+      maxLength: [100, 'Too many characters for twitter'],
+    },
+    youtube: {
+      type: String,
+      lowercase: true,
+      trim: true,
+      maxLength: [100, 'Too many characters for youtube '],
+    },
+    facebook: {
+      type: String,
+      lowercase: true,
+      trim: true,
+      maxLength: [100, 'Too many characters for facebook'],
+    },
   },
   job: {
     type: String,

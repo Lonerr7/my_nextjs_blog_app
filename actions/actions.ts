@@ -3,6 +3,7 @@
 import { authConfig } from '@/configs/auth';
 import User from '@/models/User';
 import { connectToDB } from '@/utils/connectToDB';
+import { handleServerActionError } from '@/utils/handleServerActionError';
 import { getServerSession } from 'next-auth';
 import { revalidateTag } from 'next/cache';
 import { redirect } from 'next/navigation';
@@ -47,35 +48,13 @@ export const updateMyInfo = async (formData: FormData) => {
     },
   };
 
-  console.log(
-    'from action',
-    username,
-    `job ${job}`,
-    image,
-    `facebook ${facebook}`,
-    `instagram ${instagram}`,
-    status,
-    `twitter ${twitter}`,
-    `youtube ${youtube}`
-  );
-
   try {
     await connectToDB();
     await User.findByIdAndUpdate(session?.user.id, query, {
       runValidators: true,
     });
   } catch (error: any) {
-    console.error(error);
-    if (error?.errors?.username) {
-      return {
-        message: error.errors.username.message,
-      };
-    } else {
-      console.error(error);
-      return {
-        message: 'Error when updating a user!',
-      };
-    }
+    return handleServerActionError(error);
   }
 
   revalidateTag('myself');
