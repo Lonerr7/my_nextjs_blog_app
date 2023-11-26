@@ -90,6 +90,7 @@ const SignUpForm: FC = () => {
           stateFieldToChange="username"
           labelValue="Username"
           htmlFor="username"
+          required
           setFromState={setFormState}
         />
         <FormControl
@@ -97,6 +98,7 @@ const SignUpForm: FC = () => {
           stateFieldToChange="email"
           labelValue="Email"
           htmlFor="email"
+          required
           setFromState={setFormState}
         />
         <FormControl
@@ -104,6 +106,7 @@ const SignUpForm: FC = () => {
           stateFieldToChange="password"
           labelValue="Password"
           htmlFor="password"
+          required
           setFromState={setFormState}
         />
         <FormControl
@@ -111,6 +114,7 @@ const SignUpForm: FC = () => {
           stateFieldToChange="passwordConfirm"
           labelValue="Confirm your password"
           htmlFor="passwordConfirm"
+          required
           setFromState={setFormState}
         />
         <button

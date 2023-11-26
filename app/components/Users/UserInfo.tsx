@@ -34,7 +34,7 @@ const UserInfo: FC<Props> = ({ isMyPage, user }) => {
           <div>
             <p className="text-xl font-medium	mb-2">{user?.username}</p>
             <p className="dark:text-dark-gray">
-              {user?.job ? user.job : 'Unemployed'}
+              {user?.job ? user?.job : 'Unemployed'}
             </p>
           </div>
         </div>

@@ -2,7 +2,7 @@ export interface IUser {
   _id: string;
   username: string;
   address?: string;
-  socials: UserSocials;
+  socials?: UserSocials;
   status?: string;
   image?: string;
   job?: string;

@@ -1,20 +1,25 @@
 import { LoginFormState, RegisterFormState } from '@/types/authTypes';
+import { MyInfoToChange } from '@/types/myPageTypes';
 import { handleFormChange } from '@/utils/handleFormChange';
 import { Dispatch, SetStateAction } from 'react';
 
-interface Props<T extends RegisterFormState | LoginFormState> {
+interface Props<T extends RegisterFormState | LoginFormState | MyInfoToChange> {
   value: string;
   stateFieldToChange: keyof T;
   labelValue: string;
   htmlFor: string;
+  required?: boolean;
   setFromState: Dispatch<SetStateAction<T>>;
 }
 
-const FormControl = <T extends RegisterFormState | LoginFormState>({
+const FormControl = <
+  T extends RegisterFormState | LoginFormState | MyInfoToChange
+>({
   value,
   stateFieldToChange,
   labelValue,
   htmlFor,
+  required,
   setFromState,
 }: Props<T>) => {
   return (
@@ -39,7 +44,7 @@ const FormControl = <T extends RegisterFormState | LoginFormState>({
             setFromState
           );
         }}
-        required
+        required={required}
         placeholder="Enter your email..."
       />
     </div>

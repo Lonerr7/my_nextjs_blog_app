@@ -36,10 +36,12 @@ const userSchema = new Schema({
         // @ts-ignore
         return el === this.password;
       },
-      message: 'Passwords are not the sameWWWWWWWW',
+      message: 'Passwords are not the same',
     },
   },
-  image: String,
+  image: {
+    type: String,
+  },
   status: {
     type: String,
     maxLength: [100, 'Too many characters for the status!'],

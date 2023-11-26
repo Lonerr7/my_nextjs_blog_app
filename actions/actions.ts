@@ -5,30 +5,68 @@ import User from '@/models/User';
 import { connectToDB } from '@/utils/connectToDB';
 import { getServerSession } from 'next-auth';
 import { revalidateTag } from 'next/cache';
+import { redirect } from 'next/navigation';
 
 // TODO на утро 21.11: Обновлять только те поля, которые были изменены ()
 
-export const updateMyUsername = async (formData: FormData) => {
-  const { username } = {
+export const updateMyInfo = async (formData: FormData) => {
+  const {
+    username,
+    job,
+    image,
+    facebook,
+    instagram,
+    status,
+    twitter,
+    youtube,
+  } = {
     username: formData.get('username'),
+    image: formData.get('image'),
+    job: formData.get('job'),
+    facebook: formData.get('facebook'),
+    instagram: formData.get('instagram'),
+    twitter: formData.get('twitter'),
+    youtube: formData.get('youtube'),
+    status: formData.get('status'),
   };
   const session = await getServerSession(authConfig);
 
   // Если мой id взятый из сессии совпадает с id пользователя, что я хочу изменить (то есть себя), то все ок, нет - выдаем ошибку
   // Почитать про серверные экшены и их бонусы в защите
 
+  const query = {
+    username,
+    job: job || '',
+    image: image || '',
+    status: status || '',
+    socials: {
+      facebook: facebook || '',
+      instagram: instagram || '',
+      twitter: twitter || '',
+      youtube: youtube || '',
+    },
+  };
+
+  console.log(
+    'from action',
+    username,
+    `job ${job}`,
+    image,
+    `facebook ${facebook}`,
+    `instagram ${instagram}`,
+    status,
+    `twitter ${twitter}`,
+    `youtube ${youtube}`
+  );
+
   try {
     await connectToDB();
-    await User.findByIdAndUpdate(
-      session?.user.id,
-      { username },
-      { runValidators: true }
-    );
-
-    revalidateTag('myself');
-    revalidateTag('getUsers');
+    await User.findByIdAndUpdate(session?.user.id, query, {
+      runValidators: true,
+    });
   } catch (error: any) {
-    if (error.errors.username) {
+    console.error(error);
+    if (error?.errors?.username) {
       return {
         message: error.errors.username.message,
       };
@@ -39,4 +77,8 @@ export const updateMyUsername = async (formData: FormData) => {
       };
     }
   }
+
+  revalidateTag('myself');
+  revalidateTag('getUsers');
+  redirect('/my-page');
 };
