@@ -8,13 +8,14 @@ import { getServerSession } from 'next-auth';
 import { revalidateTag } from 'next/cache';
 import { redirect } from 'next/navigation';
 import { z } from 'zod';
+import { cookies } from 'next/headers';
 
 // TODO на утро 21.11: Обновлять только те поля, которые были изменены ()
 
 const EditMyInfoSchema = z.object({
   username: z
     .string()
-    .min(3, 'Username must be 3 characters or more')
+    .min(3, 'Username must be 3 characters or more from')
     .max(20, 'Username must not be more than 20 characters'),
   job: z.string().max(40, 'Job must not be more than 40 characters').optional(),
   status: z
@@ -60,6 +61,9 @@ export const updateMyInfo = async (formData: FormData) => {
     status: formData.get('status'),
   };
   const session = await getServerSession(authConfig);
+  const token = cookies().get('next-auth.session-token');
+
+  console.log(`token from cookie in server aciton:_`, token);
 
   // Если мой id взятый из сессии совпадает с id пользователя, что я хочу изменить (то есть себя), то все ок, нет - выдаем ошибку
   // Почитать про серверные экшены и их бонусы в защите
@@ -82,6 +86,8 @@ export const updateMyInfo = async (formData: FormData) => {
 
   if (!validatedFields.success) {
     console.log(validatedFields.error);
+
+    console.log(`from zod`);
 
     return {
       message: validatedFields.error.issues[0].message,

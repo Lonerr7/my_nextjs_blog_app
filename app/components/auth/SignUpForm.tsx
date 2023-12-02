@@ -1,62 +1,41 @@
 'use client';
 
-import { registerUser } from '@/services/authServices';
 import { SignInResponse, signIn } from 'next-auth/react';
-import { FC, useState, FormEvent, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import GoogleButton from './GoogleButton';
 import Link from 'next/link';
 import { toast } from 'react-hot-toast';
 import { useRouter } from 'next/navigation';
-import { RegisterFormState } from '@/types/authTypes';
-import FormControl from '../ui/FormControl';
+import { registerUserAction } from '@/actions/authActions';
+import { getFormDataFieldValues } from '@/utils/getFormDataFieldValues';
+import { RegisterUserInputFields } from '@/types/enums';
+import FormStatelessControl from '../ui/FormStatelessControl';
 
-const SignUpForm: FC = () => {
-  const [{ email, password, passwordConfirm, username }, setFormState] =
-    useState<RegisterFormState>({
-      username: '',
-      email: '',
-      password: '',
-      passwordConfirm: '',
-    });
+const SignUpForm = () => {
   const [canRedirect, setCanRedirect] = useState(false);
-
   const router = useRouter();
 
-  const submitForm = async (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
+  const clientAction = async (formData: FormData) => {
+    const inputData = getFormDataFieldValues(
+      formData,
+      RegisterUserInputFields.USERNAME,
+      RegisterUserInputFields.EMAIL,
+      RegisterUserInputFields.PASSWORD,
+      RegisterUserInputFields.PASSWORD_CONFIRM
+    );
+    const { user, message } = await registerUserAction(inputData);
 
-    if (username.length <= 2) {
-      toast.error('Username is too short!');
-      return;
-    }
-    if (username.length > 20) {
-      toast.error('Username is too long!');
-      return;
-    }
-    if (password !== passwordConfirm) {
-      toast.error('Passwords are not the same!');
-      return;
-    }
-
-    const { user, error } = await registerUser({
-      username,
-      email,
-      password,
-      passwordConfirm,
-    });
-
-    // universal error handler
-    if (!user && error) {
-      toast.error(error);
+    if (!user && message) {
+      toast.error(message);
       return;
     }
 
-    // Signing user in and showing status messages and erros with react-hot-toast
+    // if everything is ok => log the user in
     toast.promise(
       signIn('credentials', {
-        email,
-        password,
-        passwordConfirm,
+        email: inputData.email,
+        password: inputData.password,
+        passwordConfirm: inputData.passwordConfirm,
         redirect: false,
       }),
       {
@@ -84,43 +63,36 @@ const SignUpForm: FC = () => {
 
   return (
     <div className="form">
-      <form onSubmit={submitForm}>
-        <FormControl
-          value={username}
-          stateFieldToChange="username"
+      <form action={clientAction}>
+        <FormStatelessControl
+          defaultvalue=""
           labelValue="Username"
-          htmlFor="username"
+          htmlFor={RegisterUserInputFields.USERNAME}
           required
-          setFromState={setFormState}
+          placeholder="Eneter your username"
         />
-        <FormControl
-          value={email}
-          stateFieldToChange="email"
+        <FormStatelessControl
+          defaultvalue=""
           labelValue="Email"
-          htmlFor="email"
+          htmlFor={RegisterUserInputFields.EMAIL}
           required
-          setFromState={setFormState}
+          placeholder="Enter your email"
         />
-        <FormControl
-          value={password}
-          stateFieldToChange="password"
+        <FormStatelessControl
+          defaultvalue=""
           labelValue="Password"
-          htmlFor="password"
+          htmlFor={RegisterUserInputFields.PASSWORD}
           required
-          setFromState={setFormState}
+          placeholder="Eneter your password"
         />
-        <FormControl
-          value={passwordConfirm}
-          stateFieldToChange="passwordConfirm"
+        <FormStatelessControl
+          defaultvalue=""
           labelValue="Confirm your password"
-          htmlFor="passwordConfirm"
+          htmlFor={RegisterUserInputFields.PASSWORD_CONFIRM}
           required
-          setFromState={setFormState}
+          placeholder="Confirm your password"
         />
-        <button
-          className="form-btn"
-          type="submit"
-        >
+        <button className="form-btn" type="submit">
           Sign up
         </button>
 
@@ -131,7 +103,7 @@ const SignUpForm: FC = () => {
         </div>
       </form>
 
-      <div className="flex items-center xsm:flex-col justify-between ">
+      <div className="flex items-center xsm:flex-col justify-between">
         <Link
           className="block w-[48%] rounded-md p-3 text-center font-medium bg-light-black text-white transition delay-30 hover:opacity-80 xsm:w-full xsm:mb-4 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 dark:focus-visible:outline-white"
           href="/login"
