@@ -1,6 +1,6 @@
 export const handleServerActionError = (error: any) => {
   console.error(error);
-  
+
   if (error?.errors?.username) {
     return {
       message: error.errors.username.message,
