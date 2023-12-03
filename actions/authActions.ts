@@ -1,10 +1,8 @@
 'use server';
 
 import User from '@/models/User';
-import { RegisterUserInputFields } from '@/types/enums';
 import { IUser } from '@/types/userTypes';
 import { connectToDB } from '@/utils/connectToDB';
-import { getFormDataFieldValues } from '@/utils/getFormDataFieldValues';
 import { z } from 'zod';
 
 const RegisterFormSchema = z
