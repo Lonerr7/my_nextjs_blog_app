@@ -10,8 +10,6 @@ import { redirect } from 'next/navigation';
 import { z } from 'zod';
 import { cookies } from 'next/headers';
 
-// TODO на утро 21.11: Обновлять только те поля, которые были изменены ()
-
 const EditMyInfoSchema = z.object({
   username: z
     .string()

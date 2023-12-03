@@ -43,17 +43,20 @@ const Avatar: FC<Props> = ({
     height = 350;
   }
 
+  console.log(width, height);
+
   return (
-    <div>
+    <div
+      className={`${customClassName} relative w-[${width}px] h-[${height}px]`}
+    >
       <Image
-        className={`${customClassName} ${small && `rounded-[50%]`} ${
+        className={`${small && `rounded-[50%]`} ${
           fullscreen && 'cursor-pointer'
-        }`}
+        } object-cover`}
         src={avatarURL ? avatarURL : '/mockAvatar.jpg'}
         alt="avatar"
         onClick={openImageViewer}
-        width={width}
-        height={height}
+        fill
       />
       {fullscreen && isViewerOpen ? (
         <ImageViewer
