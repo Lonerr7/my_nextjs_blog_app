@@ -43,11 +43,9 @@ const Avatar: FC<Props> = ({
     height = 350;
   }
 
-  console.log(width, height);
-
   return (
     <div
-      className={`${customClassName} relative w-[${width}px] h-[${height}px]`}
+      className={`${customClassName} relative overflow-hidden w-[${width}px] h-[${height}px]`}
     >
       <Image
         className={`${small && `rounded-[50%]`} ${
@@ -57,6 +55,7 @@ const Avatar: FC<Props> = ({
         alt="avatar"
         onClick={openImageViewer}
         fill
+        objectFit="cover"
       />
       {fullscreen && isViewerOpen ? (
         <ImageViewer
