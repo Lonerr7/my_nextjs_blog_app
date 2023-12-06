@@ -63,7 +63,11 @@ const ImageInputPreview = ({
 
   return (
     <div>
-      <Avatar avatarURL={imageSrc} small />
+      <Avatar
+        avatarURL={imageSrc}
+        small
+        customClassName="w-[100px] h-[100px]"
+      />
       <button onClick={handleInputFileDelete}>Delete selected Image</button>
     </div>
   );

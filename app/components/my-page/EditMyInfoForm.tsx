@@ -7,6 +7,7 @@ import { toast } from 'react-hot-toast';
 import FormButton from '../ui/FormButton';
 import { useRouter } from 'next/navigation';
 import ImageInput from '../common/ImageInputWithPreview';
+import { convertBase64 } from '@/utils/convertToBase64';
 
 // Данные поля по умолчанию строки, я оставил знак вопроса для того, чтобы не забыть, что они могу быть пустой строкой, то есть falsy value
 interface Props {
@@ -33,6 +34,19 @@ const EditMyInfoForm: FC<Props> = ({
   const router = useRouter();
 
   const clientAction = async (formData: FormData) => {
+    const base64Image = (await convertBase64(formData.get('image'))) as
+      | null
+      | string;
+
+    // Тут отследим ошибку и выдадим ее
+    if (base64Image === null) {
+      return;
+    }
+
+    console.log(base64Image);
+
+    formData.set('image', base64Image);
+
     const response = await updateMyInfo(formData);
 
     if (response?.message) {

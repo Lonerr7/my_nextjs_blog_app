@@ -9,8 +9,26 @@ import { revalidateTag } from 'next/cache';
 import { redirect } from 'next/navigation';
 import { z } from 'zod';
 import { cookies } from 'next/headers';
+import { v2 as cloudinary } from 'cloudinary';
+import 'fs';
+import { convertBase64 } from '@/utils/convertToBase64';
 
-const MAX_FILE_SIZE = 50000000;
+// Cloudinary config
+cloudinary.config({
+  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET,
+});
+
+const uploadToCloudinary = async (image: File | string) => {
+  if (typeof image === 'string') {
+    return;
+  }
+
+  // cloudinary.uploader.upload(image.);
+};
+
+const MAX_FILE_SIZE = 5242500;
 const ACCEPTED_IMAGE_TYPES = [
   'image/jpeg',
   'image/jpg',
@@ -20,12 +38,15 @@ const ACCEPTED_IMAGE_TYPES = [
 
 const EditMyInfoSchema = z.object({
   image: z
-    .any()
-    .refine((file) => file?.size <= MAX_FILE_SIZE, `Max image size is 5MB.`)
+    .string()
     .refine(
-      (file) => ACCEPTED_IMAGE_TYPES.includes(file?.type),
-      'Only .jpg, .jpeg, .png and .webp formats are supported.'
+      (base64Image) => base64Image.length <= MAX_FILE_SIZE,
+      `Max image size is 5MB.`
     ),
+  // .refine(
+  //   (file) => ACCEPTED_IMAGE_TYPES.includes(file?.type),
+  //   'Only .jpg, .jpeg, .png and .webp formats are supported.'
+  // ),
   username: z
     .string()
     .min(3, 'Username must be 3 characters or more from')
@@ -96,6 +117,8 @@ export const updateMyInfo = async (formData: FormData) => {
 
   console.log(query.image);
 
+  uploadToCloudinary(query.image);
+
   // Validating input fields before sendning a request
   const validatedFields = EditMyInfoSchema.safeParse(query);
 
@@ -108,6 +131,8 @@ export const updateMyInfo = async (formData: FormData) => {
       message: validatedFields.error.issues[0].message,
     };
   }
+
+  return;
 
   try {
     await connectToDB();

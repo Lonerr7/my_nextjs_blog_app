@@ -45,7 +45,7 @@ const Avatar: FC<Props> = ({
 
   return (
     <div
-      className={`${customClassName} relative overflow-hidden w-[${width}px] h-[${height}px]`}
+      className={`relative overflow-hidden w-[${width}px] h-[${height}px] ${customClassName}`}
     >
       <Image
         className={`${small && `rounded-[50%]`} ${
