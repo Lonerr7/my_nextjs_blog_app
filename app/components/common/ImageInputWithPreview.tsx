@@ -2,6 +2,7 @@
 
 import { useState, useRef } from 'react';
 import Avatar from '../Users/Avatar';
+import { toast } from 'react-hot-toast';
 
 const ImageInput = () => {
   const [file, setFile] = useState<File>();
@@ -12,10 +13,16 @@ const ImageInput = () => {
 
     if (
       !inputFile ||
-      inputFile.size > 1024 * 1024 ||
-      !inputFile.type.startsWith('image/') // if image is more than 1 mb and isn't an image return
+      inputFile.size > 1024 ** 2 ||
+      !inputFile.type.startsWith('image/')
     ) {
       setFile(undefined);
+
+      if (inputRef && inputRef?.current?.value) {
+        inputRef.current.value = '';
+      }
+
+      toast.error('Only images that are less than 2 mb are allowed!');
       return;
     }
 

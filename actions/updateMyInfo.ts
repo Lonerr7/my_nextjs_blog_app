@@ -11,16 +11,6 @@ import { z } from 'zod';
 import { cookies } from 'next/headers';
 
 const EditMyInfoSchema = z.object({
-  // image: z
-  //   .string()
-  //   .refine(
-  //     (base64Image) => base64Image.length <= MAX_FILE_SIZE,
-  //     `Max image size is 5MB.`
-  //   ),
-  // .refine(
-  //   (file) => ACCEPTED_IMAGE_TYPES.includes(file?.type),
-  //   'Only .jpg, .jpeg, .png and .webp formats are supported.'
-  // ),
   username: z
     .string()
     .min(3, 'Username must be 3 characters or more from')
