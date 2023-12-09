@@ -9,9 +9,9 @@ import { revalidateTag } from 'next/cache';
 import { redirect } from 'next/navigation';
 import { z } from 'zod';
 import { cookies } from 'next/headers';
-import { v2 as cloudinary } from 'cloudinary';
-import 'fs';
-import { convertBase64 } from '@/utils/convertToBase64';
+import { UploadApiOptions, v2 as cloudinary } from 'cloudinary';
+
+//TODO 1) Из-за того, что мы преобразуем картинку в base64 формат на клиенте, у нас отпадает возможность провалидировать ее на формат и исключить возможность добавления файлов с некартиночным расширением. Это нужно как-то обработать, так как зод не сможет валидировать строку на формат. 2)
 
 // Cloudinary config
 cloudinary.config({
@@ -20,12 +20,16 @@ cloudinary.config({
   api_secret: process.env.CLOUDINARY_API_SECRET,
 });
 
-const uploadToCloudinary = async (image: File | string) => {
-  if (typeof image === 'string') {
-    return;
-  }
+const uploadOptions: UploadApiOptions = {
+  overwrite: true,
+  invalidate: true,
+  resource_type: 'image',
+};
 
-  // cloudinary.uploader.upload(image.);
+const uploadToCloudinary = async (image: string) => {
+  const result = await cloudinary.uploader.upload(image, uploadOptions);
+
+  console.log(result);
 };
 
 const MAX_FILE_SIZE = 5242500;
@@ -117,7 +121,10 @@ export const updateMyInfo = async (formData: FormData) => {
 
   console.log(query.image);
 
-  uploadToCloudinary(query.image);
+  // !
+  uploadToCloudinary(query.image as string);
+
+  return;
 
   // Validating input fields before sendning a request
   const validatedFields = EditMyInfoSchema.safeParse(query);

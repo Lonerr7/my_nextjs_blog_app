@@ -54,8 +54,10 @@ const Avatar: FC<Props> = ({
         src={avatarURL ? avatarURL : '/mockAvatar.jpg'}
         alt="avatar"
         onClick={openImageViewer}
-        fill
-        objectFit="cover"
+        width={width}
+        height={height}
+        // fill
+        // objectFit="cover"
       />
       {fullscreen && isViewerOpen ? (
         <ImageViewer
