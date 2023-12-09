@@ -9,44 +9,14 @@ import { revalidateTag } from 'next/cache';
 import { redirect } from 'next/navigation';
 import { z } from 'zod';
 import { cookies } from 'next/headers';
-import { UploadApiOptions, v2 as cloudinary } from 'cloudinary';
-
-//TODO 1) Из-за того, что мы преобразуем картинку в base64 формат на клиенте, у нас отпадает возможность провалидировать ее на формат и исключить возможность добавления файлов с некартиночным расширением. Это нужно как-то обработать, так как зод не сможет валидировать строку на формат. 2)
-
-// Cloudinary config
-cloudinary.config({
-  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
-  api_key: process.env.CLOUDINARY_API_KEY,
-  api_secret: process.env.CLOUDINARY_API_SECRET,
-});
-
-const uploadOptions: UploadApiOptions = {
-  overwrite: true,
-  invalidate: true,
-  resource_type: 'image',
-};
-
-const uploadToCloudinary = async (image: string) => {
-  const result = await cloudinary.uploader.upload(image, uploadOptions);
-
-  console.log(result);
-};
-
-const MAX_FILE_SIZE = 5242500;
-const ACCEPTED_IMAGE_TYPES = [
-  'image/jpeg',
-  'image/jpg',
-  'image/png',
-  'image/webp',
-];
 
 const EditMyInfoSchema = z.object({
-  image: z
-    .string()
-    .refine(
-      (base64Image) => base64Image.length <= MAX_FILE_SIZE,
-      `Max image size is 5MB.`
-    ),
+  // image: z
+  //   .string()
+  //   .refine(
+  //     (base64Image) => base64Image.length <= MAX_FILE_SIZE,
+  //     `Max image size is 5MB.`
+  //   ),
   // .refine(
   //   (file) => ACCEPTED_IMAGE_TYPES.includes(file?.type),
   //   'Only .jpg, .jpeg, .png and .webp formats are supported.'
@@ -79,18 +49,8 @@ const EditMyInfoSchema = z.object({
 });
 
 export const updateMyInfo = async (formData: FormData) => {
-  const {
-    username,
-    job,
-    image,
-    status,
-    facebook,
-    instagram,
-    twitter,
-    youtube,
-  } = {
+  const { username, job, status, facebook, instagram, twitter, youtube } = {
     username: formData.get('username'),
-    image: formData.get('image'),
     job: formData.get('job'),
     facebook: formData.get('facebook'),
     instagram: formData.get('instagram'),
@@ -109,7 +69,6 @@ export const updateMyInfo = async (formData: FormData) => {
   const query = {
     username,
     job: job || '',
-    image: image || '',
     status: status || '',
     socials: {
       facebook: facebook || '',
@@ -118,13 +77,6 @@ export const updateMyInfo = async (formData: FormData) => {
       youtube: youtube || '',
     },
   };
-
-  console.log(query.image);
-
-  // !
-  uploadToCloudinary(query.image as string);
-
-  return;
 
   // Validating input fields before sendning a request
   const validatedFields = EditMyInfoSchema.safeParse(query);
@@ -138,8 +90,6 @@ export const updateMyInfo = async (formData: FormData) => {
       message: validatedFields.error.issues[0].message,
     };
   }
-
-  return;
 
   try {
     await connectToDB();

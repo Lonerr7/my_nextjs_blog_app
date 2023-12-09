@@ -1,18 +1,15 @@
 'use client';
 
 import { FC } from 'react';
-import { updateMyInfo } from '@/actions/myPageActions';
+import { updateMyInfo } from '@/actions/updateMyInfo';
 import FormStatelessControl from '../ui/FormStatelessControl';
 import { toast } from 'react-hot-toast';
 import FormButton from '../ui/FormButton';
 import { useRouter } from 'next/navigation';
-import ImageInput from '../common/ImageInputWithPreview';
-import { convertBase64 } from '@/utils/convertToBase64';
 
 // Данные поля по умолчанию строки, я оставил знак вопроса для того, чтобы не забыть, что они могу быть пустой строкой, то есть falsy value
 interface Props {
   username?: string;
-  image?: string;
   job?: string;
   facebook?: string;
   instagram?: string;
@@ -23,7 +20,6 @@ interface Props {
 
 const EditMyInfoForm: FC<Props> = ({
   username,
-  image,
   job,
   instagram,
   facebook,
@@ -34,19 +30,6 @@ const EditMyInfoForm: FC<Props> = ({
   const router = useRouter();
 
   const clientAction = async (formData: FormData) => {
-    const base64Image = (await convertBase64(formData.get('image'))) as
-      | null
-      | string;
-
-    // Тут отследим ошибку и выдадим ее
-    if (base64Image === null) {
-      return;
-    }
-
-    console.log(base64Image);
-
-    formData.set('image', base64Image);
-
     const response = await updateMyInfo(formData);
 
     if (response?.message) {
@@ -56,7 +39,6 @@ const EditMyInfoForm: FC<Props> = ({
 
   return (
     <form className="form my-page__form" action={clientAction}>
-      <ImageInput />
       <FormStatelessControl
         htmlFor="username"
         labelValue="Username"

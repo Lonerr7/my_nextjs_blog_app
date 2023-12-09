@@ -27,7 +27,7 @@ const UserInfo: FC<Props> = ({ isMyPage, user }) => {
         <div className="flex items-center mb-6">
           <Avatar
             customClassName="mr-4"
-            avatarURL={user?.image}
+            avatarURL={user?.image?.imageUrl}
             small
             fullscreen
           />

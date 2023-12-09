@@ -13,7 +13,7 @@ const ImageInput = () => {
     if (
       !inputFile ||
       inputFile.size > 1024 * 1024 ||
-      !inputFile.type.startsWith('image/') // if image is more than 1 mb and is't an image return
+      !inputFile.type.startsWith('image/') // if image is more than 1 mb and isn't an image return
     ) {
       setFile(undefined);
       return;

@@ -4,7 +4,10 @@ export interface IUser {
   address?: string;
   socials?: UserSocials;
   status?: string;
-  image?: string;
+  image?: {
+    imageUrl?: string;
+    publicId?: string;
+  };
   job?: string;
 }
 
