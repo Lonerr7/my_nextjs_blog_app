@@ -5,11 +5,7 @@ import ImageInput from '@/app/components/common/ImageInputWithPreview';
 import { convertBase64 } from '@/utils/convertToBase64';
 import { toast } from 'react-hot-toast';
 
-interface Props {
-  myPicture?: string;
-}
-
-const EditMyProfilePicForm: React.FC<Props> = ({ myPicture }) => {
+const EditMyProfilePicForm: React.FC = () => {
   const clientAction = async (formData: FormData) => {
     const image = formData.get('image') as File | null;
 
@@ -35,7 +31,7 @@ const EditMyProfilePicForm: React.FC<Props> = ({ myPicture }) => {
 
   return (
     <form className="w-1/2" action={clientAction}>
-      <ImageInput myPicture={myPicture} />
+      <ImageInput />
     </form>
   );
 };

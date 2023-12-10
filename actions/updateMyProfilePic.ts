@@ -48,6 +48,9 @@ export const updateMyProfilePic = async (formData: FormData) => {
   const inputImage = formData.get('image');
   const session = await getServerSession(authConfig);
 
+  console.log(inputImage);
+  
+
   // Валидируем инпут
   const validatedInputImage = UploadImageSchema.safeParse(inputImage);
 
@@ -104,7 +107,7 @@ export const updateMyProfilePic = async (formData: FormData) => {
 
   revalidateTag('myself');
   revalidateTag('getUsers');
-  
+
   return {
     success: true,
   };

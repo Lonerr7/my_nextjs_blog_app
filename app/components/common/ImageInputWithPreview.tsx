@@ -5,11 +5,7 @@ import { toast } from 'react-hot-toast';
 import { isImageInputFileValid } from '@/utils/validateImageInputFile';
 import FormButton from '../ui/FormButton';
 
-interface Props {
-  myPicture?: string;
-}
-
-const ImageInput: React.FC<Props> = ({ myPicture }) => {
+const ImageInput: React.FC = () => {
   const [file, setFile] = useState<File>();
   const [isDragging, setIsDragging] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
@@ -75,8 +71,6 @@ const ImageInput: React.FC<Props> = ({ myPicture }) => {
         ) : (
           <p>The file was successfully chosen! Name: {file.name}</p>
         )}
-
-        {/* {myPicture && <Avatar avatarURL={myPicture} small fullscreen />} */}
       </div>
       <input
         type="file"
