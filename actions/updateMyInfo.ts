@@ -6,7 +6,6 @@ import { connectToDB } from '@/utils/connectToDB';
 import { handleServerActionError } from '@/utils/handleServerActionError';
 import { getServerSession } from 'next-auth';
 import { revalidateTag } from 'next/cache';
-import { redirect } from 'next/navigation';
 import { z } from 'zod';
 import { cookies } from 'next/headers';
 
@@ -72,10 +71,6 @@ export const updateMyInfo = async (formData: FormData) => {
   const validatedFields = EditMyInfoSchema.safeParse(query);
 
   if (!validatedFields.success) {
-    console.log(validatedFields.error);
-
-    console.log(`from zod`);
-
     return {
       message: validatedFields.error.issues[0].message,
     };
@@ -92,5 +87,8 @@ export const updateMyInfo = async (formData: FormData) => {
 
   revalidateTag('myself');
   revalidateTag('getUsers');
-  redirect('/my-page');
+
+  return {
+    success: true,
+  };
 };

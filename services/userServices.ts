@@ -22,6 +22,8 @@ export const getUsers = async (query: string, page: number) => {
 
     return data as IUser[];
   } catch (error: any) {
+    console.log(error);
+
     return 'Error when fetching';
   }
 };
@@ -42,7 +44,10 @@ export const getUsersPages = async (query: string) => {
   }
 };
 
-export const getSingleUser = async (userId: string, tag: 'myself' | 'user') => {
+export const getSingleUser = async (
+  userId: string | undefined,
+  tag: 'myself' | 'user'
+) => {
   try {
     noStore();
     const response = await fetch(

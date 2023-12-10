@@ -6,6 +6,7 @@ import { connectToDB } from '@/utils/connectToDB';
 import { getBase64Size } from '@/utils/getBase64StringSize';
 import { UploadApiOptions, v2 as cloudinary } from 'cloudinary';
 import { getServerSession } from 'next-auth';
+import { revalidateTag } from 'next/cache';
 import { z } from 'zod';
 
 // TODO 1) Из-за того, что мы преобразуем картинку в base64 формат на клиенте, у нас отпадает возможность провалидировать ее на формат и исключить возможность добавления файлов с некартиночным расширением. Это нужно как-то обработать, так как зод не сможет валидировать строку на формат. 2)
@@ -87,10 +88,6 @@ export const updateMyProfilePic = async (formData: FormData) => {
     await me.save({
       validateBeforeSave: false,
     });
-
-    return {
-      success: true,
-    };
   } catch (error: any) {
     console.log(error);
 
@@ -104,4 +101,11 @@ export const updateMyProfilePic = async (formData: FormData) => {
       errMessage: 'Something went wrong! Try again later!',
     };
   }
+
+  revalidateTag('myself');
+  revalidateTag('getUsers');
+  
+  return {
+    success: true,
+  };
 };

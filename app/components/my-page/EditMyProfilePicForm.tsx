@@ -2,11 +2,14 @@
 
 import { updateMyProfilePic } from '@/actions/updateMyProfilePic';
 import ImageInput from '@/app/components/common/ImageInputWithPreview';
-import FormButton from '@/app/components/ui/FormButton';
 import { convertBase64 } from '@/utils/convertToBase64';
 import { toast } from 'react-hot-toast';
 
-const EditMyProfilePicForm = () => {
+interface Props {
+  myPicture?: string;
+}
+
+const EditMyProfilePicForm: React.FC<Props> = ({ myPicture }) => {
   const clientAction = async (formData: FormData) => {
     const image = formData.get('image') as File | null;
 
@@ -31,13 +34,8 @@ const EditMyProfilePicForm = () => {
   };
 
   return (
-    <form action={clientAction}>
-      <ImageInput />
-      <FormButton
-        customClassName="!w-1/2"
-        btnText="Save"
-        loadingText="Sending"
-      />
+    <form className="w-1/2" action={clientAction}>
+      <ImageInput myPicture={myPicture} />
     </form>
   );
 };

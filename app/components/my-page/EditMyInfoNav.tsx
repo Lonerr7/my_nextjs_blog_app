@@ -12,7 +12,7 @@ const EditMyInfoNav = () => {
     <ul className="fixed top-[160px]">
       <li>
         <Link
-          className={clsx('link mb-1 dark:text-white text-light-black', {
+          className={clsx('link mb-3 dark:text-white text-light-black', {
             'font-bold': pathname === '/my-page/edit',
           })}
           href="/my-page/edit"
@@ -22,7 +22,7 @@ const EditMyInfoNav = () => {
       </li>
       <li>
         <Link
-          className={clsx('link mb-1 dark:text-white text-light-black', {
+          className={clsx('link mb-3 dark:text-white text-light-black', {
             'font-bold': pathname === '/my-page/edit/profile-picture',
           })}
           href="/my-page/edit/profile-picture"

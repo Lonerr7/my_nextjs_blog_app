@@ -19,8 +19,10 @@ const config: Config = {
       },
       colors: {
         'light-black': '#3B3C4A',
-        'bg-light': 'rgb(249 250 251)',
+        'bg-light': '#f9fafb',
+        // 'bg-light': '#e0e1e2',
         'bg-dark': '#181A2A',
+        // 'bg-dark': '#282b46',
         'secondary-900': '#141624',
         'light-blue': '#4B6BFB',
         'bg-light-dark': '#22243a',

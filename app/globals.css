@@ -34,3 +34,9 @@ body {
   margin-bottom: 30px;
   text-align: center;
 }
+
+.dropzone {
+  height: 300px;
+  width: 300px;
+  border: 4px dashed black;
+}

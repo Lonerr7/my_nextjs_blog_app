@@ -30,10 +30,17 @@ const EditMyInfoForm: FC<Props> = ({
   const router = useRouter();
 
   const clientAction = async (formData: FormData) => {
-    const response = await updateMyInfo(formData);
+    const response = (await updateMyInfo(formData)) as {
+      success?: boolean;
+      message?: string;
+    };
 
     if (response?.message) {
       toast.error(response.message);
+    }
+
+    if (response.success) {
+      toast.success('Successfully updated!');
     }
   };
 
