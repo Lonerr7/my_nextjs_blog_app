@@ -5,8 +5,12 @@ import { toast } from 'react-hot-toast';
 import { isImageInputFileValid } from '@/utils/validateImageInputFile';
 import FormButton from '../ui/FormButton';
 
-const ImageInput: React.FC = () => {
-  const [file, setFile] = useState<File>();
+interface Props {
+  file: File | undefined;
+  setFile: React.Dispatch<React.SetStateAction<File | undefined>>;
+}
+
+const ImageInputWithDrag: React.FC<Props> = ({ file, setFile }) => {
   const [isDragging, setIsDragging] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
 
@@ -99,4 +103,4 @@ const ImageInput: React.FC = () => {
   );
 };
 
-export default ImageInput;
+export default ImageInputWithDrag;
