@@ -9,8 +9,6 @@ import { getServerSession } from 'next-auth';
 import { revalidateTag } from 'next/cache';
 import { z } from 'zod';
 
-// TODO 1) Из-за того, что мы преобразуем картинку в base64 формат на клиенте, у нас отпадает возможность провалидировать ее на формат и исключить возможность добавления файлов с некартиночным расширением. Это нужно как-то обработать, так как зод не сможет валидировать строку на формат. 2)
-
 // Cloudinary config
 cloudinary.config({
   cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
@@ -48,8 +46,12 @@ export const updateMyProfilePic = async (formData: FormData) => {
   const inputImage = formData.get('image');
   const session = await getServerSession(authConfig);
 
-  console.log(inputImage);
-  
+  // Нужно проработать вопрос с тем, если пользователь вдруг вышел из учетной записи: Как корректно показать ошибку и что делать после.
+  if (!session?.user) {
+    return {
+      errMessage: 'You must be logged in to perform this action!',
+    };
+  }
 
   // Валидируем инпут
   const validatedInputImage = UploadImageSchema.safeParse(inputImage);
@@ -62,7 +64,7 @@ export const updateMyProfilePic = async (formData: FormData) => {
 
   try {
     await connectToDB();
-    const me: any = await User.findById(session?.user.id);
+    const me = await User.findById(session?.user.id);
 
     if (!me) {
       return {
