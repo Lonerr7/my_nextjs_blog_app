@@ -7,12 +7,12 @@ import FormButton from '../ui/FormButton';
 
 interface Props {
   file: File | undefined;
+  inputRef: React.RefObject<HTMLInputElement>;
   setFile: React.Dispatch<React.SetStateAction<File | undefined>>;
 }
 
-const ImageInputWithDrag: React.FC<Props> = ({ file, setFile }) => {
+const ImageInputWithDrag: React.FC<Props> = ({ file, inputRef, setFile }) => {
   const [isDragging, setIsDragging] = useState(false);
-  const inputRef = useRef<HTMLInputElement>(null);
 
   const handleInputFile = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const inputFile = e.target.files && e.target.files[0];
@@ -87,7 +87,7 @@ const ImageInputWithDrag: React.FC<Props> = ({ file, setFile }) => {
       />
       <div className="flex items-center justify-between">
         <button
-          className="form-btn !w-[48%] !mr-4 !bg-red-600 disabled:!bg-red-300"
+          className="form-btn !w-[48%] !mr-4 !bg-red-600 disabled:!bg-red-300 hover:!bg-red-500"
           disabled={file ? false : true}
           onClick={handleInputFileDelete}
         >

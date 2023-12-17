@@ -9,8 +9,6 @@ interface Props {
   avatarURL?: string;
   small?: boolean;
   customClassName?: string;
-  customWidth?: number;
-  customHeight?: number;
   fullscreen?: boolean;
 }
 const mockAvatar = '/mockAvatar.jpg';
@@ -19,8 +17,6 @@ const Avatar: FC<Props> = ({
   avatarURL,
   small,
   customClassName,
-  customWidth,
-  customHeight,
   fullscreen,
 }) => {
   const [isViewerOpen, setIsViewerOpen] = useState(false);
@@ -29,35 +25,18 @@ const Avatar: FC<Props> = ({
   const openImageViewer = () => setIsViewerOpen(true);
   const closeImageViewer = () => setIsViewerOpen(false);
 
-  let width: number;
-  let height: number;
-
-  if (small) {
-    width = 125;
-    height = 125;
-  } else if (customWidth && customHeight) {
-    width = customWidth;
-    height = customHeight;
-  } else {
-    width = 350;
-    height = 350;
-  }
-
   return (
-    <div
-      className={`relative overflow-hidden w-[${width}px] h-[${height}px] ${customClassName}`}
-    >
+    <div className={`relative min-w-[125px] min-h-[125px] ${customClassName}`}>
       <Image
-        className={`${small && `rounded-[50%]`} ${
+        className={`object-cover ${small && `rounded-[50%]`} ${
           fullscreen && 'cursor-pointer'
-        } object-cover`}
+        }`}
         src={avatarURL ? avatarURL : '/mockAvatar.jpg'}
         alt="avatar"
         onClick={openImageViewer}
-        width={width}
-        height={height}
-        // fill
-        // objectFit="cover"
+        fill
+        sizes="125px"
+        priority
       />
       {fullscreen && isViewerOpen ? (
         <ImageViewer
