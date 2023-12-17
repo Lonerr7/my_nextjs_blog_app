@@ -9,7 +9,7 @@ const EditMyInfoNav = () => {
   const pathname = usePathname();
 
   return (
-    <ul className="fixed top-[160px]">
+    <ul className="fixed top-[160px] z-40">
       <li>
         <Link
           className={clsx('link mb-3 dark:text-white text-light-black', {
