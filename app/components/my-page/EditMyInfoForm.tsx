@@ -64,6 +64,7 @@ const EditMyInfoForm: FC<Props> = ({
         labelValue="Status"
         defaultvalue={status}
         placeholder="Enter your status"
+        isTextarea
       />
       <FormStatelessControl
         htmlFor="instagram"
