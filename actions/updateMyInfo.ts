@@ -6,11 +6,8 @@ import { connectToDB } from '@/utils/connectToDB';
 import { handleServerActionError } from '@/utils/handleServerActionError';
 import { getServerSession } from 'next-auth';
 import { revalidateTag } from 'next/cache';
-import { redirect } from 'next/navigation';
 import { z } from 'zod';
 import { cookies } from 'next/headers';
-
-// TODO на утро 21.11: Обновлять только те поля, которые были изменены ()
 
 const EditMyInfoSchema = z.object({
   username: z
@@ -41,18 +38,8 @@ const EditMyInfoSchema = z.object({
 });
 
 export const updateMyInfo = async (formData: FormData) => {
-  const {
-    username,
-    job,
-    image,
-    status,
-    facebook,
-    instagram,
-    twitter,
-    youtube,
-  } = {
+  const { username, job, status, facebook, instagram, twitter, youtube } = {
     username: formData.get('username'),
-    image: formData.get('image'),
     job: formData.get('job'),
     facebook: formData.get('facebook'),
     instagram: formData.get('instagram'),
@@ -71,7 +58,6 @@ export const updateMyInfo = async (formData: FormData) => {
   const query = {
     username,
     job: job || '',
-    image: image || '',
     status: status || '',
     socials: {
       facebook: facebook || '',
@@ -85,10 +71,6 @@ export const updateMyInfo = async (formData: FormData) => {
   const validatedFields = EditMyInfoSchema.safeParse(query);
 
   if (!validatedFields.success) {
-    console.log(validatedFields.error);
-
-    console.log(`from zod`);
-
     return {
       message: validatedFields.error.issues[0].message,
     };
@@ -105,5 +87,8 @@ export const updateMyInfo = async (formData: FormData) => {
 
   revalidateTag('myself');
   revalidateTag('getUsers');
-  redirect('/my-page');
+
+  return {
+    success: true,
+  };
 };

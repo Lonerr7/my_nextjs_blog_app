@@ -26,8 +26,12 @@ const Providers: FC<Props> = ({ children, session }) => {
     <ThemeProvider enableSystem attribute="class">
       <SessionProvider session={session}>
         <Toaster
+          gutter={10}
           toastOptions={{
             className: 'dark:bg-bg-light-dark dark:text-white',
+            style: {
+              textAlign: 'center',
+            },
           }}
         />
         {children}

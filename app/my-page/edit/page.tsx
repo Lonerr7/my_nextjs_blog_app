@@ -1,4 +1,5 @@
 import EditMyInfoForm from '@/app/components/my-page/EditMyInfoForm';
+import EditMyInfoNav from '@/app/components/my-page/EditMyInfoNav';
 import { authConfig } from '@/configs/auth';
 import { getSingleUser } from '@/services/userServices';
 import { getServerSession } from 'next-auth';
@@ -14,11 +15,10 @@ const EditMyPage = async () => {
   }
 
   return (
-    <div>
-      <h1>Edit my Profile</h1>
+    <section>
+      <h1 className="page-title">Edit my Profile</h1>
       <EditMyInfoForm
         username={user?.username}
-        image={user?.image}
         job={user?.job}
         instagram={user?.socials?.instagram}
         facebook={user?.socials?.facebook}
@@ -26,7 +26,7 @@ const EditMyPage = async () => {
         youtube={user?.socials?.youtube}
         status={user?.status}
       />
-    </div>
+    </section>
   );
 };
 

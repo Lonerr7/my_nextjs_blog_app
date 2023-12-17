@@ -27,3 +27,23 @@ body {
 .my-page__form {
   max-width: 50% !important;
 }
+
+.page-title {
+  font-size: 30px;
+  font-weight: 700;
+  margin-bottom: 30px;
+  text-align: center;
+}
+
+.page-subtitle {
+  font-size: 20px;
+  font-weight: 500;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.dropzone {
+  height: 300px;
+  width: 300px;
+  border: 4px dashed black;
+}

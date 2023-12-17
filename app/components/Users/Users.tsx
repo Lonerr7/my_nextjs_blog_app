@@ -20,7 +20,7 @@ const UsersList: FC<Props> = async ({ query, currentPage }) => {
             id={user._id}
             username={user.username}
             status={user.status}
-            avatarUrl={user.image}
+            avatarUrl={user.image?.imageUrl}
           />
         ))}
     </ul>
