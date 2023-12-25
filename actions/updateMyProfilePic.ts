@@ -23,12 +23,6 @@ const uploadOptions: UploadApiOptions = {
 };
 
 const MAX_FILE_SIZE_IN_KB = 2048;
-const ACCEPTED_IMAGE_TYPES = [
-  'image/jpeg',
-  'image/jpg',
-  'image/png',
-  'image/webp',
-];
 
 // Zod schema
 const UploadImageSchema = z
