@@ -47,3 +47,7 @@ body {
   width: 300px;
   border: 4px dashed black;
 }
+
+.ql-editor {
+  min-height: 200px;
+}

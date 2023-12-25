@@ -8,10 +8,18 @@ import FormButton from '../ui/FormButton';
 interface Props {
   file: File | undefined;
   inputRef: React.RefObject<HTMLInputElement>;
+  placeholder: string;
+  isSubmitBtnDisabled?: boolean;
   setFile: React.Dispatch<React.SetStateAction<File | undefined>>;
 }
 
-const ImageInputWithDrag: React.FC<Props> = ({ file, inputRef, setFile }) => {
+const ImageInputWithDrag: React.FC<Props> = ({
+  file,
+  inputRef,
+  placeholder,
+  isSubmitBtnDisabled,
+  setFile,
+}) => {
   const [isDragging, setIsDragging] = useState(false);
 
   const handleInputFile = async (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -51,7 +59,7 @@ const ImageInputWithDrag: React.FC<Props> = ({ file, inputRef, setFile }) => {
   };
 
   return (
-    <>
+    <div>
       <div
         className={`w-full h-[400px] ${
           file && 'bg-green-100 dark:bg-green-950'
@@ -70,7 +78,7 @@ const ImageInputWithDrag: React.FC<Props> = ({ file, inputRef, setFile }) => {
       >
         {!file ? (
           <p className="text-3xl text-light-black dark:text-light-gray text-center">
-            Select or drop here your new profile picture
+            {placeholder}
           </p>
         ) : (
           <p>The file was successfully chosen! Name: {file.name}</p>
@@ -87,19 +95,21 @@ const ImageInputWithDrag: React.FC<Props> = ({ file, inputRef, setFile }) => {
       />
       <div className="flex items-center justify-between">
         <button
-          className="form-btn !w-[48%] !mr-4 !bg-red-600 disabled:!bg-red-300 hover:!bg-red-500"
+          className={`form-btn ${isSubmitBtnDisabled ? '!w-full' : '!w-[48%]'} !mr-4 !bg-red-600 disabled:!bg-red-300 hover:!bg-red-500`}
           disabled={file ? false : true}
           onClick={handleInputFileDelete}
         >
           Delete selected image
         </button>
-        <FormButton
-          customClassName="!w-[48%]"
-          btnText="Save"
-          loadingText="Sending"
-        />
+        {!isSubmitBtnDisabled ? (
+          <FormButton
+            customClassName="!w-[48%]"
+            btnText="Save"
+            loadingText="Sending"
+          />
+        ) : null}
       </div>
-    </>
+    </div>
   );
 };
 
