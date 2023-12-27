@@ -14,13 +14,13 @@ import { toast } from 'react-hot-toast';
 const CreateBlogPost = () => {
   const { data } = useSession();
 
-  const [value, setValue] = useState('');
+  const [textValue, setTextValue] = useState('');
   const [imageFile, setFile] = useState<File>();
   const inputRef = useRef<HTMLInputElement>(null);
   const quillRef = useRef<any>(null);
 
   const handleCreateBlogpost = async () => {
-    // Если нет картинки - выдаем ошибку
+    //  Если нет картинки - выдаем ошибку
     if (!imageFile) {
       toast.error('Please select an image!');
       return;
@@ -33,11 +33,15 @@ const CreateBlogPost = () => {
       body: {
         image: base64Image as string,
         tag: 'sports', // ! Нужно указать перечень возможных тегов через селект и забиндить в ts
-        text: value,
+        text: textValue,
       },
     });
 
-    console.log(response);
+    if (response && response?.errMsg) {
+      toast.error(response.errMsg);
+    } else {
+      toast.success(response.success);
+    }
   };
 
   return (
@@ -58,8 +62,8 @@ const CreateBlogPost = () => {
         <ReactQuill
           ref={quillRef}
           theme="snow"
-          value={value}
-          onChange={setValue}
+          value={textValue}
+          onChange={setTextValue}
           modules={quillConfig}
         />
         <button onClick={handleCreateBlogpost}>Create Blogpost</button>
@@ -67,7 +71,7 @@ const CreateBlogPost = () => {
 
       <div
         className={s.page}
-        dangerouslySetInnerHTML={{ __html: value || '' }}
+        dangerouslySetInnerHTML={{ __html: textValue || '' }}
       ></div>
     </div>
   );

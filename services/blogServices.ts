@@ -1,4 +1,4 @@
-import { CreateBlogInput, IBlogPost } from '@/types/blogTypes';
+import { CreateBlogInput } from '@/types/blogTypes';
 import { getBase64Size } from '@/utils/getBase64StringSize';
 import { z } from 'zod';
 
@@ -15,8 +15,15 @@ const UploadBlogPostSchema = z.object({
       (base64Image) => getBase64Size(base64Image, true) <= MAX_FILE_SIZE_IN_KB,
       `Max image size is 2MB.`
     ),
-  tag: z.string(), // !
-  text: z.string().max(1000, 'Blogpost cannot be more than 1000 characters'),
+  tag: z.string({ required_error: 'Blogpost tag is required!' }), // !
+  text: z
+    .string({ required_error: 'Blogpost text is required!' })
+    .min(1, 'Please, enter text for your blogpost!')
+    .max(1000, 'Blogpost cannot be more than 1000 characters')
+    .refine(
+      (textValue) => textValue.replace(/<(.|\n)*?>/g, '').trim().length !== 0,
+      'Blogpost cannot be empty!'
+    ),
   userId: z.string(),
 });
 
@@ -36,10 +43,9 @@ export const createBlogpost = async ({
     if (!validatedUserInput.success) {
       return {
         errMsg: validatedUserInput.error.issues[0].message,
+        success: null,
       };
     }
-
-    console.log(`from here`);
 
     const response = await fetch(
       `http://localhost:3000/api/blogs?userId=${validatedUserInput.data.userId}`,
@@ -59,23 +65,26 @@ export const createBlogpost = async ({
     const data = await response.json();
 
     if (!response.ok) {
-      console.log(response);
-
       if (data.error?.errMsg) {
-        return { errMsg: data.error.errMsg };
+        return { errMsg: data.error.errMsg as string, success: null };
       }
 
-      console.log(data);
       return {
         errMsg: 'Something went wrong! Try again later!',
+        success: null,
       };
     }
 
-    return data as IBlogPost;
+    return {
+      errMsg: null,
+      success: 'Successfully created a new blogpost!',
+    };
   } catch (error) {
-    console.log(error);
+    console.error(error);
+    
     return {
       errMsg: 'Something went wrong! Try again later!',
+      success: null,
     };
   }
 };

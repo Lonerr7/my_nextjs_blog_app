@@ -13,7 +13,7 @@ cloudinary.config({
 });
 
 const uploadOptions: UploadApiOptions = {
-  overwrite: true,
+  overwrite: false,
   invalidate: true,
   resource_type: 'image',
 };
@@ -31,7 +31,6 @@ export const POST = async (req: NextRequest) => {
     }
 
     const { image, tag, text }: CreateBlogApiRouteInput = await req.json();
-    console.log(image, tag, text);
 
     // Загружаем картинку на cloudinary
     const { secure_url, public_id } = await cloudinary.uploader.upload(
