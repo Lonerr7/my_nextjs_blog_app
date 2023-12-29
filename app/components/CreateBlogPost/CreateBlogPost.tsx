@@ -1,49 +1,32 @@
-'use client';
+// 'use client';
 
 import { quillConfig } from '@/configs/quillConfig';
-import { useRef, useState } from 'react';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
-import s from './page.module.css';
 import ImageInputWithDrag from '../common/ImageInputWithDrag';
-import { createBlogpost } from '@/services/blogServices';
-import { useSession } from 'next-auth/react';
-import { convertBase64 } from '@/utils/convertToBase64';
-import { toast } from 'react-hot-toast';
+import SubmitLoadingBtn from '../common/SubmitLoadingBtn';
 
-const CreateBlogPost = () => {
-  const { data } = useSession();
+interface Props {
+  imageFile: File | undefined;
+  inputRef: React.RefObject<HTMLInputElement>;
+  quillRef: React.MutableRefObject<any>;
+  textValue: string;
+  isBlogpostCreating: boolean;
+  setFile: React.Dispatch<React.SetStateAction<File | undefined>>;
+  setTextValue: React.Dispatch<React.SetStateAction<string>>;
+  handleCreateBlogpost: () => Promise<void>;
+}
 
-  const [textValue, setTextValue] = useState('');
-  const [imageFile, setFile] = useState<File>();
-  const inputRef = useRef<HTMLInputElement>(null);
-  const quillRef = useRef<any>(null);
-
-  const handleCreateBlogpost = async () => {
-    //  Если нет картинки - выдаем ошибку
-    if (!imageFile) {
-      toast.error('Please select an image!');
-      return;
-    }
-
-    const base64Image = await convertBase64(imageFile);
-
-    const response = await createBlogpost({
-      userId: data?.user.id!,
-      body: {
-        image: base64Image as string,
-        tag: 'sports', // ! Нужно указать перечень возможных тегов через селект и забиндить в ts
-        text: textValue,
-      },
-    });
-
-    if (response && response?.errMsg) {
-      toast.error(response.errMsg);
-    } else {
-      toast.success(response.success);
-    }
-  };
-
+const CreateBlogPost: React.FC<Props> = ({
+  imageFile,
+  inputRef,
+  quillRef,
+  textValue,
+  isBlogpostCreating,
+  setFile,
+  setTextValue,
+  handleCreateBlogpost,
+}) => {
   return (
     <div>
       <div className="flex justify-center">
@@ -60,19 +43,22 @@ const CreateBlogPost = () => {
 
       <div>
         <ReactQuill
+          className="mb-8"
           ref={quillRef}
           theme="snow"
           value={textValue}
           onChange={setTextValue}
           modules={quillConfig}
         />
-        <button onClick={handleCreateBlogpost}>Create Blogpost</button>
+        <SubmitLoadingBtn
+          customClassName="!w-[20%]"
+          type="button"
+          btnText="Create Blogpost"
+          loadingText="Creating"
+          isFetching={isBlogpostCreating}
+          handleSubmit={handleCreateBlogpost}
+        />
       </div>
-
-      <div
-        className={s.page}
-        dangerouslySetInnerHTML={{ __html: textValue || '' }}
-      ></div>
     </div>
   );
 };

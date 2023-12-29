@@ -26,6 +26,7 @@ export const imageHandler = async (quillRef: React.MutableRefObject<any>) => {
 export const quillConfig = {
   toolbar: {
     container: toolbarOptions,
+
     // handlers: {
     //   image: () => {
     //     imageHandler(quillRef);

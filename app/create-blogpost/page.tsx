@@ -1,11 +1,11 @@
 import React from 'react';
-import CreateBlogPost from '../components/CreateBlogPost/CreateBlogPost';
+import CreateBlogPostContainer from '../components/CreateBlogPost/CreateBlogPostContainer';
 
 const CreateBlogPostPage = () => {
   return (
     <div>
-      <h1>Create Blog Post</h1>
-      <CreateBlogPost />
+      <h1 className='page-title'>Create Blog Post</h1>
+      <CreateBlogPostContainer />
     </div>
   );
 };

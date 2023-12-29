@@ -81,7 +81,7 @@ export const createBlogpost = async ({
     };
   } catch (error) {
     console.error(error);
-    
+
     return {
       errMsg: 'Something went wrong! Try again later!',
       success: null,
