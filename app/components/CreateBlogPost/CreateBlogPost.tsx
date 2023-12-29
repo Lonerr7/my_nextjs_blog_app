@@ -1,5 +1,3 @@
-// 'use client';
-
 import { quillConfig } from '@/configs/quillConfig';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';

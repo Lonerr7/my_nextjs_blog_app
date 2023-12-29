@@ -42,6 +42,18 @@ export const deleteMyProfilePicture = async () => {
 
     // Если пришла ошибка после удаления из cloudinary
     if (destroyResponse && destroyResponse?.result === 'not found') {
+      console.log(`from herererer`);
+
+      // Делаем это для того, если вдруг у нас удалились картинки из cloudinary, но не удалились ссылка и public_id на них в БД
+      if (me?.image) {
+        me.image = undefined;
+      }
+
+      // Сохраняем обновления
+      await me.save({
+        validateBeforeSave: false,
+      });
+
       return {
         errMessage: 'Your profile picture does not exist',
       };
