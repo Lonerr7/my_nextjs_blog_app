@@ -26,6 +26,7 @@
     "react-icons": "^4.11.0",
     "react-loading-skeleton": "^3.3.1",
     "react-quill": "^2.0.0",
+    "react-select": "^5.8.0",
     "react-simple-image-viewer": "^1.2.2",
     "use-debounce": "^10.0.0",
     "zod": "^3.22.4"

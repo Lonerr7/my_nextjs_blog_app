@@ -6,15 +6,33 @@ import { convertBase64 } from '@/utils/convertToBase64';
 import { toast } from 'react-hot-toast';
 import { useRef, useState } from 'react';
 import CreateBlogPost from './CreateBlogPost';
+import { BlogpostOption, BlogpostTags } from '@/types/blogTypes';
+import { ActionMeta, SingleValue } from 'react-select';
+
+const selectOptions: Array<BlogpostOption> = Object.entries(BlogpostTags).map(
+  (value) => ({
+    label: value[1],
+    value: value[1],
+  })
+);
 
 const CreateBlogPostContainer = () => {
   const { data } = useSession();
 
   const [textValue, setTextValue] = useState('');
   const [imageFile, setFile] = useState<File>();
+  const [tag, setTag] = useState<BlogpostTags | ''>('');
   const [isBlogpostCreating, setIsBlogpostCreating] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
   const quillRef = useRef<any>(null);
+
+  const handleSelectChange = (newValue: BlogpostOption) => {
+    if (newValue?.value) {
+      setTag(newValue?.value);
+    } else {
+      setTag('');
+    }
+  };
 
   const handleCreateBlogpost = async () => {
     //  Если нет картинки - выдаем ошибку
@@ -30,7 +48,7 @@ const CreateBlogPostContainer = () => {
       userId: data?.user.id!,
       body: {
         image: base64Image as string,
-        tag: 'sports', // ! Нужно указать перечень возможных тегов через селект и забиндить в ts
+        tag,
         text: textValue,
       },
     });
@@ -51,9 +69,12 @@ const CreateBlogPostContainer = () => {
       quillRef={quillRef}
       textValue={textValue}
       isBlogpostCreating={isBlogpostCreating}
+      selectOptions={selectOptions}
+      selectValue={tag}
       setFile={setFile}
       setTextValue={setTextValue}
       handleCreateBlogpost={handleCreateBlogpost}
+      handleSelectChange={handleSelectChange}
     />
   );
 };

@@ -1,4 +1,4 @@
-import { CreateBlogInput } from '@/types/blogTypes';
+import { BlogpostTags, CreateBlogInput } from '@/types/blogTypes';
 import { getBase64Size } from '@/utils/getBase64StringSize';
 import { z } from 'zod';
 
@@ -15,7 +15,11 @@ const UploadBlogPostSchema = z.object({
       (base64Image) => getBase64Size(base64Image, true) <= MAX_FILE_SIZE_IN_KB,
       `Max image size is 2MB.`
     ),
-  tag: z.string({ required_error: 'Blogpost tag is required!' }), // !
+  tag: z.nativeEnum(BlogpostTags, {
+    errorMap: () => ({
+      message: 'Please, select a blogpost tag',
+    }),
+  }),
   text: z
     .string({ required_error: 'Blogpost text is required!' })
     .min(1, 'Please, enter text for your blogpost!')

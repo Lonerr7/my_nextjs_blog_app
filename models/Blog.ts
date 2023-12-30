@@ -1,9 +1,11 @@
+import { BlogpostTags } from '@/types/blogTypes';
 import { Schema, model, models } from 'mongoose';
 
 const blogSchema = new Schema({
   tag: {
     type: String,
     required: [true, "Please enter blog's tag"],
+    enum: Object.values(BlogpostTags),
   },
   image: {
     imageUrl: {

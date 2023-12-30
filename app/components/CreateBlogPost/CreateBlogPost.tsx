@@ -3,6 +3,9 @@ import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import ImageInputWithDrag from '../common/ImageInputWithDrag';
 import SubmitLoadingBtn from '../common/SubmitLoadingBtn';
+import { BlogpostOption, BlogpostTags } from '@/types/blogTypes';
+import CustomSelect from '../common/CustomSelect';
+import { ActionMeta, SingleValue } from 'react-select';
 
 interface Props {
   imageFile: File | undefined;
@@ -10,9 +13,12 @@ interface Props {
   quillRef: React.MutableRefObject<any>;
   textValue: string;
   isBlogpostCreating: boolean;
+  selectOptions: Array<BlogpostOption>;
+  selectValue: BlogpostTags | '';
   setFile: React.Dispatch<React.SetStateAction<File | undefined>>;
   setTextValue: React.Dispatch<React.SetStateAction<string>>;
   handleCreateBlogpost: () => Promise<void>;
+  handleSelectChange: any;
 }
 
 const CreateBlogPost: React.FC<Props> = ({
@@ -21,14 +27,17 @@ const CreateBlogPost: React.FC<Props> = ({
   quillRef,
   textValue,
   isBlogpostCreating,
+  selectOptions,
+  selectValue,
   setFile,
   setTextValue,
   handleCreateBlogpost,
+  handleSelectChange,
 }) => {
   return (
     <div>
-      <div className="flex justify-center">
-        <div className="w-1/2">
+      <div>
+        <div>
           <ImageInputWithDrag
             file={imageFile}
             inputRef={inputRef}
@@ -40,6 +49,12 @@ const CreateBlogPost: React.FC<Props> = ({
       </div>
 
       <div>
+        <CustomSelect
+          selectOptions={selectOptions}
+          selectValue={selectValue}
+          onSelectChange={handleSelectChange}
+        />
+
         <ReactQuill
           className="mb-8"
           ref={quillRef}
@@ -48,8 +63,8 @@ const CreateBlogPost: React.FC<Props> = ({
           onChange={setTextValue}
           modules={quillConfig}
         />
+
         <SubmitLoadingBtn
-          customClassName="!w-[20%]"
           type="button"
           btnText="Create Blogpost"
           loadingText="Creating"

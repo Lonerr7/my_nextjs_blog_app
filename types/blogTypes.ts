@@ -1,21 +1,36 @@
 export interface CreateBlogInput {
   userId: string;
   body: {
-    tag: string; //!
+    tag: BlogpostTags | '';
     image: string;
     text: string;
   };
 }
 
 export interface CreateBlogApiRouteInput {
-  tag: string; //!
+  tag: BlogpostTags;
   image: string;
   text: string;
 }
 
 export interface IBlogPost {
   owner: string;
-  tag: string; //!
+  tag: BlogpostTags;
   image: string;
   text: string;
+}
+
+export interface BlogpostOption {
+  label: BlogpostTags;
+  value: BlogpostTags;
+}
+
+export enum BlogpostTags {
+  SPORT = 'Sport',
+  MUSIC = 'Music',
+  TRAVELLING = 'Travelling',
+  MOVIES = 'Movies',
+  IT = 'IT',
+  LANGUAGES = 'Languages',
+  TECHNOLOGY = 'Technology',
 }
