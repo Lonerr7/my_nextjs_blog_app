@@ -14,7 +14,7 @@ const blogSchema = new Schema({
     publicId: {
       type: String,
     },
-  }, // здесь надо продумать сколько будет у блога картинок: будет ли картинка-превью и основная картинка. Как они будут храниться в БД
+  },
   text: {
     type: String,
     required: [true, "Please enter blog's text"],

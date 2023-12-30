@@ -51,3 +51,38 @@ body {
 .ql-editor {
   min-height: 200px;
 }
+
+/* Blog Select */
+.blogpost__control,
+.blogpost__menu {
+  @apply dark:bg-item-bg-dark;
+}
+
+.blogpost__input {
+  @apply dark:!text-white;
+}
+
+.blogpost__clear-indicator {
+  @apply hover:!text-red-700;
+}
+
+.blogpost__single-value {
+  @apply leading-8 dark:text-white;
+}
+
+.blogpost__option {
+  @apply dark:hover:bg-item-bg-dark_hover;
+}
+
+.blogpost__option--is-focused,
+.blogpost__option--is-selected {
+  @apply dark:bg-item-bg-dark_x2;
+}
+
+.blogpost__option--is-selected {
+  @apply dark:hover:bg-item-bg-dark_x2_hover;
+}
+
+.blogpost__option--is-selected {
+  @apply font-medium;
+}

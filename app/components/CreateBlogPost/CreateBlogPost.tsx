@@ -5,7 +5,6 @@ import ImageInputWithDrag from '../common/ImageInputWithDrag';
 import SubmitLoadingBtn from '../common/SubmitLoadingBtn';
 import { BlogpostOption, BlogpostTags } from '@/types/blogTypes';
 import CustomSelect from '../common/CustomSelect';
-import { ActionMeta, SingleValue } from 'react-select';
 
 interface Props {
   imageFile: File | undefined;
@@ -52,6 +51,9 @@ const CreateBlogPost: React.FC<Props> = ({
         <CustomSelect
           selectOptions={selectOptions}
           selectValue={selectValue}
+          classNamePrefix="blogpost"
+          className="mb-5"
+          placeholder="Select blogpost tag..."
           onSelectChange={handleSelectChange}
         />
 
