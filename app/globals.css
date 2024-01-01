@@ -58,8 +58,17 @@ body {
   @apply dark:bg-item-bg-dark;
 }
 
+.blogpost__control--menu-is-open .blogpost__dropdown-indicator,
+.blogpost__control--is-focused .blogpost__dropdown-indicator {
+  @apply !text-item-gray;
+}
+
 .blogpost__input {
   @apply dark:!text-white;
+}
+
+.blogpost__indicator {
+  @apply cursor-pointer;
 }
 
 .blogpost__clear-indicator {

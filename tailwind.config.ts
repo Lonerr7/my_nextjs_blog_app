@@ -33,6 +33,7 @@ const config: Config = {
         'light-gray': '#f1f1f1',
         'dark-blue': '#242535',
         'dark-gray': '#BABABF',
+        'item-gray': '#cccccc',
       },
     },
     screens: {
