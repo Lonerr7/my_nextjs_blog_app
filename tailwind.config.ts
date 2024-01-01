@@ -31,9 +31,11 @@ const config: Config = {
         'item-bg-dark_x2_hover': '#15151c',
         'text-gray': '#696A75',
         'light-gray': '#f1f1f1',
-        'dark-blue': '#242535',
+        'light-gray_hover': '#6c6c6c',
         'dark-gray': '#BABABF',
+        'dark-blue': '#242535',
         'item-gray': '#cccccc',
+        'quill-btn_hover': '#444444'
       },
     },
     screens: {

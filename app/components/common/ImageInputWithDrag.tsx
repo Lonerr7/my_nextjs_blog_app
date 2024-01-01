@@ -96,8 +96,8 @@ const ImageInputWithDrag: React.FC<Props> = ({
       <div className="flex items-center justify-between">
         <button
           className={`form-btn ${
-            isSubmitBtnDisabled ? '!w-full' : '!w-[48%]'
-          } !mr-4 !bg-red-600 disabled:!bg-red-300 hover:!bg-red-500`}
+            isSubmitBtnDisabled ? '!w-full mr-0' : '!w-[48%] !mr-4'
+          }  !bg-red-600 disabled:!bg-red-300 hover:!bg-red-500`}
           disabled={file ? false : true}
           onClick={handleInputFileDelete}
         >
