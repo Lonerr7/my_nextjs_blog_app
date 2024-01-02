@@ -46,19 +46,20 @@ export const getUsersPages = async (query: string) => {
 
 export const getSingleUser = async (
   userId: string | undefined,
-  tag: 'myself' | 'user'
+  tag: 'myself' | 'user',
+  populateBlogs: boolean
 ) => {
   try {
     noStore();
     const response = await fetch(
-      `${process.env.NEXTAUTH_URL}/api/singleUser?id=${userId}`,
+      `${process.env.NEXTAUTH_URL}/api/singleUser?id=${userId}&populateBlogs=${populateBlogs}`,
       { next: { tags: [tag] } }
     );
 
     const data = await response.json();
 
     if (!response.ok) {
-      console.log(`ERROR`, data.error.message);
+      console.log(`ERROR`, data);
 
       throw new Error('Error when fetching a user');
     }
@@ -67,6 +68,8 @@ export const getSingleUser = async (
       user: data as IUser,
     };
   } catch (error: any) {
+    console.log(error);
+
     return {
       error: error.message as string,
     };

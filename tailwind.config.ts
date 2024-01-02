@@ -26,10 +26,16 @@ const config: Config = {
         'bg-light-dark': '#22243a',
         'google-blue': 'rgb(66 133 244)',
         'item-bg-dark': '#2e2f40',
+        'item-bg-dark_hover': '#22222f',
+        'item-bg-dark_x2': '#1b1b25',
+        'item-bg-dark_x2_hover': '#15151c',
         'text-gray': '#696A75',
         'light-gray': '#f1f1f1',
-        'dark-blue': '#242535',
+        'light-gray_hover': '#6c6c6c',
         'dark-gray': '#BABABF',
+        'dark-blue': '#242535',
+        'item-gray': '#cccccc',
+        'quill-btn_hover': '#444444'
       },
     },
     screens: {

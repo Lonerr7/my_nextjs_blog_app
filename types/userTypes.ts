@@ -1,3 +1,5 @@
+import { IBlogPost } from './blogTypes';
+
 export interface IUser {
   _id: string;
   username: string;
@@ -9,6 +11,7 @@ export interface IUser {
     publicId?: string;
   };
   job?: string;
+  blogs?: IBlogPost[];
 }
 
 export interface UserSocials {

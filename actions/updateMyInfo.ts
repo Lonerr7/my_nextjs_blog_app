@@ -12,7 +12,7 @@ import { cookies } from 'next/headers';
 const EditMyInfoSchema = z.object({
   username: z
     .string()
-    .min(3, 'Username must be 3 characters or more from')
+    .min(3, 'Username must be 3 characters or more')
     .max(20, 'Username must not be more than 20 characters'),
   job: z.string().max(40, 'Job must not be more than 40 characters').optional(),
   status: z
