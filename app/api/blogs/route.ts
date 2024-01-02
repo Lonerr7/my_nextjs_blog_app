@@ -4,6 +4,7 @@ import { connectToDB } from '@/utils/connectToDB';
 import { getCorrectDateTime } from '@/utils/getCorrectTimeDate';
 import { NextRequest } from 'next/server';
 import { UploadApiOptions, v2 as cloudinary } from 'cloudinary';
+import { revalidateTag } from 'next/cache';
 
 // Cloudinary config
 cloudinary.config({
@@ -52,6 +53,8 @@ export const POST = async (req: NextRequest) => {
       owner,
       createdAt: getCorrectDateTime(),
     });
+
+    revalidateTag('myself');
 
     return new Response(JSON.stringify(newBlogPost), { status: 200 });
   } catch (error) {

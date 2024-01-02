@@ -11,7 +11,9 @@ import { getSingleUser } from '@/services/userServices';
 
 const Navbar: FC = async () => {
   const session = await getServerSession(authConfig);
-  const { user } = await getSingleUser(session?.user.id!, 'myself');
+  let userDoc = session?.user
+    ? await getSingleUser(session?.user.id!, 'myself', false)
+    : undefined;
 
   return (
     <nav className="flex items-center justify-between text-xl">
@@ -30,7 +32,10 @@ const Navbar: FC = async () => {
         <ThemeSwitcher />
         {session && (
           <Link className="link mr-4 dark:text-white" href="/my-page">
-            Hello, <span className="font-bold">{user && user.username}</span>
+            Hello,{' '}
+            <span className="font-bold">
+              {userDoc?.user && userDoc?.user.username}
+            </span>
           </Link>
         )}
         {session && <SignOut />}

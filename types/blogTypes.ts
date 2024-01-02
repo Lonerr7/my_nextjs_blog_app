@@ -14,10 +14,12 @@ export interface CreateBlogApiRouteInput {
 }
 
 export interface IBlogPost {
+  _id: string;
   owner: string;
   tag: BlogpostTags;
   image: string;
   text: string;
+  createdAt: Date;
 }
 
 export interface BlogpostOption {

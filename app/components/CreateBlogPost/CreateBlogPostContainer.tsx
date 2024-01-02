@@ -7,7 +7,7 @@ import { toast } from 'react-hot-toast';
 import { useRef, useState } from 'react';
 import CreateBlogPost from './CreateBlogPost';
 import { BlogpostOption, BlogpostTags } from '@/types/blogTypes';
-import { ActionMeta, SingleValue } from 'react-select';
+import { useRouter } from 'next/navigation';
 
 const selectOptions: Array<BlogpostOption> = Object.entries(BlogpostTags).map(
   (value) => ({
@@ -18,7 +18,7 @@ const selectOptions: Array<BlogpostOption> = Object.entries(BlogpostTags).map(
 
 const CreateBlogPostContainer = () => {
   const { data } = useSession();
-
+  const router = useRouter();
   const [textValue, setTextValue] = useState('');
   const [imageFile, setFile] = useState<File>();
   const [tag, setTag] = useState<BlogpostTags | ''>('');
@@ -57,6 +57,7 @@ const CreateBlogPostContainer = () => {
       toast.error(response.errMsg);
     } else {
       toast.success(response.success);
+      router.push('/my-page');
     }
 
     setIsBlogpostCreating(false);
