@@ -1,7 +1,7 @@
 import UsersPageLoadingSkeleton from '../components/ui/skeletons/UsersPageLoadingSkeleton';
 
 const LoadingPage = () => {
-  return <UsersPageLoadingSkeleton />;
+  return <div>Loading</div>;
 };
 
 export default LoadingPage;
