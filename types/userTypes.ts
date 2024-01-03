@@ -6,12 +6,14 @@ export interface IUser {
   address?: string;
   socials?: UserSocials;
   status?: string;
-  image?: {
-    imageUrl?: string;
-    publicId?: string;
-  };
+  image?: IImage;
   job?: string;
   blogs?: IBlogPost[];
+}
+
+export interface IImage {
+  imageUrl?: string;
+    publicId?: string;
 }
 
 export interface UserSocials {

@@ -35,7 +35,9 @@ const config: Config = {
         'dark-gray': '#BABABF',
         'dark-blue': '#242535',
         'item-gray': '#cccccc',
-        'quill-btn_hover': '#444444'
+        'quill-btn_hover': '#444444',
+        'blogpost-border-light': '#E8E8EA',
+        'blogpost-tag-primary': '#4B6BFB'
       },
     },
     screens: {

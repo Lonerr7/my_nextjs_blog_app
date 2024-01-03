@@ -19,6 +19,7 @@
     "next-auth": "^4.24.4",
     "next-cloudinary": "^5.10.0",
     "next-themes": "^0.2.1",
+    "plaiceholder": "^3.0.0",
     "react": "^18",
     "react-dom": "^18",
     "react-hot-toast": "^2.4.1",
@@ -27,6 +28,7 @@
     "react-quill": "^2.0.0",
     "react-select": "^5.8.0",
     "react-simple-image-viewer": "^1.2.2",
+    "sharp": "^0.33.1",
     "use-debounce": "^10.0.0",
     "zod": "^3.22.4"
   },

@@ -1,3 +1,5 @@
+import { IImage } from './userTypes';
+
 export interface CreateBlogInput {
   userId: string;
   body: {
@@ -17,7 +19,7 @@ export interface IBlogPost {
   _id: string;
   owner: string;
   tag: BlogpostTags;
-  image: string;
+  image: IImage;
   text: string;
   createdAt: Date;
 }

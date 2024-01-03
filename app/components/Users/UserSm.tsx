@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import { FC } from 'react';
-import Avatar from './Avatar';
+import Avatar from './NextImageVithViewer';
 
 interface Props {
   id: string;

@@ -4,7 +4,7 @@ import CreateBlogPostContainer from '../components/CreateBlogPost/CreateBlogPost
 const CreateBlogPostPage = () => {
   return (
     <div>
-      <h1 className='page-title'>Create Blog Post</h1>
+      <h1 className='page-title'>Create Blogpost</h1>
       <CreateBlogPostContainer />
     </div>
   );
