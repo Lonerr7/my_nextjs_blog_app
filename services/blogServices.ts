@@ -29,11 +29,15 @@ const UploadBlogPostSchema = z.object({
       'Blogpost cannot be empty!'
     ),
   userId: z.string(),
+  title: z
+    .string()
+    .min(3, 'Title should be at least 3 characters')
+    .max(125, "Title shouldn't be more than 125 characters"),
 });
 
 export const createBlogpost = async ({
   userId,
-  body: { tag, image, text },
+  body: { tag, image, text, title },
 }: CreateBlogInput) => {
   try {
     const validatedUserInput = UploadBlogPostSchema.safeParse({
@@ -41,6 +45,7 @@ export const createBlogpost = async ({
       image,
       text,
       userId,
+      title,
     });
 
     // Валидируем инпут
@@ -59,6 +64,7 @@ export const createBlogpost = async ({
           tag: validatedUserInput.data.tag,
           image: validatedUserInput.data.image,
           text: validatedUserInput.data.text,
+          title: validatedUserInput.data.title,
         }),
         headers: {
           Accept: 'application/json',

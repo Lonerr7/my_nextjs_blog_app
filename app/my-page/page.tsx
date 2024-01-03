@@ -12,13 +12,13 @@ export const metadata: Metadata = {
 
 const MyPage: FC = async () => {
   const session = await getServerSession(authConfig);
-  const { user, error } = await getSingleUser(
+  const { user: myself, error } = await getSingleUser(
     session?.user.id!,
     'myself',
     true
   );
 
-  console.log(user);
+  console.log(myself);
 
   if (error) {
     return (
@@ -30,8 +30,8 @@ const MyPage: FC = async () => {
 
   return (
     <section>
-      <UserInfo user={user} isMyPage />
-      <UserBlogposts blogposts={user?.blogs} />
+      <UserInfo user={myself} isMyPage />
+      <UserBlogposts blogposts={myself?.blogs} owner={myself} />
     </section>
   );
 };

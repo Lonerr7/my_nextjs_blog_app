@@ -16,7 +16,12 @@ const UserSm: FC<Props> = ({ id, username, avatarUrl, status }) => {
         className="flex items-center p-3 dark:text-white"
         href={`/users/${id}`}
       >
-        <Avatar customClassName="mr-4" avatarURL={avatarUrl} small />
+        <Avatar
+          customClassName="mr-4"
+          imageUrl={avatarUrl}
+          small
+          sizes="125px"
+        />
         <div className="min-h-[60px]">
           <p className="font-bold mb-2">{username}</p>
           <p>

@@ -13,7 +13,7 @@ export interface IUser {
 
 export interface IImage {
   imageUrl?: string;
-    publicId?: string;
+  publicId?: string;
 }
 
 export interface UserSocials {

@@ -19,6 +19,7 @@ const selectOptions: Array<BlogpostOption> = Object.entries(BlogpostTags).map(
 const CreateBlogPostContainer = () => {
   const { data } = useSession();
   const router = useRouter();
+  const [title, setTitle] = useState('');
   const [textValue, setTextValue] = useState('');
   const [imageFile, setFile] = useState<File>();
   const [tag, setTag] = useState<BlogpostTags | ''>('');
@@ -48,6 +49,7 @@ const CreateBlogPostContainer = () => {
       userId: data?.user.id!,
       body: {
         image: base64Image as string,
+        title,
         tag,
         text: textValue,
       },
@@ -72,10 +74,12 @@ const CreateBlogPostContainer = () => {
       isBlogpostCreating={isBlogpostCreating}
       selectOptions={selectOptions}
       selectValue={tag}
+      title={title}
       setFile={setFile}
       setTextValue={setTextValue}
       handleCreateBlogpost={handleCreateBlogpost}
       handleSelectChange={handleSelectChange}
+      setTitle={setTitle}
     />
   );
 };

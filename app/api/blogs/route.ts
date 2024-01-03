@@ -31,7 +31,7 @@ export const POST = async (req: NextRequest) => {
       );
     }
 
-    const { image, tag, text }: CreateBlogApiRouteInput = await req.json();
+    const { image, tag, text, title }: CreateBlogApiRouteInput = await req.json();
 
     // Загружаем картинку на cloudinary
     const { secure_url, public_id } = await cloudinary.uploader.upload(
@@ -40,12 +40,11 @@ export const POST = async (req: NextRequest) => {
     );
     await connectToDB();
 
-    console.log(secure_url, public_id);
-
     // Creating a blogpost
     const newBlogPost = await Blog.create({
       tag,
       text,
+      title,
       image: {
         imageUrl: secure_url,
         publicId: public_id,

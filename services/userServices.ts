@@ -47,7 +47,7 @@ export const getUsersPages = async (query: string) => {
 export const getSingleUser = async (
   userId: string | undefined,
   tag: 'myself' | 'user',
-  populateBlogs: boolean
+  populateBlogs?: boolean
 ) => {
   try {
     noStore();

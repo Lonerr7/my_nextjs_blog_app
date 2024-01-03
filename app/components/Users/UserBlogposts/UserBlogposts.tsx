@@ -2,44 +2,69 @@ import { IBlogPost } from '@/types/blogTypes';
 import NextImageVithViewer from '../NextImageVithViewer';
 import BlogpostTag from './BlogpostTag';
 import { addBlurredDataUrls } from '@/utils/getBase64';
-
-interface Props {
-  blogposts: IBlogPost[] | undefined;
-}
+import { IUser } from '@/types/userTypes';
+import Link from 'next/link';
 
 const BlogpostSm = ({
   blogpost,
   blurredDataUrl,
+  owner,
 }: {
   blogpost: IBlogPost;
   blurredDataUrl: any;
+  owner?: IUser;
 }) => {
-  console.log(blurredDataUrl);
-
   return (
     <li className="p-4 border rounded-xl border-solid border-blogpost-border-light">
-      <NextImageVithViewer
-        avatarURL={blogpost.image.imageUrl}
-        fullscreen
-        customClassName="mb-6 !max-w-[360px] min-h-[240px] mx-auto "
-        customImgClassName="border rounded-md border-transparent"
-        sizes="90wv"
-        blurDataUrl={blurredDataUrl}
-      />
-      <BlogpostTag tag={blogpost.tag} />
-      <h2>TITLE</h2>
-      <div>
+      <Link
+        className="h-[500px] flex flex-col justify-between"
+        href={`/blogs/${blogpost._id}`}
+      >
         <div>
-          <p>user avatar</p>
-          <p>username</p>
+          <NextImageVithViewer
+            imageUrl={blogpost.image.imageUrl}
+            customClassName="mb-6 !max-w-[360px] min-h-[240px] mx-auto "
+            customImgClassName="border rounded-md border-transparent"
+            sizes="90wv"
+            blurDataUrl={blurredDataUrl}
+          />
+          <BlogpostTag tag={blogpost.tag} />
+          <h2 className="text-2xl leading-7 font-semibold mb-5">
+            {blogpost.title}
+          </h2>
         </div>
-        <p>date</p>
-      </div>
+        <div className="flex items-center">
+          <Link
+            className="flex items-center mr-5"
+            href={`/users/${owner?._id}`}
+          >
+            <NextImageVithViewer
+              customClassName="!max-w-[36px] !max-h-[36px] min-w-[36px] min-h-[36px] mr-3"
+              imageUrl={owner?.image?.imageUrl}
+              sizes="36px"
+              small
+            />
+            <p className="text-blogpost-info">{owner?.username}</p>
+          </Link>
+          <p className="text-blogpost-info">
+            {new Date(blogpost.createdAt).toLocaleDateString('en-EN', {
+              month: 'long',
+              day: '2-digit',
+              year: 'numeric',
+            })}
+          </p>
+        </div>
+      </Link>
     </li>
   );
 };
 
-const UserBlogposts: React.FC<Props> = async ({ blogposts }) => {
+interface Props {
+  blogposts: IBlogPost[] | undefined;
+  owner?: IUser;
+}
+
+const UserBlogposts: React.FC<Props> = async ({ blogposts, owner }) => {
   const blurredUrls = await addBlurredDataUrls(
     blogposts?.map((blogpost) => blogpost.image.imageUrl)
   );
@@ -54,6 +79,7 @@ const UserBlogposts: React.FC<Props> = async ({ blogposts }) => {
                 key={blogpost._id}
                 blogpost={blogpost}
                 blurredDataUrl={blurredUrls[i]}
+                owner={owner}
               />
             ))
           : null}

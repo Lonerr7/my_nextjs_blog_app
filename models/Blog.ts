@@ -3,6 +3,11 @@ import { Schema, model, models } from 'mongoose';
 
 const blogSchema = new Schema(
   {
+    title: {
+      type: String,
+      required: [true, "Please enter blog's title"],
+      maxLength: [125, 'Title cannot be more than 125 characters long'],
+    },
     tag: {
       type: String,
       required: [true, "Please enter blog's tag"],

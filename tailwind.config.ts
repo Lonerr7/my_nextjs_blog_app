@@ -37,7 +37,8 @@ const config: Config = {
         'item-gray': '#cccccc',
         'quill-btn_hover': '#444444',
         'blogpost-border-light': '#E8E8EA',
-        'blogpost-tag-primary': '#4B6BFB'
+        'blogpost-tag-primary': '#4B6BFB',
+        'blogpost-info': '#97989F',
       },
     },
     screens: {

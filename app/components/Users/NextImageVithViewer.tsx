@@ -6,7 +6,7 @@ import ImageViewer from 'react-simple-image-viewer';
 import Image from 'next/image';
 
 interface Props {
-  avatarURL?: string;
+  imageUrl?: string;
   small?: boolean;
   customClassName?: string;
   customImgClassName?: string;
@@ -17,7 +17,7 @@ interface Props {
 const mockAvatar = '/mockAvatar.jpg';
 
 const NextImageVithViewer: FC<Props> = ({
-  avatarURL,
+  imageUrl,
   small,
   customClassName,
   customImgClassName,
@@ -26,7 +26,7 @@ const NextImageVithViewer: FC<Props> = ({
   blurDataUrl,
 }) => {
   const [isViewerOpen, setIsViewerOpen] = useState(false);
-  const images = avatarURL ? [avatarURL] : [mockAvatar];
+  const images = imageUrl ? [imageUrl] : [mockAvatar];
 
   const openImageViewer = () => setIsViewerOpen(true);
   const closeImageViewer = () => setIsViewerOpen(false);
@@ -37,7 +37,7 @@ const NextImageVithViewer: FC<Props> = ({
         className={`object-cover ${small && `rounded-[50%]`} ${
           fullscreen && 'cursor-pointer '
         } ${customImgClassName}`}
-        src={avatarURL ? avatarURL : '/mockAvatar.jpg'}
+        src={imageUrl ? imageUrl : '/mockAvatar.jpg'}
         alt="avatar"
         onClick={openImageViewer}
         fill

@@ -6,7 +6,7 @@ import { NextRequest } from 'next/server';
 export const GET = async (req: NextRequest) => {
   try {
     const id = req.nextUrl.searchParams.get('id')!;
-    const populateBlogs = req.nextUrl.searchParams.get('populateBlogs')!;
+    const populateBlogs = req.nextUrl.searchParams.get('populateBlogs');
 
     let user: any = undefined;
     await connectToDB();
