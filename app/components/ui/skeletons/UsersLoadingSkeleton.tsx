@@ -1,12 +1,11 @@
-import Skeleton from 'react-loading-skeleton';
 import 'react-loading-skeleton/dist/skeleton.css';
+import CommonSkeleton from './CommonSkeleton';
 
 const UserLoadingSkeleton = () => {
   return (
-    <Skeleton
+    <CommonSkeleton
       className="h-[149px] dark:bg-item-bg-dark"
       borderRadius="0.75rem"
-      enableAnimation={false}
     />
   );
 };

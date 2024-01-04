@@ -1,25 +1,22 @@
-import Skeleton from 'react-loading-skeleton';
 import 'react-loading-skeleton/dist/skeleton.css';
 import UsersLoadingSkeleton from './UsersLoadingSkeleton';
+import CommonSkeleton from './CommonSkeleton';
 
 const UsersPageLoadingSkeleton = () => {
   return (
     <div>
-      <Skeleton
+      <CommonSkeleton
         containerClassName="block w-full flex justify-center mb-8"
-        className="py-3 dark:bg-item-bg-dark"
+        className="py-3"
         width="50%"
-        enableAnimation={false}
       />
       <div className="mb-5">
         <UsersLoadingSkeleton />
       </div>
-      <Skeleton
+      <CommonSkeleton
         containerClassName="block w-full flex justify-center mb-8"
-        className="dark:bg-item-bg-dark"
         height="40px"
         width="292px"
-        enableAnimation={false}
       />
     </div>
   );
