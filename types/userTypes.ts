@@ -12,8 +12,8 @@ export interface IUser {
 }
 
 export interface IImage {
-  imageUrl?: string;
-  publicId?: string;
+  imageUrl: string;
+  publicId: string;
 }
 
 export interface UserSocials {

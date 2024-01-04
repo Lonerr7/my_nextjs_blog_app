@@ -10,7 +10,7 @@ interface Props {
 
 const UserBlogposts: React.FC<Props> = async ({ blogposts, owner }) => {
   const blurredUrls = await addBlurredDataUrls(
-    blogposts?.map((blogpost) => blogpost.image.imageUrl)
+    blogposts && blogposts.map((blogpost) => blogpost.image.imageUrl)
   );
 
   return (
@@ -22,7 +22,7 @@ const UserBlogposts: React.FC<Props> = async ({ blogposts, owner }) => {
               <BlogpostSm
                 key={blogpost._id}
                 blogpost={blogpost}
-                blurredDataUrl={blurredUrls[i]}
+                blurredDataUrl={blurredUrls && blurredUrls[i]}
                 owner={owner}
               />
             ))
