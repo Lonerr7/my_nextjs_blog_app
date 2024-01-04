@@ -5,10 +5,15 @@ import { BlogpostSm } from './BlogpostSm';
 
 interface Props {
   blogposts: IBlogPost[] | undefined;
-  owner?: IUser;
+  myselfOwner?: IUser;
+  mySessionId?: string;
 }
 
-const UserBlogposts: React.FC<Props> = async ({ blogposts, owner }) => {
+const UserBlogposts: React.FC<Props> = async ({
+  blogposts,
+  myselfOwner,
+  mySessionId,
+}) => {
   const blurredUrls = await addBlurredDataUrls(
     blogposts && blogposts.map((blogpost) => blogpost.image.imageUrl)
   );
@@ -23,7 +28,8 @@ const UserBlogposts: React.FC<Props> = async ({ blogposts, owner }) => {
                 key={blogpost._id}
                 blogpost={blogpost}
                 blurredDataUrl={blurredUrls && blurredUrls[i]}
-                owner={owner}
+                owner={myselfOwner ? myselfOwner : blogpost.owner}
+                isMine={myselfOwner ? true : mySessionId === blogpost.owner._id}
               />
             ))
           : null}

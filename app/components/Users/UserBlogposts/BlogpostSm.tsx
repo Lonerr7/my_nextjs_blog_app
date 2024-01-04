@@ -8,10 +8,12 @@ export const BlogpostSm = ({
   blogpost,
   blurredDataUrl,
   owner,
+  isMine,
 }: {
   blogpost: IBlogPost;
   blurredDataUrl: any;
-  owner?: IUser;
+  owner: IUser;
+  isMine: boolean;
 }) => {
   return (
     <li className="p-4 border rounded-xl border-solid border-blogpost-border-light h-[500px] flex flex-col justify-between hover:bg-light-gray dark:hover:bg-item-bg-dark_x2_hover">
@@ -31,7 +33,10 @@ export const BlogpostSm = ({
         </div>
       </Link>
       <div className="flex items-center">
-        <Link className="flex items-center mr-5" href={`/users/${owner?._id}`}>
+        <Link
+          className="flex items-center mr-5"
+          href={isMine ? `/my-page` : `/users/${owner._id}`}
+        >
           <NextImageVithViewer
             customClassName="!max-w-[36px] !max-h-[36px] min-w-[36px] min-h-[36px] mr-3"
             imageUrl={owner?.image?.imageUrl}

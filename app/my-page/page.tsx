@@ -31,7 +31,7 @@ const MyPage: FC = async () => {
   return (
     <section>
       <UserInfo user={myself} isMyPage />
-      <UserBlogposts blogposts={myself?.blogs} owner={myself} />
+      <UserBlogposts blogposts={myself?.blogs} myselfOwner={myself} />
     </section>
   );
 };

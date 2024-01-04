@@ -1,4 +1,4 @@
-import { IImage } from './userTypes';
+import { IImage, IUser } from './userTypes';
 
 export interface CreateBlogInput {
   userId: string;
@@ -19,7 +19,7 @@ export interface CreateBlogApiRouteInput {
 
 export interface IBlogPost {
   _id: string;
-  owner: string;
+  owner: IUser; //! Возможно уберем несколько полей при популировании данных
   tag: BlogpostTags;
   image: IImage;
   text: string;
