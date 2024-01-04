@@ -13,7 +13,7 @@ export const GET = async (req: NextRequest) => {
 
     if (populateBlogs) {
       Blog; // не хочет делать virtual populate без "регистрации" модели Blog
-      user = await User.findById(id).populate('blogs');
+      user = await User.findById(id).populate('blogs', '-text');
     } else {
       user = await User.findById(id);
     }

@@ -5,7 +5,6 @@ import UsersLoadingSkeleton from '../components/ui/skeletons/UsersLoadingSkeleto
 import { getUsersPages } from '@/services/userServices';
 import Pagination from '../components/ui/Pagination';
 import { Metadata } from 'next';
-import UsersPageLoadingSkeleton from '../components/ui/skeletons/UsersPageLoadingSkeleton';
 
 export const metadata: Metadata = {
   title: 'Users | Meta Blog',

@@ -18,8 +18,6 @@ const MyPage: FC = async () => {
     true
   );
 
-  console.log(myself);
-
   if (error) {
     return (
       <section>

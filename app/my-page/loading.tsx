@@ -1,7 +1,7 @@
-import UsersPageLoadingSkeleton from '../components/ui/skeletons/UsersPageLoadingSkeleton';
+import MyOrUserPageLoadingSkeleton from '../components/ui/skeletons/MyOrUserPageLoadingSkeleton';
 
 const LoadingPage = () => {
-  return <div>Loading</div>;
+  return <MyOrUserPageLoadingSkeleton />;
 };
 
 export default LoadingPage;
