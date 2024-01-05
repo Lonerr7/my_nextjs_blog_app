@@ -1,4 +1,5 @@
 import { USERS_ITEMS_PER_PAGE } from '@/configs/requestConfig';
+import { RequestTags } from '@/types/requestTypes';
 import { IUser } from '@/types/userTypes';
 import { unstable_noStore as noStore } from 'next/cache';
 
@@ -46,7 +47,7 @@ export const getUsersPages = async (query: string) => {
 
 export const getSingleUser = async (
   userId: string | undefined,
-  tag: 'myself' | 'user',
+  tag: RequestTags.GET_SINGLE_USER | RequestTags.GET_ME,
   populateBlogs?: boolean
 ) => {
   try {

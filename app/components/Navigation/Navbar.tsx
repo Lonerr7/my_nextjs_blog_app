@@ -8,11 +8,12 @@ import { plusJakartaSans } from '@/app/ui/fonts';
 import Link from 'next/link';
 import { authConfig } from '@/configs/auth';
 import { getSingleUser } from '@/services/userServices';
+import { RequestTags } from '@/types/requestTypes';
 
 const Navbar: FC = async () => {
   const session = await getServerSession(authConfig);
   let userDoc = session?.user
-    ? await getSingleUser(session?.user.id!, 'myself', false)
+    ? await getSingleUser(session?.user.id!, RequestTags.GET_ME, false)
     : undefined;
 
   return (

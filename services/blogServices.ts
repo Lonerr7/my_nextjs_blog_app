@@ -1,4 +1,5 @@
-import { BlogpostTags, CreateBlogInput } from '@/types/blogTypes';
+import { BlogpostTags, CreateBlogInput, IBlogPost } from '@/types/blogTypes';
+import { RequestTags } from '@/types/requestTypes';
 import { getBase64Size } from '@/utils/getBase64StringSize';
 import { z } from 'zod';
 
@@ -95,6 +96,43 @@ export const createBlogpost = async ({
     return {
       errMsg: 'Something went wrong! Try again later!',
       success: null,
+    };
+  }
+};
+
+export const getBlogposts = async (
+  ownerId: string | undefined,
+  {
+    page,
+    blogpostTagFilter,
+    query,
+  }: { page?: number; blogpostTagFilter?: BlogpostTags; query?: string }
+) => {
+  try {
+    const response = await fetch(
+      `${process.env.NEXTAUTH_URL}/api/blogs?ownerId=${ownerId}&query=${query}&page=${page}&tagFilter=${blogpostTagFilter}`,
+      {
+        next: {
+          revalidate: 15,
+          tags: [RequestTags.GET_BLOGPOSTS],
+        },
+      }
+    );
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      throw new Error(data.error);
+    }
+
+    return {
+      blogs: data as IBlogPost[],
+    };
+  } catch (error: any) {
+    console.log(error);
+
+    return {
+      errMsg: 'Error when fetching',
     };
   }
 };

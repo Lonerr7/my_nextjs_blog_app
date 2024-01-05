@@ -1,7 +1,7 @@
 import { IBlogPost } from '@/types/blogTypes';
 import { IUser } from '@/types/userTypes';
 import Link from 'next/link';
-import NextImageVithViewer from '../NextImageVithViewer';
+import NextImageVithViewer from '../Users/NextImageVithViewer';
 import BlogpostTag from './BlogpostTag';
 
 export const BlogpostSm = ({

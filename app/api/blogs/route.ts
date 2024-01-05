@@ -1,5 +1,5 @@
 import Blog from '@/models/Blog';
-import { CreateBlogApiRouteInput } from '@/types/blogTypes';
+import { CreateBlogApiRouteInput, IBlogPost } from '@/types/blogTypes';
 import { connectToDB } from '@/utils/connectToDB';
 import { getCorrectDateTime } from '@/utils/getCorrectTimeDate';
 import { NextRequest } from 'next/server';
@@ -22,7 +22,6 @@ const uploadOptions: UploadApiOptions = {
 export const POST = async (req: NextRequest) => {
   try {
     const owner = req.nextUrl.searchParams.get('userId');
-    console.log(owner);
 
     if (!owner) {
       return new Response(
@@ -31,7 +30,8 @@ export const POST = async (req: NextRequest) => {
       );
     }
 
-    const { image, tag, text, title }: CreateBlogApiRouteInput = await req.json();
+    const { image, tag, text, title }: CreateBlogApiRouteInput =
+      await req.json();
 
     // Загружаем картинку на cloudinary
     const { secure_url, public_id } = await cloudinary.uploader.upload(
@@ -57,7 +57,43 @@ export const POST = async (req: NextRequest) => {
 
     return new Response(JSON.stringify(newBlogPost), { status: 200 });
   } catch (error) {
-    console.log(error);
+    console.error(error);
+
+    return new Response(
+      JSON.stringify({ errMsg: 'Something went worng! Try again later!' }),
+      { status: 500 }
+    );
+  }
+};
+
+export const GET = async (req: NextRequest) => {
+  try {
+    // 1. Getting params from query URL
+    const owner =
+      req.nextUrl.searchParams.get('ownerId') == 'null' ||
+      req.nextUrl.searchParams.get('ownerId') == 'undefined'
+        ? null
+        : req.nextUrl.searchParams.get('ownerId');
+
+    const page = req.nextUrl.searchParams.get('page');
+    const query = req.nextUrl.searchParams.get('query');
+    const tagFilter = req.nextUrl.searchParams.get('tagFilter');
+
+    // 2. Getting the result from DB based on passed parametres
+    let blogposts: IBlogPost[];
+    await connectToDB();
+
+    if (owner) {
+      blogposts = await Blog.find({ owner }, '-text');
+    } else {
+      blogposts = await Blog.find()
+        .select('-text')
+        .populate('owner', 'username image');
+    }
+
+    return new Response(JSON.stringify(blogposts));
+  } catch (error) {
+    console.error(error);
 
     return new Response(
       JSON.stringify({ errMsg: 'Something went worng! Try again later!' }),

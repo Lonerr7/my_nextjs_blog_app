@@ -4,7 +4,8 @@ import { getServerSession } from 'next-auth';
 import { authConfig } from '@/configs/auth';
 import { getSingleUser } from '@/services/userServices';
 import UserInfo from '../components/Users/UserInfo';
-import UserBlogposts from '../components/Users/UserBlogposts/UserBlogposts';
+import UserBlogposts from '../components/Blogposts/Blogposts';
+import { RequestTags } from '@/types/requestTypes';
 
 export const metadata: Metadata = {
   title: 'My Page | Meta Blog',
@@ -14,8 +15,8 @@ const MyPage: FC = async () => {
   const session = await getServerSession(authConfig);
   const { user: myself, error } = await getSingleUser(
     session?.user.id!,
-    'myself',
-    true
+    RequestTags.GET_ME,
+    false
   );
 
   if (error) {
@@ -29,7 +30,7 @@ const MyPage: FC = async () => {
   return (
     <section>
       <UserInfo user={myself} isMyPage />
-      <UserBlogposts blogposts={myself?.blogs} myselfOwner={myself} />
+      <UserBlogposts myselfOwner={myself} />
     </section>
   );
 };

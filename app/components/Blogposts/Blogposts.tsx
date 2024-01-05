@@ -1,19 +1,23 @@
-import { IBlogPost } from '@/types/blogTypes';
 import { addBlurredDataUrls } from '@/utils/getBase64';
 import { IUser } from '@/types/userTypes';
 import { BlogpostSm } from './BlogpostSm';
+import { getBlogposts } from '@/services/blogServices';
 
 interface Props {
-  blogposts: IBlogPost[] | undefined;
   myselfOwner?: IUser;
   mySessionId?: string;
 }
 
-const UserBlogposts: React.FC<Props> = async ({
-  blogposts,
-  myselfOwner,
-  mySessionId,
-}) => {
+const Blogposts: React.FC<Props> = async ({ myselfOwner, mySessionId }) => {
+  const { blogs: blogposts, errMsg } = await getBlogposts(myselfOwner?._id, {});
+
+  if (errMsg) {
+    return <p>Error: {errMsg}</p>;
+  }
+
+  console.log(blogposts);
+  
+
   const blurredUrls = await addBlurredDataUrls(
     blogposts && blogposts.map((blogpost) => blogpost.image.imageUrl)
   );
@@ -38,4 +42,4 @@ const UserBlogposts: React.FC<Props> = async ({
   );
 };
 
-export default UserBlogposts;
+export default Blogposts;
