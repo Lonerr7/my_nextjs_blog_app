@@ -1,5 +1,6 @@
 'use client';
 
+import { SearchQueriesNames } from '@/types/requestTypes';
 import { useSearchParams, usePathname, useRouter } from 'next/navigation';
 import { FC } from 'react';
 import { IoMdSearch } from 'react-icons/io';
@@ -7,9 +8,10 @@ import { useDebouncedCallback } from 'use-debounce';
 
 interface Props {
   palceholder: string;
+  queryToChange: SearchQueriesNames;
 }
 
-const Search: FC<Props> = ({ palceholder }) => {
+const Search: FC<Props> = ({ palceholder, queryToChange }) => {
   const searchParams = useSearchParams();
   const pathname = usePathname();
   const { replace } = useRouter();
@@ -18,9 +20,9 @@ const Search: FC<Props> = ({ palceholder }) => {
     const params = new URLSearchParams(searchParams);
 
     if (searchTerm) {
-      params.set('query', searchTerm);
+      params.set('usersSearchQuery', searchTerm);
     } else {
-      params.delete('query');
+      params.delete('usersSearchQuery');
     }
 
     replace(`${pathname}?${params.toString()}`);

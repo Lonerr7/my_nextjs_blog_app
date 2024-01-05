@@ -5,6 +5,7 @@ import UsersLoadingSkeleton from '../components/ui/skeletons/UsersLoadingSkeleto
 import { getUsersPages } from '@/services/userServices';
 import Pagination from '../components/ui/Pagination';
 import { Metadata } from 'next';
+import { SearchQueriesNames } from '@/types/requestTypes';
 
 export const metadata: Metadata = {
   title: 'Users | Meta Blog',
@@ -12,19 +13,22 @@ export const metadata: Metadata = {
 
 interface Props {
   searchParams?: {
-    query?: string;
+    usersSearchQuery?: string;
     page?: string;
   };
 }
 
 const Users: FC<Props> = async ({ searchParams }) => {
-  const query = searchParams?.query || '';
+  const query = searchParams?.usersSearchQuery || '';
   const currentPage = Number(searchParams?.page) || 1;
   const totalPages = await getUsersPages(query);
 
   return (
     <section>
-      <Search palceholder="Search for a user" />
+      <Search
+        palceholder="Search for a user"
+        queryToChange={SearchQueriesNames.USERS_SEARCH_QUERY}
+      />
       <Suspense key={query + currentPage} fallback={<UsersLoadingSkeleton />}>
         <UsersList query={query} currentPage={currentPage} />
       </Suspense>

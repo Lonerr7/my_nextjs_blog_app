@@ -3,7 +3,6 @@ import User from '@/models/User';
 import { IUser } from '@/types/userTypes';
 import { connectToDB } from '@/utils/connectToDB';
 import { generateMongooseSearchOptions } from '@/utils/generateMongooseSearchOptions';
-
 import { NextRequest } from 'next/server';
 
 export const GET = async (req: NextRequest) => {

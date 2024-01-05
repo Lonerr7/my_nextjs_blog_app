@@ -1,5 +1,5 @@
 import { BlogpostTags, CreateBlogInput, IBlogPost } from '@/types/blogTypes';
-import { RequestTags } from '@/types/requestTypes';
+import { RequestTags, SearchQueriesNames } from '@/types/requestTypes';
 import { getBase64Size } from '@/utils/getBase64StringSize';
 import { z } from 'zod';
 
@@ -110,7 +110,7 @@ export const getBlogposts = async (
 ) => {
   try {
     const response = await fetch(
-      `${process.env.NEXTAUTH_URL}/api/blogs?ownerId=${ownerId}&query=${query}&page=${page}&tagFilter=${blogpostTagFilter}`,
+      `${process.env.NEXTAUTH_URL}/api/blogs?ownerId=${ownerId}&${SearchQueriesNames.BLOGPOSTS_SEARCH_QUERY}=${query}&page=${page}&blogpostsTagFilter=${blogpostTagFilter}`,
       {
         next: {
           revalidate: 15,

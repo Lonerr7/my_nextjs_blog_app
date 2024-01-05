@@ -76,8 +76,8 @@ export const GET = async (req: NextRequest) => {
         : req.nextUrl.searchParams.get('ownerId');
 
     const page = req.nextUrl.searchParams.get('page');
-    const query = req.nextUrl.searchParams.get('query');
-    const tagFilter = req.nextUrl.searchParams.get('tagFilter');
+    const query = req.nextUrl.searchParams.get('blogpostsSearchQuery');
+    const tagFilter = req.nextUrl.searchParams.get('blogpostsTagFilter');
 
     // 2. Getting the result from DB based on passed parametres
     let blogposts: IBlogPost[];

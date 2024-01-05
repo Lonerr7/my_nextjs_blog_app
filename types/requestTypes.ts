@@ -4,3 +4,8 @@ export enum RequestTags {
   GET_SINGLE_USER = 'user',
   GET_BLOGPOSTS = 'blogposts',
 }
+
+export enum SearchQueriesNames {
+  USERS_SEARCH_QUERY = 'usersSearchQuery',
+  BLOGPOSTS_SEARCH_QUERY = 'blogpostsSearchQuery',
+}
