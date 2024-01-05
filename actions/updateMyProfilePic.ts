@@ -2,6 +2,7 @@
 
 import { authConfig } from '@/configs/auth';
 import User from '@/models/User';
+import { RequestTags } from '@/types/requestTypes';
 import { connectToDB } from '@/utils/connectToDB';
 import { getBase64Size } from '@/utils/getBase64StringSize';
 import { UploadApiOptions, v2 as cloudinary } from 'cloudinary';
@@ -101,8 +102,9 @@ export const updateMyProfilePic = async (formData: FormData) => {
     };
   }
 
-  revalidateTag('myself');
-  revalidateTag('getUsers');
+  revalidateTag(RequestTags.GET_ME);
+  revalidateTag(RequestTags.GET_USERS);
+  revalidateTag(RequestTags.GET_BLOGPOSTS);
 
   return {
     success: true,

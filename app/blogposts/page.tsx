@@ -9,7 +9,7 @@ const BlogpostsPage = async () => {
     <section>
       <h1 className="page-title">Recent blogposts</h1>
 
-      <Blogposts mySessionId={session?.user.id} />
+      <Blogposts mySessionId={session?.user.id} noTitle />
     </section>
   );
 };

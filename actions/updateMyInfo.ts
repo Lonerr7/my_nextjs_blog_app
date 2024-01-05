@@ -8,6 +8,7 @@ import { getServerSession } from 'next-auth';
 import { revalidateTag } from 'next/cache';
 import { z } from 'zod';
 import { cookies } from 'next/headers';
+import { RequestTags } from '@/types/requestTypes';
 
 const EditMyInfoSchema = z.object({
   username: z
@@ -85,8 +86,8 @@ export const updateMyInfo = async (formData: FormData) => {
     return handleServerActionError(error);
   }
 
-  revalidateTag('myself');
-  revalidateTag('getUsers');
+  revalidateTag(RequestTags.GET_ME);
+  revalidateTag(RequestTags.GET_USERS);
 
   return {
     success: true,
