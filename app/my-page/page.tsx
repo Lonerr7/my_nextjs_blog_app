@@ -35,7 +35,9 @@ const MyPage: FC<Props> = async ({ searchParams }) => {
   const query = searchParams?.blogpostsSearchQuery || '';
   const currentPage = Number(searchParams?.page) || 1;
   const tagFilter = searchParams?.blogpostsTagFilter || '';
-  const totalPages = await getBlogpostsPages(query, tagFilter);
+  const totalPages = await getBlogpostsPages(query, tagFilter, myself?._id);
+
+  console.log(totalPages);
 
   if (error) {
     return (
@@ -66,7 +68,11 @@ const MyPage: FC<Props> = async ({ searchParams }) => {
           }}
         />
       </Suspense>
-      <Pagination totalPages={totalPages} />
+
+      <Pagination
+        totalPages={totalPages}
+        wrapperClassName="flex justify-center mt-5"
+      />
     </section>
   );
 };

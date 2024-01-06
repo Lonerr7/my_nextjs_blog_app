@@ -47,9 +47,9 @@ const Search: FC<Props> = ({
       <label className="sr-only" htmlFor="search">
         Search
       </label>
-      <div className="relative w-1/2 mx-auto mb-2">
+      <div className="relative w-1/2 mx-auto">
         <input
-          className="pl-7 pr-5 py-3 w-full rounded-lg focus:ring-2 focus:ring-inset focus:ring-indigo-600 dark:bg-item-bg-dark"
+          className="pl-7 pr-5 py-3 mb-2 w-full rounded-lg focus:ring-2 focus:ring-inset focus:ring-indigo-600 dark:bg-item-bg-dark"
           type="text"
           id="search"
           name="search"
@@ -62,14 +62,14 @@ const Search: FC<Props> = ({
           }`}
         />
         <IoMdSearch className="absolute top-[13px] left-[6px]" size={18} />
+
+        {blogpostsTagFilter ? (
+          <SearchTag
+            searchTag={blogpostsTagFilter}
+            handleSearchTagDelete={handleSearchTagDelete}
+          />
+        ) : null}
       </div>
-      {/* BLogpost search tag */}
-      {blogpostsTagFilter ? (
-        <SearchTag
-          searchTag={blogpostsTagFilter}
-          handleSearchTagDelete={handleSearchTagDelete}
-        />
-      ) : null}
     </div>
   );
 };

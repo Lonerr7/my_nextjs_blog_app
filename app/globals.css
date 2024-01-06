@@ -42,6 +42,10 @@ body {
   text-align: center;
 }
 
+.blogpost-tag {
+  @apply px-2.5 py-1 text-sm leading-5 max-w-[100px] text-blogpost-tag-primary bg-blogpost-tag-primary/5 text-center border rounded-md border-transparent mb-4 hover:bg-blogpost-tag-primary/25
+}
+
 .dropzone {
   height: 300px;
   width: 300px;
@@ -53,6 +57,7 @@ body {
 }
 
 /* Blog Select */
+
 .blogpost__control,
 .blogpost__menu {
   @apply dark:bg-item-bg-dark;

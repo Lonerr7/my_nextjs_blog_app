@@ -1,3 +1,5 @@
+import { ImCross } from 'react-icons/im';
+
 interface Props {
   searchTag: string;
   handleSearchTagDelete: () => void;
@@ -5,9 +7,11 @@ interface Props {
 
 const SearchTag: React.FC<Props> = ({ searchTag, handleSearchTagDelete }) => {
   return (
-    <div className="flex items-center">
-      <p className="mr-4">{searchTag}</p>
-      <button onClick={handleSearchTagDelete}>❌</button>
+    <div className="inline-flex items-center blogpost-tag">
+      <p className="mr-2">{searchTag}</p>
+      <button onClick={handleSearchTagDelete}>
+        <ImCross className="text-red-500" size={10} />
+      </button>
     </div>
   );
 };

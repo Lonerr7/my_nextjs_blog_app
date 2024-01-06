@@ -29,12 +29,15 @@ const Users: FC<Props> = async ({ searchParams }) => {
         palceholder="Search for a user"
         queryToChange={SearchQueriesNames.USERS_SEARCH_QUERY}
       />
+
       <Suspense key={query + currentPage} fallback={<UsersLoadingSkeleton />}>
         <UsersList query={query} currentPage={currentPage} />
       </Suspense>
-      <div className="mt-5 flex w-full justify-center">
-        <Pagination totalPages={totalPages} />
-      </div>
+
+      <Pagination
+        totalPages={totalPages}
+        wrapperClassName="mt-5 flex justify-center"
+      />
     </section>
   );
 };

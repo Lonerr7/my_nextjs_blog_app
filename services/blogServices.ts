@@ -115,7 +115,6 @@ export const getBlogposts = async (
       `${process.env.NEXTAUTH_URL}/api/blogs?ownerId=${ownerId}&${SearchQueriesNames.BLOGPOSTS_SEARCH_QUERY}=${query}&page=${page}&${SearchQueriesNames.BLOGPOSTS_TAG_FILTER}=${blogpostTagFilter}`,
       {
         next: {
-          revalidate: 15,
           tags: [RequestTags.GET_BLOGPOSTS],
         },
       }
@@ -139,11 +138,15 @@ export const getBlogposts = async (
   }
 };
 
-export const getBlogpostsPages = async (query?: string, tagFilter?: string) => {
+export const getBlogpostsPages = async (
+  query?: string,
+  tagFilter?: string,
+  owner?: string
+) => {
   try {
     no_store();
     const response = await fetch(
-      `${process.env.NEXTAUTH_URL}/api/blogpostsPageCount?${SearchQueriesNames.BLOGPOSTS_SEARCH_QUERY}=${query}&${SearchQueriesNames.BLOGPOSTS_TAG_FILTER}=${tagFilter}`
+      `${process.env.NEXTAUTH_URL}/api/blogpostsPageCount?${SearchQueriesNames.BLOGPOSTS_SEARCH_QUERY}=${query}&${SearchQueriesNames.BLOGPOSTS_TAG_FILTER}=${tagFilter}&owner=${owner}`
     );
 
     const data: number = await response.json();

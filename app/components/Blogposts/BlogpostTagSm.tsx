@@ -19,14 +19,12 @@ const BlogpostTag: React.FC<Props> = ({ tag }) => {
     e.preventDefault();
     const params = new URLSearchParams(searchParams);
     params.set(SearchQueriesNames.BLOGPOSTS_TAG_FILTER, tag);
+    params.set('page', '1');
 
     replace(`${pathname}?${params.toString()}`);
   };
   return (
-    <button
-      className={`px-2.5 py-1 text-sm leading-5 max-w-[100px] text-blogpost-tag-primary bg-blogpost-tag-primary/5 text-center border rounded-md border-transparent mb-4`}
-      onClick={handleTagClick}
-    >
+    <button className="blogpost-tag" onClick={handleTagClick}>
       {tag}
     </button>
   );
