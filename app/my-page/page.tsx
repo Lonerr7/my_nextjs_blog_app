@@ -10,6 +10,7 @@ import { getBlogpostsPages } from '@/services/blogServices';
 import Search from '../components/common/Search';
 import { BlogpostTags } from '@/types/blogTypes';
 import Pagination from '../components/ui/Pagination';
+import BlogpostsLoadingSkeleton from '../components/ui/skeletons/BlogpostsLoadingSkeleton';
 
 export const metadata: Metadata = {
   title: 'My Page | Meta Blog',
@@ -36,8 +37,6 @@ const MyPage: FC<Props> = async ({ searchParams }) => {
   const tagFilter = searchParams?.blogpostsTagFilter || '';
   const totalPages = await getBlogpostsPages(query, tagFilter);
 
-  console.log(currentPage, tagFilter, query, totalPages);
-
   if (error) {
     return (
       <section>
@@ -54,7 +53,10 @@ const MyPage: FC<Props> = async ({ searchParams }) => {
         queryToChange={SearchQueriesNames.BLOGPOSTS_SEARCH_QUERY}
         blogpostsTagFilter={tagFilter as BlogpostTags}
       />
-      <Suspense key={query + currentPage}>
+      <Suspense
+        key={query + currentPage + tagFilter}
+        fallback={<BlogpostsLoadingSkeleton />}
+      >
         <UserBlogposts
           myselfOwner={myself}
           queryOptions={{

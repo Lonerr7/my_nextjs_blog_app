@@ -35,6 +35,13 @@ const Search: FC<Props> = ({
     replace(`${pathname}?${params.toString()}`);
   }, 300);
 
+  const handleSearchTagDelete = () => {
+    const params = new URLSearchParams(searchParams);
+    params.delete(SearchQueriesNames.BLOGPOSTS_TAG_FILTER);
+
+    replace(`${pathname}?${params.toString()}`);
+  };
+
   return (
     <div className="mx-auto w-full mb-8">
       <label className="sr-only" htmlFor="search">
@@ -57,7 +64,12 @@ const Search: FC<Props> = ({
         <IoMdSearch className="absolute top-[13px] left-[6px]" size={18} />
       </div>
       {/* BLogpost search tag */}
-      {blogpostsTagFilter ? <SearchTag searchTag={blogpostsTagFilter} /> : null}
+      {blogpostsTagFilter ? (
+        <SearchTag
+          searchTag={blogpostsTagFilter}
+          handleSearchTagDelete={handleSearchTagDelete}
+        />
+      ) : null}
     </div>
   );
 };

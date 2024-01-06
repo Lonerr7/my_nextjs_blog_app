@@ -1,5 +1,6 @@
 import React from 'react';
 import CommonSkeleton from './CommonSkeleton';
+import BlogpostsLoadingSkeleton from './BlogpostsLoadingSkeleton';
 
 const MyOrUserPageLoadingSkeleton = () => {
   return (
@@ -10,11 +11,7 @@ const MyOrUserPageLoadingSkeleton = () => {
         height="269px"
         borderRadius="0.75rem"
       />
-      <div className="grid grid-cols-3 gap-5">
-        <CommonSkeleton height="498px" borderRadius="0.75rem" />
-        <CommonSkeleton height="498px" borderRadius="0.75rem" />
-        <CommonSkeleton height="498px" borderRadius="0.75rem" />
-      </div>
+      <BlogpostsLoadingSkeleton />
     </div>
   );
 };

@@ -2,7 +2,7 @@ import { IBlogPost } from '@/types/blogTypes';
 import { IUser } from '@/types/userTypes';
 import Link from 'next/link';
 import NextImageVithViewer from '../Users/NextImageVithViewer';
-import BlogpostTag from './BlogpostTag';
+import BlogpostTag from './BlogpostTagSm';
 
 export const BlogpostSm = ({
   blogpost,
@@ -27,7 +27,7 @@ export const BlogpostSm = ({
             blurDataUrl={blurredDataUrl}
           />
 
-          <BlogpostTag tag={blogpost.tag} isSearchable />
+          <BlogpostTag tag={blogpost.tag} />
 
           <h2 className="text-2xl leading-7 font-semibold mb-5 dark:text-white">
             {blogpost.title}
