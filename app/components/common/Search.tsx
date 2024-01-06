@@ -1,17 +1,24 @@
 'use client';
 
+import { BlogpostTags } from '@/types/blogTypes';
 import { SearchQueriesNames } from '@/types/requestTypes';
 import { useSearchParams, usePathname, useRouter } from 'next/navigation';
 import { FC } from 'react';
 import { IoMdSearch } from 'react-icons/io';
 import { useDebouncedCallback } from 'use-debounce';
+import SearchTag from './SearchTag';
 
 interface Props {
   palceholder: string;
   queryToChange: SearchQueriesNames;
+  blogpostsTagFilter?: BlogpostTags;
 }
 
-const Search: FC<Props> = ({ palceholder, queryToChange }) => {
+const Search: FC<Props> = ({
+  palceholder,
+  queryToChange,
+  blogpostsTagFilter,
+}) => {
   const searchParams = useSearchParams();
   const pathname = usePathname();
   const { replace } = useRouter();
@@ -33,7 +40,7 @@ const Search: FC<Props> = ({ palceholder, queryToChange }) => {
       <label className="sr-only" htmlFor="search">
         Search
       </label>
-      <div className="relative w-1/2 mx-auto">
+      <div className="relative w-1/2 mx-auto mb-2">
         <input
           className="pl-7 pr-5 py-3 w-full rounded-lg focus:ring-2 focus:ring-inset focus:ring-indigo-600 dark:bg-item-bg-dark"
           type="text"
@@ -49,6 +56,8 @@ const Search: FC<Props> = ({ palceholder, queryToChange }) => {
         />
         <IoMdSearch className="absolute top-[13px] left-[6px]" size={18} />
       </div>
+      {/* BLogpost search tag */}
+      {blogpostsTagFilter ? <SearchTag searchTag={blogpostsTagFilter} /> : null}
     </div>
   );
 };

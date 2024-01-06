@@ -26,7 +26,9 @@ export const BlogpostSm = ({
             sizes="90wv"
             blurDataUrl={blurredDataUrl}
           />
-          <BlogpostTag tag={blogpost.tag} />
+
+          <BlogpostTag tag={blogpost.tag} isSearchable />
+
           <h2 className="text-2xl leading-7 font-semibold mb-5 dark:text-white">
             {blogpost.title}
           </h2>

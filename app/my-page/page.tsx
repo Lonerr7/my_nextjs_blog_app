@@ -52,6 +52,7 @@ const MyPage: FC<Props> = async ({ searchParams }) => {
       <Search
         palceholder="Search by blogpost title"
         queryToChange={SearchQueriesNames.BLOGPOSTS_SEARCH_QUERY}
+        blogpostsTagFilter={tagFilter as BlogpostTags}
       />
       <Suspense key={query + currentPage}>
         <UserBlogposts
