@@ -20,9 +20,9 @@ const Search: FC<Props> = ({ palceholder, queryToChange }) => {
     const params = new URLSearchParams(searchParams);
 
     if (searchTerm) {
-      params.set('usersSearchQuery', searchTerm);
+      params.set(queryToChange, searchTerm);
     } else {
-      params.delete('usersSearchQuery');
+      params.delete(queryToChange);
     }
 
     replace(`${pathname}?${params.toString()}`);

@@ -2,19 +2,30 @@ import { addBlurredDataUrls } from '@/utils/getBase64';
 import { IUser } from '@/types/userTypes';
 import { BlogpostSm } from './BlogpostSm';
 import { getBlogposts } from '@/services/blogServices';
+import { BlogpostTags } from '@/types/blogTypes';
 
 interface Props {
   myselfOwner?: IUser;
   mySessionId?: string;
   noTitle?: boolean;
+  queryOptions?: {
+    query?: string;
+    currentPage?: number;
+    blogpostTagFilter?: BlogpostTags;
+  };
 }
 
 const Blogposts: React.FC<Props> = async ({
   myselfOwner,
   mySessionId,
   noTitle,
+  queryOptions,
 }) => {
-  const { blogs: blogposts, errMsg } = await getBlogposts(myselfOwner?._id, {});
+  const { blogs: blogposts, errMsg } = await getBlogposts(myselfOwner?._id, {
+    blogpostTagFilter: queryOptions?.blogpostTagFilter,
+    page: queryOptions?.currentPage,
+    query: queryOptions?.query,
+  });
 
   if (errMsg) {
     return <p>Error: {errMsg}</p>;

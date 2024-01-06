@@ -5,6 +5,8 @@ import { getCorrectDateTime } from '@/utils/getCorrectTimeDate';
 import { NextRequest } from 'next/server';
 import { UploadApiOptions, v2 as cloudinary } from 'cloudinary';
 import { revalidateTag } from 'next/cache';
+import { generateMongooseSearchOptions } from '@/utils/generateMongooseSearchOptions';
+import { BLOGS_ITEMS_PER_PAGE } from '@/configs/requestConfig';
 
 // Cloudinary config
 cloudinary.config({
@@ -74,19 +76,19 @@ export const GET = async (req: NextRequest) => {
       req.nextUrl.searchParams.get('ownerId') == 'undefined'
         ? null
         : req.nextUrl.searchParams.get('ownerId');
-
+    const searchOptions = generateMongooseSearchOptions(req);
     const page = req.nextUrl.searchParams.get('page');
-    const query = req.nextUrl.searchParams.get('blogpostsSearchQuery');
-    const tagFilter = req.nextUrl.searchParams.get('blogpostsTagFilter');
 
     // 2. Getting the result from DB based on passed parametres
     let blogposts: IBlogPost[];
     await connectToDB();
 
     if (owner) {
-      blogposts = await Blog.find({ owner }, '-text');
+      blogposts = await Blog.find({ owner, ...searchOptions }, '-text')
+        .limit(BLOGS_ITEMS_PER_PAGE)
+        .skip((Number(page) - 1) * BLOGS_ITEMS_PER_PAGE);
     } else {
-      blogposts = await Blog.find()
+      blogposts = await Blog.find(searchOptions)
         .select('-text')
         .populate('owner', 'username image');
     }

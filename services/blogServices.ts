@@ -1,6 +1,8 @@
+import { BLOGS_ITEMS_PER_PAGE } from '@/configs/requestConfig';
 import { BlogpostTags, CreateBlogInput, IBlogPost } from '@/types/blogTypes';
 import { RequestTags, SearchQueriesNames } from '@/types/requestTypes';
 import { getBase64Size } from '@/utils/getBase64StringSize';
+import { unstable_noStore as no_store } from 'next/cache';
 import { z } from 'zod';
 
 const MAX_FILE_SIZE_IN_KB = 2048;
@@ -110,7 +112,7 @@ export const getBlogposts = async (
 ) => {
   try {
     const response = await fetch(
-      `${process.env.NEXTAUTH_URL}/api/blogs?ownerId=${ownerId}&${SearchQueriesNames.BLOGPOSTS_SEARCH_QUERY}=${query}&page=${page}&blogpostsTagFilter=${blogpostTagFilter}`,
+      `${process.env.NEXTAUTH_URL}/api/blogs?ownerId=${ownerId}&${SearchQueriesNames.BLOGPOSTS_SEARCH_QUERY}=${query}&page=${page}&${SearchQueriesNames.BLOGPOSTS_TAG_FILTER}=${blogpostTagFilter}`,
       {
         next: {
           revalidate: 15,
@@ -134,5 +136,21 @@ export const getBlogposts = async (
     return {
       errMsg: 'Error when fetching',
     };
+  }
+};
+
+export const getBlogpostsPages = async (query?: string, tagFilter?: string) => {
+  try {
+    no_store();
+    const response = await fetch(
+      `${process.env.NEXTAUTH_URL}/api/blogpostsPageCount?${SearchQueriesNames.BLOGPOSTS_SEARCH_QUERY}=${query}&${SearchQueriesNames.BLOGPOSTS_TAG_FILTER}=${tagFilter}`
+    );
+
+    const data: number = await response.json();
+
+    return Math.ceil(data / BLOGS_ITEMS_PER_PAGE);
+  } catch (error) {
+    console.error('Database Error:', error);
+    throw new Error('Failed to fetch total number of users');
   }
 };

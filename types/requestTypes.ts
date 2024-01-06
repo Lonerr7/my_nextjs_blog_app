@@ -8,4 +8,5 @@ export enum RequestTags {
 export enum SearchQueriesNames {
   USERS_SEARCH_QUERY = 'usersSearchQuery',
   BLOGPOSTS_SEARCH_QUERY = 'blogpostsSearchQuery',
+  BLOGPOSTS_TAG_FILTER = 'blogpostsTagFilter',
 }
