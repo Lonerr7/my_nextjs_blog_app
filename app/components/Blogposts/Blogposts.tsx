@@ -5,7 +5,7 @@ import { getBlogposts } from '@/services/blogServices';
 import { BlogpostTags } from '@/types/blogTypes';
 
 interface Props {
-  myselfOwner?: IUser;
+  knownOwner?: IUser;
   mySessionId?: string;
   noTitle?: boolean;
   queryOptions?: {
@@ -16,12 +16,12 @@ interface Props {
 }
 
 const Blogposts: React.FC<Props> = async ({
-  myselfOwner,
+  knownOwner,
   mySessionId,
   noTitle,
   queryOptions,
 }) => {
-  const { blogs: blogposts, errMsg } = await getBlogposts(myselfOwner?._id, {
+  const { blogs: blogposts, errMsg } = await getBlogposts(knownOwner?._id, {
     blogpostTagFilter: queryOptions?.blogpostTagFilter,
     page: queryOptions?.currentPage,
     query: queryOptions?.query,
@@ -49,8 +49,8 @@ const Blogposts: React.FC<Props> = async ({
                 key={blogpost._id}
                 blogpost={blogpost}
                 blurredDataUrl={blurredUrls && blurredUrls[i]}
-                owner={myselfOwner ? myselfOwner : blogpost.owner}
-                isMine={myselfOwner ? true : mySessionId === blogpost.owner._id}
+                owner={knownOwner ? knownOwner : blogpost.owner}
+                isMine={knownOwner ? true : mySessionId === blogpost.owner._id}
               />
             ))
           : null}

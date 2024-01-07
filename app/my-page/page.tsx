@@ -61,7 +61,7 @@ const MyPage: FC<Props> = async ({ searchParams }) => {
         fallback={<BlogpostsLoadingSkeleton />}
       >
         <Blogposts
-          myselfOwner={myself}
+          knownOwner={myself}
           queryOptions={{
             blogpostTagFilter: tagFilter as BlogpostTags,
             currentPage: currentPage,
