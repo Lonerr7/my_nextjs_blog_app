@@ -111,6 +111,7 @@ export const getBlogposts = async (
   }: { page?: number; blogpostTagFilter?: BlogpostTags; query?: string }
 ) => {
   try {
+    no_store();
     const response = await fetch(
       `${process.env.NEXTAUTH_URL}/api/blogs?ownerId=${ownerId}&${SearchQueriesNames.BLOGPOSTS_SEARCH_QUERY}=${query}&page=${page}&${SearchQueriesNames.BLOGPOSTS_TAG_FILTER}=${blogpostTagFilter}`,
       {

@@ -7,6 +7,7 @@ import { UploadApiOptions, v2 as cloudinary } from 'cloudinary';
 import { revalidateTag } from 'next/cache';
 import { generateMongooseSearchOptions } from '@/utils/generateMongooseSearchOptions';
 import { BLOGS_ITEMS_PER_PAGE } from '@/configs/requestConfig';
+import { RequestTags } from '@/types/requestTypes';
 
 // Cloudinary config
 cloudinary.config({
@@ -55,7 +56,7 @@ export const POST = async (req: NextRequest) => {
       createdAt: getCorrectDateTime(),
     });
 
-    revalidateTag('myself');
+    revalidateTag(RequestTags.GET_ME);
 
     return new Response(JSON.stringify(newBlogPost), { status: 200 });
   } catch (error) {
@@ -85,10 +86,12 @@ export const GET = async (req: NextRequest) => {
 
     if (owner) {
       blogposts = await Blog.find({ owner, ...searchOptions }, '-text')
+        .sort('-createdAt')
         .limit(BLOGS_ITEMS_PER_PAGE)
         .skip((Number(page) - 1) * BLOGS_ITEMS_PER_PAGE);
     } else {
       blogposts = await Blog.find(searchOptions)
+        .sort('-createdAt')
         .limit(BLOGS_ITEMS_PER_PAGE)
         .skip((Number(page) - 1) * BLOGS_ITEMS_PER_PAGE)
         .select('-text')

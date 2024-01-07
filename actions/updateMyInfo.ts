@@ -49,9 +49,7 @@ export const updateMyInfo = async (formData: FormData) => {
     status: formData.get('status'),
   };
   const session = await getServerSession(authConfig);
-  const token = cookies().get('next-auth.session-token');
-
-  console.log(`token from cookie in server aciton:_`, token);
+  // const token = cookies().get('next-auth.session-token');
 
   // Если мой id взятый из сессии совпадает с id пользователя, что я хочу изменить (то есть себя), то все ок, нет - выдаем ошибку
   // Почитать про серверные экшены и их бонусы в защите
@@ -90,6 +88,6 @@ export const updateMyInfo = async (formData: FormData) => {
   revalidateTag(RequestTags.GET_USERS);
 
   return {
-    success: true,
+    message: null,
   };
 };

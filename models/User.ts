@@ -1,5 +1,6 @@
 import { Schema, model, models } from 'mongoose';
 import bcrypt from 'bcrypt';
+import { getCorrectDateTime } from '@/utils/getCorrectTimeDate';
 
 const userSchema = new Schema(
   {
@@ -81,6 +82,9 @@ const userSchema = new Schema(
         trim: true,
         maxLength: [100, 'Too many characters for facebook'],
       },
+    },
+    createdAt: {
+      type: Date,
     },
   },
   {

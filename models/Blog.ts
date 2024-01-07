@@ -1,4 +1,5 @@
 import { BlogpostTags } from '@/types/blogTypes';
+import { getCorrectDateTime } from '@/utils/getCorrectTimeDate';
 import { Schema, model, models } from 'mongoose';
 
 const blogSchema = new Schema(
@@ -31,7 +32,10 @@ const blogSchema = new Schema(
       ref: 'User',
       required: [true, 'Blog must belong to a user'],
     },
-    createdAt: Date,
+    createdAt: {
+      type: Date,
+
+    },
   },
   {
     toJSON: { virtuals: true },

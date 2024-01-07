@@ -12,6 +12,7 @@ export const GET = async (req: NextRequest) => {
 
     await connectToDB();
     const allUsers: IUser[] = await User.find(searchOptions)
+      .sort({ createdAt: -1 })
       .limit(USERS_ITEMS_PER_PAGE)
       .skip((Number(page) - 1) * USERS_ITEMS_PER_PAGE);
 

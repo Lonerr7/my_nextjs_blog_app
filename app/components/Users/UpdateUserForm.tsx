@@ -2,7 +2,7 @@
 
 import { IUser } from '@/types/userTypes';
 import { FC } from 'react';
-import { updateMyUsername } from '@/actions/updateMyInfo';
+import { updateMyInfo } from '@/actions/updateMyInfo';
 import toast from 'react-hot-toast';
 
 interface Props {
@@ -11,7 +11,7 @@ interface Props {
 
 const UpdateUserForm: FC<Props> = ({ user }) => {
   const clientAction = async (formData: FormData) => {
-    const error = await updateMyUsername(formData);
+    const error = await updateMyInfo(formData);
 
     if (error?.message) {
       toast.error(error.message);

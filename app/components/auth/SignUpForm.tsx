@@ -8,7 +8,7 @@ import { toast } from 'react-hot-toast';
 import { useRouter } from 'next/navigation';
 import { registerUserAction } from '@/actions/authActions';
 import { getFormDataFieldValues } from '@/utils/getFormDataFieldValues';
-import { RegisterUserInputFields } from '@/types/enums';
+import { RegisterUserInputFields } from '@/types/userTypes';
 import FormStatelessControl from '../ui/FormStatelessControl';
 
 const SignUpForm = () => {

@@ -2,7 +2,7 @@ import { IBlogPost } from '@/types/blogTypes';
 import { IUser } from '@/types/userTypes';
 import Link from 'next/link';
 import NextImageVithViewer from '../Users/NextImageVithViewer';
-import BlogpostTag from './BlogpostTagSm';
+import BlogpostTagSm from './BlogpostTagSm';
 import { cropStringByLength } from '@/utils/cropStringByLength';
 
 export const BlogpostSm = ({
@@ -28,10 +28,10 @@ export const BlogpostSm = ({
             blurDataUrl={blurredDataUrl}
           />
 
-          <BlogpostTag tag={blogpost.tag} />
+          <BlogpostTagSm tag={blogpost.tag} />
 
           <h2 className="text-2xl leading-7 font-semibold mb-5 dark:text-white">
-            {cropStringByLength(blogpost.title, 90, true)}
+            {cropStringByLength(blogpost.title, 70, true)}
           </h2>
         </div>
       </Link>

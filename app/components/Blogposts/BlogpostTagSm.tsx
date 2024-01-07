@@ -8,7 +8,7 @@ interface Props {
   tag: BlogpostTags;
 }
 
-const BlogpostTag: React.FC<Props> = ({ tag }) => {
+const BlogpostTagSm: React.FC<Props> = ({ tag }) => {
   const searchParams = useSearchParams();
   const pathname = usePathname();
   const { replace } = useRouter();
@@ -23,6 +23,7 @@ const BlogpostTag: React.FC<Props> = ({ tag }) => {
 
     replace(`${pathname}?${params.toString()}`);
   };
+  
   return (
     <button className="blogpost-tag" onClick={handleTagClick}>
       {tag}
@@ -30,4 +31,4 @@ const BlogpostTag: React.FC<Props> = ({ tag }) => {
   );
 };
 
-export default BlogpostTag;
+export default BlogpostTagSm;
