@@ -28,6 +28,7 @@ const Search: FC<Props> = ({
 
     if (searchTerm) {
       params.set(queryToChange, searchTerm);
+      params.set('page', '1');
     } else {
       params.delete(queryToChange);
     }

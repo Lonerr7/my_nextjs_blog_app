@@ -4,13 +4,13 @@ import { getServerSession } from 'next-auth';
 import { authConfig } from '@/configs/auth';
 import { getSingleUser } from '@/services/userServices';
 import UserInfo from '../components/Users/UserInfo';
-import UserBlogposts from '../components/Blogposts/Blogposts';
+import Blogposts from '../components/Blogposts/Blogposts';
 import { RequestTags, SearchQueriesNames } from '@/types/requestTypes';
-import { getBlogpostsPages } from '@/services/blogServices';
 import Search from '../components/common/Search';
 import { BlogpostTags } from '@/types/blogTypes';
 import Pagination from '../components/ui/Pagination';
 import BlogpostsLoadingSkeleton from '../components/ui/skeletons/BlogpostsLoadingSkeleton';
+import { generateBlogSearchOptions } from '@/utils/generateBlogSearchOptions';
 
 export const metadata: Metadata = {
   title: 'My Page | Meta Blog',
@@ -32,12 +32,13 @@ const MyPage: FC<Props> = async ({ searchParams }) => {
     false
   );
 
-  const query = searchParams?.blogpostsSearchQuery || '';
-  const currentPage = Number(searchParams?.page) || 1;
-  const tagFilter = searchParams?.blogpostsTagFilter || '';
-  const totalPages = await getBlogpostsPages(query, tagFilter, myself?._id);
-
-  console.log(totalPages);
+  const { currentPage, query, tagFilter, totalPages } =
+    await generateBlogSearchOptions({
+      blogpostsSearchQuery: searchParams?.blogpostsSearchQuery,
+      page: searchParams?.page,
+      blogpostsTagFilter: searchParams?.blogpostsTagFilter,
+      userId: myself?._id,
+    });
 
   if (error) {
     return (
@@ -59,7 +60,7 @@ const MyPage: FC<Props> = async ({ searchParams }) => {
         key={query + currentPage + tagFilter}
         fallback={<BlogpostsLoadingSkeleton />}
       >
-        <UserBlogposts
+        <Blogposts
           myselfOwner={myself}
           queryOptions={{
             blogpostTagFilter: tagFilter as BlogpostTags,

@@ -154,6 +154,6 @@ export const getBlogpostsPages = async (
     return Math.ceil(data / BLOGS_ITEMS_PER_PAGE);
   } catch (error) {
     console.error('Database Error:', error);
-    throw new Error('Failed to fetch total number of users');
+    throw new Error('Failed to fetch total number of blogpost pages');
   }
 };

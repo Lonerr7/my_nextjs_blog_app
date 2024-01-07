@@ -89,6 +89,8 @@ export const GET = async (req: NextRequest) => {
         .skip((Number(page) - 1) * BLOGS_ITEMS_PER_PAGE);
     } else {
       blogposts = await Blog.find(searchOptions)
+        .limit(BLOGS_ITEMS_PER_PAGE)
+        .skip((Number(page) - 1) * BLOGS_ITEMS_PER_PAGE)
         .select('-text')
         .populate('owner', 'username image');
     }

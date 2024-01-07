@@ -17,7 +17,6 @@ export const generateMongooseSearchOptions = (req: NextRequest) => {
   if (usersSearchQuery) {
     searchOptions = { username: { $regex: usersSearchQuery, $options: 'i' } };
   } else if (blogpostsSearchQuery && blogpostsTagFilter) {
-    //! Будет ли эта строка работать??
     searchOptions = {
       tag: { $regex: blogpostsTagFilter, $options: 'i' },
       title: { $regex: blogpostsSearchQuery, $options: 'i' },
