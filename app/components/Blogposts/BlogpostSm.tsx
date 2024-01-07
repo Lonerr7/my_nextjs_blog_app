@@ -3,6 +3,7 @@ import { IUser } from '@/types/userTypes';
 import Link from 'next/link';
 import NextImageVithViewer from '../Users/NextImageVithViewer';
 import BlogpostTag from './BlogpostTagSm';
+import { cropStringByLength } from '@/utils/cropStringByLength';
 
 export const BlogpostSm = ({
   blogpost,
@@ -30,7 +31,7 @@ export const BlogpostSm = ({
           <BlogpostTag tag={blogpost.tag} />
 
           <h2 className="text-2xl leading-7 font-semibold mb-5 dark:text-white">
-            {blogpost.title}
+            {cropStringByLength(blogpost.title, 90, true)}
           </h2>
         </div>
       </Link>

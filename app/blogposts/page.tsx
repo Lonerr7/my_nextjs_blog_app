@@ -40,11 +40,13 @@ const BlogpostsPage: React.FC<Props> = async ({ searchParams }) => {
         fallback={<BlogpostsLoadingSkeleton />}
       >
         <Blogposts
+          mySessionId={session?.user.id}
           queryOptions={{
             blogpostTagFilter: tagFilter as BlogpostTags,
             currentPage: currentPage,
             query,
           }}
+          noTitle
         />
       </Suspense>
       <Pagination
