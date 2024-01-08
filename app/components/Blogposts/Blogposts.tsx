@@ -1,6 +1,9 @@
+'use client';
+
 import { IUser } from '@/types/userTypes';
 import { BlogpostSm } from './BlogpostSm';
 import { IBlogPost } from '@/types/blogTypes';
+import { useOptimistic } from 'react';
 
 interface Props {
   knownOwner?: IUser;
@@ -12,13 +15,20 @@ interface Props {
 
 // TODO: Сделаем контейнерную компоненту (сервеную), где будем делать все соответствтующие запросы, далее прокинем пропсами всю инфу вниз сюда и этот компонент сделаем клиентским. Далее здесь вызовем уже useOptimistic и туда передадим полученные через пропсы блогпосты
 
-const Blogposts: React.FC<Props> = async ({
+const Blogposts: React.FC<Props> = ({
   knownOwner,
   mySessionId,
   noTitle,
   blogposts,
   blurredUrls,
 }) => {
+  const [optimisticBlogposts, deleteOptimisticBlogpost] = useOptimistic(
+    blogposts,
+    (state, optimisticValue) => {
+      return state?.filter((todo) => todo._id !== optimisticValue);
+    }
+  );
+
   return (
     <div>
       {noTitle || (
@@ -27,8 +37,8 @@ const Blogposts: React.FC<Props> = async ({
         </h2>
       )}
       <ul className="grid grid-cols-3 gap-5">
-        {blogposts
-          ? blogposts.map((blogpost, i) => (
+        {optimisticBlogposts
+          ? optimisticBlogposts.map((blogpost, i) => (
               <BlogpostSm
                 key={blogpost._id}
                 blogpost={blogpost}
@@ -39,6 +49,7 @@ const Blogposts: React.FC<Props> = async ({
                     ? true
                     : mySessionId === blogpost.owner._id
                 }
+                deleteOptimisticBlogpost={deleteOptimisticBlogpost}
               />
             ))
           : null}

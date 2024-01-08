@@ -11,11 +11,13 @@ export const BlogpostSm = ({
   blurredDataUrl,
   owner,
   isMine,
+  deleteOptimisticBlogpost,
 }: {
   blogpost: IBlogPost;
   blurredDataUrl: any;
   owner: IUser;
   isMine: boolean;
+  deleteOptimisticBlogpost: (action: unknown) => void;
 }) => {
   return (
     <li className="p-4 border rounded-xl border-solid border-blogpost-border-light h-[500px] flex flex-col justify-between hover:bg-light-gray dark:hover:bg-item-bg-dark_x2_hover">
@@ -60,7 +62,11 @@ export const BlogpostSm = ({
           </p>
         </div>
 
-        <DeleteBlogpost blogpostId={blogpost._id} isMine={isMine} />
+        <DeleteBlogpost
+          blogpostId={blogpost._id}
+          isMine={isMine}
+          deleteOptimisticBlogpost={deleteOptimisticBlogpost}
+        />
       </div>
     </li>
   );
