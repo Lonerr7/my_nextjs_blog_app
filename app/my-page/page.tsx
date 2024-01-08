@@ -63,6 +63,7 @@ const MyPage: FC<Props> = async ({ searchParams }) => {
       >
         <BlogpostsContainer
           knownOwner={myself}
+          mySessionId={session?.user.id}
           queryOptions={{
             blogpostTagFilter: tagFilter as BlogpostTags,
             currentPage: currentPage,

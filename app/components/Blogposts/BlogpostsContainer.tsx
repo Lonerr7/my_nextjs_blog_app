@@ -11,7 +11,7 @@ interface Props {
     currentPage?: number;
     blogpostTagFilter?: BlogpostTags;
   };
-  mySessionId?: string;
+  mySessionId: string | undefined;
   noTitle?: boolean;
 }
 

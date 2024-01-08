@@ -7,7 +7,7 @@ import { useOptimistic } from 'react';
 
 interface Props {
   knownOwner?: IUser;
-  mySessionId?: string;
+  mySessionId: string | undefined;
   noTitle?: boolean;
   blogposts?: IBlogPost[];
   blurredUrls: (string | undefined)[] | null;

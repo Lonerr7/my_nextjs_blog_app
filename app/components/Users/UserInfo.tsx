@@ -1,6 +1,6 @@
 import { IUser } from '@/types/userTypes';
 import { FC } from 'react';
-import { SlPencil } from 'react-icons/sl';
+import { FaGear } from 'react-icons/fa6';
 import Link from 'next/link';
 import UserSocials from './UserSocials/UserSocials';
 import NextImageVithViewer from './NextImageVithViewer';
@@ -19,7 +19,7 @@ const UserInfo: FC<Props> = ({ isMyPage, user }) => {
           href="/my-page/edit"
           title="Edit my page"
         >
-          <SlPencil className="absolute top-5 right-5" size={20} />
+          <FaGear className="absolute top-5 right-5" size={24} />
         </Link>
       ) : null}
 
