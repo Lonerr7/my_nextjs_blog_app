@@ -1,12 +1,14 @@
-import Blogposts from '@/app/components/Blogposts/Blogposts';
+import BlogpostsContainer from '@/app/components/Blogposts/BlogpostsContainer';
 import UserInfo from '@/app/components/Users/UserInfo';
 import Search from '@/app/components/common/Search';
 import Pagination from '@/app/components/ui/Pagination';
 import BlogpostsLoadingSkeleton from '@/app/components/ui/skeletons/BlogpostsLoadingSkeleton';
+import { authConfig } from '@/configs/auth';
 import { getSingleUser } from '@/services/userServices';
 import { BlogpostTags } from '@/types/blogTypes';
 import { RequestTags, SearchQueriesNames } from '@/types/requestTypes';
 import { generateBlogSearchOptions } from '@/utils/generateBlogSearchOptions';
+import { getServerSession } from 'next-auth';
 import { FC, Suspense } from 'react';
 
 interface Props {
@@ -21,12 +23,10 @@ interface Props {
 }
 
 const UserPage: FC<Props> = async ({ params: { userId }, searchParams }) => {
-  const { user, error } = await getSingleUser(
-    userId,
-    RequestTags.GET_SINGLE_USER
-  );
-
-  console.log(searchParams);
+  const [session, { user, error }] = await Promise.all([
+    await getServerSession(authConfig),
+    await getSingleUser(userId, RequestTags.GET_SINGLE_USER),
+  ]);
 
   if (error) {
     return <p>{error}</p>;
@@ -54,8 +54,9 @@ const UserPage: FC<Props> = async ({ params: { userId }, searchParams }) => {
         key={query + currentPage + tagFilter}
         fallback={<BlogpostsLoadingSkeleton />}
       >
-        <Blogposts
+        <BlogpostsContainer
           knownOwner={user}
+          mySessionId={session?.user.id}
           queryOptions={{
             blogpostTagFilter: tagFilter as BlogpostTags,
             currentPage: currentPage,

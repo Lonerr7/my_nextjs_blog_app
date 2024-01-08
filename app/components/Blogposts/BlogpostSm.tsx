@@ -4,6 +4,7 @@ import Link from 'next/link';
 import NextImageVithViewer from '../Users/NextImageVithViewer';
 import BlogpostTagSm from './BlogpostTagSm';
 import { cropStringByLength } from '@/utils/cropStringByLength';
+import DeleteBlogpost from './DeleteBlogpost';
 
 export const BlogpostSm = ({
   blogpost,
@@ -35,26 +36,31 @@ export const BlogpostSm = ({
           </h2>
         </div>
       </Link>
-      <div className="flex items-center">
-        <Link
-          className="flex items-center mr-5"
-          href={isMine ? `/my-page` : `/users/${owner._id}`}
-        >
-          <NextImageVithViewer
-            customClassName="!max-w-[36px] !max-h-[36px] min-w-[36px] min-h-[36px] mr-3"
-            imageUrl={owner?.image?.imageUrl}
-            sizes="36px"
-            small
-          />
-          <p className="text-blogpost-info">{owner?.username}</p>
-        </Link>
-        <p className="text-blogpost-info">
-          {new Date(blogpost.createdAt).toLocaleDateString('en-EN', {
-            month: 'long',
-            day: '2-digit',
-            year: 'numeric',
-          })}
-        </p>
+      <div className="flex items-center justify-between">
+        <div className="flex items-center mr-1">
+          <Link
+            className="flex items-center mr-5"
+            href={isMine ? `/my-page` : `/users/${owner._id}`}
+          >
+            <NextImageVithViewer
+              customClassName="!max-w-[36px] !max-h-[36px] min-w-[36px] min-h-[36px] mr-3"
+              imageUrl={owner?.image?.imageUrl}
+              sizes="36px"
+              small
+            />
+            <p className="text-blogpost-info">{owner?.username}</p>
+          </Link>
+
+          <p className="text-blogpost-info">
+            {new Date(blogpost.createdAt).toLocaleDateString('en-EN', {
+              month: 'long',
+              day: '2-digit',
+              year: 'numeric',
+            })}
+          </p>
+        </div>
+
+        <DeleteBlogpost blogpostId={blogpost._id} isMine={isMine} />
       </div>
     </li>
   );

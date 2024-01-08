@@ -1,6 +1,5 @@
 import { authConfig } from '@/configs/auth';
 import { getServerSession } from 'next-auth';
-import Blogposts from '../components/Blogposts/Blogposts';
 import { generateBlogSearchOptions } from '@/utils/generateBlogSearchOptions';
 import Search from '../components/common/Search';
 import { SearchQueriesNames } from '@/types/requestTypes';
@@ -8,6 +7,7 @@ import { BlogpostTags } from '@/types/blogTypes';
 import { Suspense } from 'react';
 import BlogpostsLoadingSkeleton from '../components/ui/skeletons/BlogpostsLoadingSkeleton';
 import Pagination from '../components/ui/Pagination';
+import BlogpostsContainer from '../components/Blogposts/BlogpostsContainer';
 
 interface Props {
   searchParams?: {
@@ -39,7 +39,7 @@ const BlogpostsPage: React.FC<Props> = async ({ searchParams }) => {
         key={query + currentPage + tagFilter}
         fallback={<BlogpostsLoadingSkeleton />}
       >
-        <Blogposts
+        <BlogpostsContainer
           mySessionId={session?.user.id}
           queryOptions={{
             blogpostTagFilter: tagFilter as BlogpostTags,

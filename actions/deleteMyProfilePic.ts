@@ -6,7 +6,7 @@ import { RequestTags } from '@/types/requestTypes';
 import { connectToDB } from '@/utils/connectToDB';
 import { v2 as cloudinary } from 'cloudinary';
 import { getServerSession } from 'next-auth';
-import { revalidatePath, revalidateTag } from 'next/cache';
+import { revalidateTag } from 'next/cache';
 
 // Cloudinary config
 cloudinary.config({

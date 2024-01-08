@@ -1,40 +1,24 @@
-import { addBlurredDataUrls } from '@/utils/getBase64';
 import { IUser } from '@/types/userTypes';
 import { BlogpostSm } from './BlogpostSm';
-import { getBlogposts } from '@/services/blogServices';
-import { BlogpostTags } from '@/types/blogTypes';
+import { IBlogPost } from '@/types/blogTypes';
 
 interface Props {
   knownOwner?: IUser;
   mySessionId?: string;
   noTitle?: boolean;
-  queryOptions?: {
-    query?: string;
-    currentPage?: number;
-    blogpostTagFilter?: BlogpostTags;
-  };
+  blogposts?: IBlogPost[];
+  blurredUrls: (string | undefined)[] | null;
 }
+
+// TODO: Сделаем контейнерную компоненту (сервеную), где будем делать все соответствтующие запросы, далее прокинем пропсами всю инфу вниз сюда и этот компонент сделаем клиентским. Далее здесь вызовем уже useOptimistic и туда передадим полученные через пропсы блогпосты
 
 const Blogposts: React.FC<Props> = async ({
   knownOwner,
   mySessionId,
   noTitle,
-  queryOptions,
+  blogposts,
+  blurredUrls,
 }) => {
-  const { blogs: blogposts, errMsg } = await getBlogposts(knownOwner?._id, {
-    blogpostTagFilter: queryOptions?.blogpostTagFilter,
-    page: queryOptions?.currentPage,
-    query: queryOptions?.query,
-  });
-
-  if (errMsg) {
-    return <p>Error: {errMsg}</p>;
-  }
-
-  const blurredUrls = await addBlurredDataUrls(
-    blogposts && blogposts.map((blogpost) => blogpost.image.imageUrl)
-  );
-
   return (
     <div>
       {noTitle || (
@@ -50,7 +34,11 @@ const Blogposts: React.FC<Props> = async ({
                 blogpost={blogpost}
                 blurredDataUrl={blurredUrls && blurredUrls[i]}
                 owner={knownOwner ? knownOwner : blogpost.owner}
-                isMine={knownOwner ? true : mySessionId === blogpost.owner._id}
+                isMine={
+                  knownOwner?._id === mySessionId
+                    ? true
+                    : mySessionId === blogpost.owner._id
+                }
               />
             ))
           : null}

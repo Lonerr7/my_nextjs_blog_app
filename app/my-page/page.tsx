@@ -11,6 +11,7 @@ import { BlogpostTags } from '@/types/blogTypes';
 import Pagination from '../components/ui/Pagination';
 import BlogpostsLoadingSkeleton from '../components/ui/skeletons/BlogpostsLoadingSkeleton';
 import { generateBlogSearchOptions } from '@/utils/generateBlogSearchOptions';
+import BlogpostsContainer from '../components/Blogposts/BlogpostsContainer';
 
 export const metadata: Metadata = {
   title: 'My Page | Meta Blog',
@@ -60,7 +61,7 @@ const MyPage: FC<Props> = async ({ searchParams }) => {
         key={query + currentPage + tagFilter}
         fallback={<BlogpostsLoadingSkeleton />}
       >
-        <Blogposts
+        <BlogpostsContainer
           knownOwner={myself}
           queryOptions={{
             blogpostTagFilter: tagFilter as BlogpostTags,
