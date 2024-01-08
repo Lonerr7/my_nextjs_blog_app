@@ -32,7 +32,7 @@ const AreYouSurePopup: React.FC<Props> = ({ popupPhrase, closePopup }) => {
       onClick={closePopup}
     >
       <div
-        className="relative w-[600px] h-[400px] bg-light-gray rounded-xl dark:bg-dark-blue flex flex-col items-center justify-center z-40"
+        className="relative w-[600px] h-[400px] px-4 bg-light-gray rounded-xl dark:bg-dark-blue flex flex-col items-center justify-center z-40"
         onClick={(e) => {
           e.stopPropagation();
         }}

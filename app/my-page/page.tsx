@@ -50,7 +50,7 @@ const MyPage: FC<Props> = async ({ searchParams }) => {
   }
 
   return (
-    <section>
+    <section className="relative">
       <UserInfo user={myself} isMyPage />
       <Search
         palceholder="Search by blogpost title"
