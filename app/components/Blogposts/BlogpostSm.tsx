@@ -4,7 +4,7 @@ import Link from 'next/link';
 import NextImageVithViewer from '../Users/NextImageVithViewer';
 import BlogpostTagSm from './BlogpostTagSm';
 import { cropStringByLength } from '@/utils/cropStringByLength';
-import DeleteBlogpost from './DeleteBlogpost';
+import BlogpostSmControls from './BlogpostSmControls';
 
 export const BlogpostSm = ({
   blogpost,
@@ -62,11 +62,13 @@ export const BlogpostSm = ({
           </p>
         </div>
 
-        <DeleteBlogpost
-          blogpostId={blogpost._id}
-          isMine={isMine}
-          deleteOptimisticBlogpost={deleteOptimisticBlogpost}
-        />
+        {/* Blogpost controls if it's mine */}
+        {isMine ? (
+          <BlogpostSmControls
+            blogpostId={blogpost._id}
+            deleteOptimisticBlogpost={deleteOptimisticBlogpost}
+          />
+        ) : null}
       </div>
     </li>
   );

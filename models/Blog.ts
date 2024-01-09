@@ -1,5 +1,4 @@
 import { BlogpostTags } from '@/types/blogTypes';
-import { getCorrectDateTime } from '@/utils/getCorrectTimeDate';
 import { Schema, model, models } from 'mongoose';
 
 const blogSchema = new Schema(
@@ -34,7 +33,6 @@ const blogSchema = new Schema(
     },
     createdAt: {
       type: Date,
-
     },
   },
   {

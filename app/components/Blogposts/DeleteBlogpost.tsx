@@ -7,13 +7,11 @@ import AreYouSurePopup from '../common/AreYouSurePopup';
 import { useState } from 'react';
 
 interface Props {
-  isMine?: boolean;
   blogpostId: string;
   deleteOptimisticBlogpost: (action: unknown) => void;
 }
 
 const DeleteBlogpost: React.FC<Props> = ({
-  isMine,
   blogpostId,
   deleteOptimisticBlogpost,
 }) => {
@@ -44,23 +42,21 @@ const DeleteBlogpost: React.FC<Props> = ({
 
   return (
     <>
-      {isMine ? (
-        isPopupOpen ? (
-          <form action={clientAction}>
-            <AreYouSurePopup
-              popupPhrase="Are you sure you want to delete this blogpost?"
-              closePopup={closePopup}
-            />
-          </form>
-        ) : (
-          <button type="button" title="Delete Blogpost" onClick={openPopup}>
-            <MdDelete
-              className="transition delay-30ms text-red-500 hover:text-red-700"
-              size={24}
-            />
-          </button>
-        )
-      ) : null}
+      {isPopupOpen ? (
+        <form action={clientAction}>
+          <AreYouSurePopup
+            popupPhrase="Are you sure you want to delete this blogpost?"
+            closePopup={closePopup}
+          />
+        </form>
+      ) : (
+        <button type="button" title="Delete Blogpost" onClick={openPopup}>
+          <MdDelete
+            className="transition delay-30ms text-red-500 hover:text-red-700"
+            size={24}
+          />
+        </button>
+      )}
     </>
   );
 };

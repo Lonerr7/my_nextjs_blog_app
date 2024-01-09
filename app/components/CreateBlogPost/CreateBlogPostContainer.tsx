@@ -8,13 +8,7 @@ import { useRef, useState } from 'react';
 import CreateBlogPost from './CreateBlogPost';
 import { BlogpostOption, BlogpostTags } from '@/types/blogTypes';
 import { useRouter } from 'next/navigation';
-
-const selectOptions: Array<BlogpostOption> = Object.entries(BlogpostTags).map(
-  (value) => ({
-    label: value[1],
-    value: value[1],
-  })
-);
+import { selectOptions } from '@/configs/selectConfig';
 
 const CreateBlogPostContainer = () => {
   const { data } = useSession();

@@ -39,17 +39,13 @@ const CreateBlogPost: React.FC<Props> = ({
 }) => {
   return (
     <div>
-      <div>
-        <div>
-          <ImageInputWithDrag
-            file={imageFile}
-            inputRef={inputRef}
-            placeholder="Select or drop here your blogpost image"
-            isSubmitBtnDisabled
-            setFile={setFile}
-          />
-        </div>
-      </div>
+      <ImageInputWithDrag
+        file={imageFile}
+        inputRef={inputRef}
+        placeholder="Select or drop here your blogpost image"
+        isSubmitBtnDisabled
+        setFile={setFile}
+      />
 
       <div>
         <form

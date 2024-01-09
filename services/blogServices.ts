@@ -158,3 +158,30 @@ export const getBlogpostsPages = async (
     throw new Error('Failed to fetch total number of blogpost pages');
   }
 };
+
+export const getSingleBlogpost = async (blogpostId: string) => {
+  try {
+    no_store();
+    const resposne = await fetch(
+      `${process.env.NEXTAUTH_URL}/api/singleBlogpost?blogpostId=${blogpostId}`
+    );
+
+    const data = await resposne.json();
+
+    if (!resposne.ok) {
+      console.error(data);
+
+      throw new Error('Error when fetching a blogpost');
+    }
+
+    return {
+      blogpost: data as IBlogPost,
+    };
+  } catch (error) {
+    console.error(error);
+
+    return {
+      errMsg: 'Something went wrong! Try again later!',
+    };
+  }
+};
