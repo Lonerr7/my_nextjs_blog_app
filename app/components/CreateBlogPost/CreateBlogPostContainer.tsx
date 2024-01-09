@@ -6,7 +6,7 @@ import { convertBase64 } from '@/utils/convertToBase64';
 import { toast } from 'react-hot-toast';
 import { useRef, useState } from 'react';
 import CreateBlogPost from './CreateBlogPost';
-import { BlogpostOption, BlogpostTags } from '@/types/blogTypes';
+import { SelectOption, BlogpostTags } from '@/types/blogTypes';
 import { useRouter } from 'next/navigation';
 import { selectOptions } from '@/configs/selectConfig';
 
@@ -21,7 +21,7 @@ const CreateBlogPostContainer = () => {
   const inputRef = useRef<HTMLInputElement>(null);
   const quillRef = useRef<any>(null);
 
-  const handleSelectChange = (newValue: BlogpostOption) => {
+  const handleSelectChange = (newValue: SelectOption) => {
     if (newValue?.value) {
       setTag(newValue?.value);
     } else {

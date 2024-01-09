@@ -1,11 +1,12 @@
-import { BLOGS_ITEMS_PER_PAGE } from '@/configs/requestConfig';
+import {
+  BLOGS_ITEMS_PER_PAGE,
+  MAX_IMAGE_FILE_SIZE_IN_KB,
+} from '@/configs/requestConfig';
 import { BlogpostTags, CreateBlogInput, IBlogPost } from '@/types/blogTypes';
 import { RequestTags, SearchQueriesNames } from '@/types/requestTypes';
 import { getBase64Size } from '@/utils/getBase64StringSize';
 import { unstable_noStore as no_store } from 'next/cache';
 import { z } from 'zod';
-
-const MAX_FILE_SIZE_IN_KB = 2048;
 
 const UploadBlogPostSchema = z.object({
   image: z
@@ -15,7 +16,8 @@ const UploadBlogPostSchema = z.object({
       'Only images are allowed!'
     )
     .refine(
-      (base64Image) => getBase64Size(base64Image, true) <= MAX_FILE_SIZE_IN_KB,
+      (base64Image) =>
+        getBase64Size(base64Image, true) <= MAX_IMAGE_FILE_SIZE_IN_KB,
       `Max image size is 2MB.`
     ),
   tag: z.nativeEnum(BlogpostTags, {

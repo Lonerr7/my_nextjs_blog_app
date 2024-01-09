@@ -27,7 +27,7 @@ export interface IBlogPost {
   title: string;
 }
 
-export interface BlogpostOption {
+export interface SelectOption {
   label: BlogpostTags;
   value: BlogpostTags;
 }

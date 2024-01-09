@@ -1,30 +1,42 @@
-import { BlogpostTags } from '@/types/blogTypes';
+import { BlogpostTags, SelectOption } from '@/types/blogTypes';
 import CustomSelect from '../common/CustomSelect';
 import { selectOptions } from '@/configs/selectConfig';
 import ReactQuill from 'react-quill';
 import { quillConfig } from '@/configs/quillConfig';
 import 'react-quill/dist/quill.snow.css';
 import ImageInputWithDrag from '../common/ImageInputWithDrag';
+import FormButton from '../ui/FormButton';
 
 interface Props {
   blogpostFields: {
     title: string;
     tag: BlogpostTags;
-    image: string;
     text: string;
   };
   imageInputRef: React.RefObject<HTMLInputElement>;
   quillRef: React.MutableRefObject<any>;
   imageFile: File | undefined;
   setImageFile: React.Dispatch<React.SetStateAction<File | undefined>>;
+  setBlogpostFeilds: React.Dispatch<
+    React.SetStateAction<{
+      title: string;
+      tag: BlogpostTags;
+      text: string;
+    }>
+  >;
+  clientAction: () => Promise<void>;
+  handleSelectChange: (newValue: SelectOption) => void;
 }
 
 const EditBlogpost: React.FC<Props> = ({
-  blogpostFields: { image, tag, text, title },
+  blogpostFields: { tag, text, title },
   imageInputRef,
   quillRef,
   imageFile,
   setImageFile,
+  setBlogpostFeilds,
+  clientAction,
+  handleSelectChange,
 }) => {
   return (
     <div>
@@ -36,12 +48,7 @@ const EditBlogpost: React.FC<Props> = ({
         setFile={setImageFile}
       />
       <div>
-        <form
-          className="w-full"
-          onSubmit={(e) => {
-            e.preventDefault(); //! Возможно придется убрать это, так как будем использовтаь серверный экшен
-          }}
-        >
+        <form className="w-full" action={clientAction}>
           <label htmlFor="title" id="title" />
           <input
             className="w-full mb-4 px-2 py-2"
@@ -50,27 +57,43 @@ const EditBlogpost: React.FC<Props> = ({
             placeholder="Enter blogpost title"
             maxLength={125}
             value={title}
-            // onChange={(e) => setTitle(e.currentTarget.value)}
+            onChange={(e) =>
+              setBlogpostFeilds((prevState) => ({
+                ...prevState,
+                title: e.target.value,
+              }))
+            }
+          />
+
+          <CustomSelect
+            selectOptions={selectOptions}
+            selectValue={tag}
+            classNamePrefix="blogpost"
+            className="mb-5"
+            placeholder="Select blogpost tag..."
+            onSelectChange={handleSelectChange}
+          />
+
+          <ReactQuill
+            className="mb-8"
+            ref={quillRef}
+            theme="snow"
+            value={text}
+            onChange={(value) => {
+              setBlogpostFeilds((prevState) => ({
+                ...prevState,
+                text: value,
+              }));
+            }}
+            modules={quillConfig}
+          />
+
+          <FormButton
+            // customClassName="!w-1/2"
+            btnText="Edit blogpost"
+            loadingText="Sending"
           />
         </form>
-
-        <CustomSelect
-          selectOptions={selectOptions}
-          selectValue={tag}
-          classNamePrefix="blogpost"
-          className="mb-5"
-          placeholder="Select blogpost tag..."
-          onSelectChange={() => {}}
-        />
-
-        <ReactQuill
-          className="mb-8"
-          ref={quillRef}
-          theme="snow"
-          value={text}
-          // onChange={setTextValue}
-          modules={quillConfig}
-        />
       </div>
     </div>
   );
