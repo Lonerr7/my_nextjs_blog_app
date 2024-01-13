@@ -48,7 +48,7 @@ const EditBlogpostContainer: React.FC<Props> = ({ blogpost }) => {
       title: blogpostFields.title,
       tag: blogpostFields.tag,
       text: blogpostFields.text,
-      [base64Image ? 'image' : 'null']: base64Image,
+      image: base64Image || undefined,
     });
 
     const { errMsg } = await bindnedAction();
@@ -59,6 +59,8 @@ const EditBlogpostContainer: React.FC<Props> = ({ blogpost }) => {
     }
 
     toast.success('Successfully updated blogpost!');
+    console.log(`from here`);
+    
   };
 
   return (

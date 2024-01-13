@@ -1,6 +1,7 @@
 'use server';
 
 import { authConfig } from '@/configs/auth';
+import { MAX_IMAGE_FILE_SIZE_IN_KB } from '@/configs/requestConfig';
 import User from '@/models/User';
 import { RequestTags } from '@/types/requestTypes';
 import { connectToDB } from '@/utils/connectToDB';
@@ -23,8 +24,6 @@ const uploadOptions: UploadApiOptions = {
   resource_type: 'image',
 };
 
-const MAX_FILE_SIZE_IN_KB = 2048;
-
 // Zod schema
 const UploadImageSchema = z
   .string()
@@ -33,7 +32,7 @@ const UploadImageSchema = z
     'Only images are allowed!'
   )
   .refine(
-    (base64Image) => getBase64Size(base64Image, true) <= MAX_FILE_SIZE_IN_KB,
+    (base64Image) => getBase64Size(base64Image, true) <= MAX_IMAGE_FILE_SIZE_IN_KB,
     `Max image size is 2MB.`
   );
 

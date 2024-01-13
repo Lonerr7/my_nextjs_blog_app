@@ -3,7 +3,7 @@ import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import ImageInputWithDrag from '../common/ImageInputWithDrag';
 import SubmitLoadingBtn from '../common/SubmitLoadingBtn';
-import { BlogpostOption, BlogpostTags } from '@/types/blogTypes';
+import { SelectOption, BlogpostTags } from '@/types/blogTypes';
 import CustomSelect from '../common/CustomSelect';
 
 interface Props {
@@ -12,7 +12,7 @@ interface Props {
   quillRef: React.MutableRefObject<any>;
   textValue: string;
   isBlogpostCreating: boolean;
-  selectOptions: Array<BlogpostOption>;
+  selectOptions: Array<SelectOption>;
   selectValue: BlogpostTags | '';
   title: string;
   setFile: React.Dispatch<React.SetStateAction<File | undefined>>;
