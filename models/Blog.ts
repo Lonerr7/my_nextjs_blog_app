@@ -31,9 +31,8 @@ const blogSchema = new Schema(
       ref: 'User',
       required: [true, 'Blog must belong to a user'],
     },
-    createdAt: {
-      type: Date,
-    },
+    createdAt: Date,
+    lastUpdatedAt: Date,
   },
   {
     toJSON: { virtuals: true },

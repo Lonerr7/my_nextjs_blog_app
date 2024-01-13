@@ -41,6 +41,7 @@ const NextImageVithViewer: FC<Props> = ({
         alt="avatar"
         onClick={openImageViewer}
         fill
+        objectFit="responsive"
         sizes={sizes}
         priority
         placeholder={blurDataUrl ? 'blur' : 'empty'}

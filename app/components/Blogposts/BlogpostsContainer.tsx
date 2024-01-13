@@ -32,7 +32,7 @@ const BlogpostsContainer: React.FC<Props> = async ({
   }
 
   const blurredUrls = await addBlurredDataUrls(
-    blogposts && blogposts.map((blogpost) => blogpost.image.imageUrl)
+    blogposts && blogposts.map((blogpost) => blogpost?.image?.imageUrl)
   );
 
   return (

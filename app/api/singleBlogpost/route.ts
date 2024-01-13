@@ -8,7 +8,7 @@ export const GET = async (req: NextRequest) => {
 
     await connectToDB();
 
-    const blogpost = await Blog.findById(blogpostId);
+    const blogpost = await Blog.findById(blogpostId).populate('owner', 'username image');
 
     if (!blogpost) {
       throw new Error('Failed to fetch blogpost');

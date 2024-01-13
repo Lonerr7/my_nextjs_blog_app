@@ -14,4 +14,3 @@ export const cropStringByLength = (
   );
 };
 
-console.log(cropStringByLength('A very long string yeah', 15));

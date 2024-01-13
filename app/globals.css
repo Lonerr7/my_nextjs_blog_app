@@ -43,7 +43,7 @@ body {
 }
 
 .blogpost-tag {
-  @apply px-2.5 py-1 text-sm leading-5 max-w-[100px] text-blogpost-tag-primary bg-blogpost-tag-primary/5 text-center border rounded-md border-transparent mb-4 hover:bg-blogpost-tag-primary/25
+  @apply px-2.5 py-1 text-sm leading-5 max-w-[300px] text-blogpost-tag-primary bg-blogpost-tag-primary/5 text-center border rounded-md border-transparent mb-4 hover:bg-blogpost-tag-primary/25;
 }
 
 .dropzone {

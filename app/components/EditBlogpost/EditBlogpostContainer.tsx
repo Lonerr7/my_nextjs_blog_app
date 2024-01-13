@@ -6,6 +6,7 @@ import EditBlogpost from './EditBlogpost';
 import { updateMyBlogpost } from '@/actions/updateMyBlogpost';
 import { convertBase64 } from '@/utils/convertToBase64';
 import { toast } from 'react-hot-toast';
+import { useRouter } from 'next/navigation';
 
 interface Props {
   blogpost: IBlogPost;
@@ -20,6 +21,7 @@ const EditBlogpostContainer: React.FC<Props> = ({ blogpost }) => {
   const [imageFile, setImageFile] = useState<File>();
   const imageInputRef = useRef<HTMLInputElement>(null);
   const quillRef = useRef<any>(null);
+  const router = useRouter();
 
   const handleSelectChange = (newValue: SelectOption) => {
     if (newValue?.value) {
@@ -51,16 +53,15 @@ const EditBlogpostContainer: React.FC<Props> = ({ blogpost }) => {
       image: base64Image || undefined,
     });
 
-    const { errMsg } = await bindnedAction();
+    const actionResponse = await bindnedAction();
 
-    if (errMsg) {
-      toast.error(errMsg);
+    if (actionResponse?.errMsg) {
+      toast.error(actionResponse.errMsg);
       return;
     }
 
     toast.success('Successfully updated blogpost!');
-    console.log(`from here`);
-    
+    router.push('/my-page');
   };
 
   return (

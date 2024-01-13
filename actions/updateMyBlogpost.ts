@@ -7,7 +7,6 @@ import { BlogpostTags } from '@/types/blogTypes';
 import { getBase64Size } from '@/utils/getBase64StringSize';
 import { getServerSession } from 'next-auth';
 import { z } from 'zod';
-import { redirect } from 'next/navigation';
 import { revalidateTag } from 'next/cache';
 import { RequestTags } from '@/types/requestTypes';
 import {
@@ -15,6 +14,7 @@ import {
   UploadApiResponse,
   v2 as cloudinary,
 } from 'cloudinary';
+import { getCorrectDateTime } from '@/utils/getCorrectTimeDate';
 
 // Cloudinary config
 cloudinary.config({
@@ -134,6 +134,7 @@ export const updateMyBlogpost = async (
         publicId: cloudinaryResponse.public_id,
       };
     }
+    blogpost.lastUpdatedAt = getCorrectDateTime();
 
     // 5. Сохраняем обновления
     await blogpost.save();
@@ -146,5 +147,4 @@ export const updateMyBlogpost = async (
   }
 
   revalidateTag(RequestTags.GET_BLOGPOSTS);
-  redirect('/my-page');
 };

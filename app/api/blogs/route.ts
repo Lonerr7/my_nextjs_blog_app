@@ -85,7 +85,7 @@ export const GET = async (req: NextRequest) => {
     await connectToDB();
 
     if (owner) {
-      blogposts = await Blog.find({ owner, ...searchOptions }, '-text')
+      blogposts = await Blog.find({ owner, ...searchOptions }, '-text -lastUpdatedAt')
         .sort('-createdAt')
         .limit(BLOGS_ITEMS_PER_PAGE)
         .skip((Number(page) - 1) * BLOGS_ITEMS_PER_PAGE);
@@ -94,7 +94,7 @@ export const GET = async (req: NextRequest) => {
         .sort('-createdAt')
         .limit(BLOGS_ITEMS_PER_PAGE)
         .skip((Number(page) - 1) * BLOGS_ITEMS_PER_PAGE)
-        .select('-text')
+        .select('-text -lastUpdatedAt')
         .populate('owner', 'username image');
     }
 

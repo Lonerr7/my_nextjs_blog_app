@@ -25,7 +25,10 @@ export interface IBlogPost {
   text: string;
   createdAt: string;
   title: string;
+  lastUpdatedAt?: string;
 }
+
+export type ISmBlogpost = Omit<IBlogPost, 'text' | 'lastUpdatedAt'>;
 
 export interface SelectOption {
   label: BlogpostTags;

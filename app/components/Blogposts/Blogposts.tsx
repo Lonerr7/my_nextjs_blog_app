@@ -2,14 +2,14 @@
 
 import { IUser } from '@/types/userTypes';
 import { BlogpostSm } from './BlogpostSm';
-import { IBlogPost } from '@/types/blogTypes';
+import { ISmBlogpost } from '@/types/blogTypes';
 import { useOptimistic } from 'react';
 
 interface Props {
   knownOwner?: IUser;
   mySessionId: string | undefined;
   noTitle?: boolean;
-  blogposts?: IBlogPost[];
+  blogposts?: ISmBlogpost[];
   blurredUrls: (string | undefined)[] | null;
 }
 
