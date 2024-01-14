@@ -29,8 +29,9 @@ const UserInfo: FC<Props> = ({ isMyPage, user }) => {
             customClassName="mr-4"
             imageUrl={user?.image?.imageUrl}
             small
+            alt='avatar'
             fullscreen
-            sizes="125px"
+            sizes="200px"
           />
           <div>
             <p className="text-xl font-medium	mb-2">{user?.username}</p>

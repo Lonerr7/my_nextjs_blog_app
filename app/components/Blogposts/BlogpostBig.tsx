@@ -23,11 +23,11 @@ const BlogpostBig: React.FC<Props> = ({ blogpost }) => {
       </div>
 
       <NextImageVithViewer
-        customClassName="!min-w-[100%] min-h-[100%] !max-w-[800px] !max-h-[462px]"
-        customImgClassName="!h-[auto] !w-[auto]"
+        customClassName="!min-h-[462px]"
         fullscreen
+        alt="blogpost_thumbnail"
         imageUrl={blogpost.image.imageUrl}
-        sizes="100vw"
+        sizes="(min-width: 800px) 800px, (min-width: 500px) 500px, 100vw"
       />
 
       <p>{blogpost.text}</p>

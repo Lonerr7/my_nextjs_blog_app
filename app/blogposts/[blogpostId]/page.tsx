@@ -18,7 +18,7 @@ const BlogpostPage: React.FC<Props> = async ({ params: { blogpostId } }) => {
   }
 
   return (
-    <section>
+    <section className="max-w-[800px] mx-auto">
       <BlogpostBig blogpost={blogpost} />
     </section>
   );

@@ -25,9 +25,10 @@ export const BlogpostSm = ({
         <div>
           <NextImageVithViewer
             imageUrl={blogpost.image.imageUrl}
-            customClassName="mb-6 !max-w-[360px] min-h-[240px] mx-auto"
+            customClassName="mb-6 !max-w-[360px] h-[240px] mx-auto"
             customImgClassName="border rounded-md border-transparent"
-            sizes="90wv"
+            sizes="400px"
+            alt="blogpost_thumbnail"
             blurDataUrl={blurredDataUrl}
           />
 
@@ -49,6 +50,7 @@ export const BlogpostSm = ({
               imageUrl={owner?.image?.imageUrl}
               sizes="36px"
               small
+              alt="blogpost owner's avatar"
             />
             <p className="text-blogpost-info">{owner?.username}</p>
           </Link>
