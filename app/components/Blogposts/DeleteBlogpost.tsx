@@ -5,17 +5,23 @@ import { toast } from 'react-hot-toast';
 import { MdDelete } from 'react-icons/md';
 import AreYouSurePopup from '../common/AreYouSurePopup';
 import { useState } from 'react';
+import { useRouter } from 'next/navigation';
 
 interface Props {
   blogpostId: string;
-  deleteOptimisticBlogpost: (action: unknown) => void;
+  iconSize?: number;
+  withRedirect?: boolean;
+  deleteOptimisticBlogpost?: (action: unknown) => void;
 }
 
 const DeleteBlogpost: React.FC<Props> = ({
   blogpostId,
+  iconSize,
+  withRedirect,
   deleteOptimisticBlogpost,
 }) => {
   const [isPopupOpen, setIsPopupOpen] = useState(false);
+  const router = useRouter();
 
   const openPopup = () => {
     setIsPopupOpen(true);
@@ -26,7 +32,9 @@ const DeleteBlogpost: React.FC<Props> = ({
 
   const bindedAction = deleteBlogpost.bind(null, blogpostId);
   const clientAction = async () => {
-    deleteOptimisticBlogpost(blogpostId);
+    if (deleteOptimisticBlogpost) {
+      deleteOptimisticBlogpost(blogpostId);
+    }
     const { errMsg, success } = await bindedAction();
 
     if (errMsg) {
@@ -37,6 +45,10 @@ const DeleteBlogpost: React.FC<Props> = ({
     // If success
     if (success) {
       toast.success('Sucessfully deleted blogpost!');
+
+      if (withRedirect) {
+        router.replace('/my-page');
+      }
     }
   };
 
@@ -53,7 +65,7 @@ const DeleteBlogpost: React.FC<Props> = ({
         <button type="button" title="Delete Blogpost" onClick={openPopup}>
           <MdDelete
             className="transition delay-30ms text-red-500 hover:text-red-700"
-            size={24}
+            size={iconSize || 24}
           />
         </button>
       )}

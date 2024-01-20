@@ -4,7 +4,7 @@ import Link from 'next/link';
 import NextImageVithViewer from '../Users/NextImageVithViewer';
 import BlogpostTagSm from './BlogpostTagSm';
 import { cropStringByLength } from '@/utils/cropStringByLength';
-import BlogpostSmControls from './BlogpostSmControls';
+import BlogpostControls from './BlogpostControls';
 import BlogpostDate from './BlogpostDate';
 
 export const BlogpostSm = ({
@@ -70,7 +70,7 @@ export const BlogpostSm = ({
 
         {/* Blogpost controls if it's mine */}
         {isMine ? (
-          <BlogpostSmControls
+          <BlogpostControls
             blogpostId={blogpost._id}
             deleteOptimisticBlogpost={deleteOptimisticBlogpost}
           />

@@ -6,6 +6,7 @@ import BlogpostDate from '../BlogpostDate';
 import BlogpostCleanText from '../BlogpostCleanText';
 import s from './BlogpostBig.module.css';
 import { LuPencil } from 'react-icons/lu';
+import BlogpostControls from '../BlogpostControls';
 
 interface Props {
   blogpost?: IBlogPost;
@@ -24,13 +25,20 @@ const BlogpostBig: React.FC<Props> = ({ blogpost, myId }) => {
       <div className="flex justify-between items-center mb-4">
         <BlogpostTagBig customClassName="mr-3 !mb-0" tag={blogpost.tag} />
         {isMeOwner ? (
-          <Link
-            className="inline-block"
-            href={`/blogposts/${blogpost._id}/edit`}
-            title="Edit blogpost"
-          >
-            <LuPencil className="dark:text-light-gray" size={24} />
-          </Link>
+          // <Link
+          //   className="inline-block"
+          //   href={`/blogposts/${blogpost._id}/edit`}
+          //   title="Edit blogpost"
+          // >
+          //   <LuPencil className="dark:text-light-gray" size={24} />
+          // </Link>
+          <BlogpostControls
+            customClassName="w-[70px]"
+            blogpostId={blogpost._id}
+            withRedirect
+            iconSize={24}
+            deleteIconSize={30}
+          />
         ) : null}
       </div>
       <h1 className="text-4xl font-semibold mb-5">{blogpost.title}</h1>
