@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import { workSans } from './ui/fonts';
+import { workSans, sourceSerifPro } from './ui/fonts';
 import './globals.css';
 import './reset.css';
 import Providers from './components/Providers';
@@ -24,7 +24,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body
-        className={`${workSans.className} relative antialiased flex flex-col h-screen justify-between bg-bg-light dark:bg-bg-dark transition-colors delay-[30ms]`}
+        className={`${workSans.className} ${sourceSerifPro.variable} relative antialiased flex flex-col h-screen justify-between bg-bg-light dark:bg-bg-dark transition-colors delay-[30ms]`}
       >
         <Providers session={session}>
           <Header>

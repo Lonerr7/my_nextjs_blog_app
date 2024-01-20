@@ -5,6 +5,7 @@ import NextImageVithViewer from '../Users/NextImageVithViewer';
 import BlogpostTagSm from './BlogpostTagSm';
 import { cropStringByLength } from '@/utils/cropStringByLength';
 import BlogpostSmControls from './BlogpostSmControls';
+import BlogpostDate from './BlogpostDate';
 
 export const BlogpostSm = ({
   blogpost,
@@ -55,13 +56,16 @@ export const BlogpostSm = ({
             <p className="text-blogpost-info">{owner?.username}</p>
           </Link>
 
-          <p className="text-blogpost-info">
-            {new Date(blogpost.createdAt).toLocaleDateString('en-EN', {
+          <BlogpostDate
+            date={blogpost.createdAt}
+            customClassName="text-blogpost-info"
+            locales="en-EN"
+            options={{
               month: 'long',
               day: '2-digit',
               year: 'numeric',
-            })}
-          </p>
+            }}
+          />
         </div>
 
         {/* Blogpost controls if it's mine */}

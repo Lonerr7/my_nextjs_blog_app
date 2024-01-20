@@ -1,7 +1,6 @@
 'use client';
 
 import { FC, useState } from 'react';
-
 import ImageViewer from 'react-simple-image-viewer';
 import Image from 'next/image';
 
@@ -36,9 +35,9 @@ const NextImageVithViewer: FC<Props> = ({
   const closeImageViewer = () => setIsViewerOpen(false);
 
   return (
-    <div className={`relative min-w-[125px] min-h-[125px] ${customClassName}`}>
+    <div className={`relative min-h-[125px] min-w-[125px] ${customClassName}`}>
       <Image
-        className={`${small && `rounded-[50%]`} ${
+        className={`${small && `rounded-[50%]`}  ${
           fullscreen && 'cursor-pointer '
         } ${customImgClassName}`}
         src={imageUrl ? imageUrl : '/mockAvatar.jpg'}

@@ -1,4 +1,4 @@
-import BlogpostBig from '@/app/components/Blogposts/BlogpostBig';
+import BlogpostBig from '@/app/components/Blogposts/BlogpostBig/BlogpostBig';
 import { authConfig } from '@/configs/auth';
 import { getSingleBlogpost } from '@/services/blogServices';
 import { getServerSession } from 'next-auth';
@@ -19,7 +19,7 @@ const BlogpostPage: React.FC<Props> = async ({ params: { blogpostId } }) => {
 
   return (
     <section className="max-w-[800px] mx-auto">
-      <BlogpostBig blogpost={blogpost} />
+      <BlogpostBig blogpost={blogpost} myId={session?.user.id} />
     </section>
   );
 };

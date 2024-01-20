@@ -1,0 +1,72 @@
+.text h1,
+.text h2,
+.text h3,
+.text h4,
+.text h5,
+.text h6 {
+  font-weight: 600;
+  margin-bottom: 16px;
+}
+
+.text h1 {
+  font-size: 34px;
+  line-height: 32px;
+}
+
+.text h2 {
+  font-size: 32px;
+  line-height: 30px;
+}
+
+.text h3 {
+  font-size: 30px;
+  line-height: 28px;
+}
+
+.text h4 {
+  font-size: 28px;
+  line-height: 26px;
+}
+
+.text h5 {
+  font-size: 26px;
+  line-height: 24px;
+}
+
+.text h6 {
+  font-size: 24px;
+  line-height: 22px;
+}
+
+.text p {
+  font-size: 20px;
+  line-height: 20px;
+  margin-bottom: 32px;
+  @apply font-source-serif-pro text-light-black;
+}
+
+.text a {
+  text-decoration: underline;
+  font-size: 20px;
+  line-height: 20px;
+  @apply font-source-serif-pro text-light-black font-semibold;
+}
+
+:global(.dark) .text p,
+:global(.dark) .text a {
+  @apply text-dark-gray;
+}
+
+.text blockquote {
+  font-size: 24px;
+  line-height: 32px;
+  padding: 32px;
+  margin-bottom: 32px;
+  font-style: italic;
+  border-radius: 12px;
+  @apply font-source-serif-pro bg-blogpost-border-light text-bg-dark;
+}
+
+:global(.dark) .text blockquote {
+  @apply text-white bg-dark-blue;
+}

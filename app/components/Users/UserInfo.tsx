@@ -26,10 +26,10 @@ const UserInfo: FC<Props> = ({ isMyPage, user }) => {
       <div className="mx-auto flex flex-col items-center max-w-[668px]">
         <div className="flex items-center mb-6">
           <NextImageVithViewer
-            customClassName="mr-4"
+            customClassName="mr-4 min-w-[125px] min-h-[125px]"
             imageUrl={user?.image?.imageUrl}
             small
-            alt='avatar'
+            alt="avatar"
             fullscreen
             sizes="200px"
           />
