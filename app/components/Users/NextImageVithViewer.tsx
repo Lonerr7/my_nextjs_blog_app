@@ -13,7 +13,6 @@ interface Props {
   sizes: string;
   alt: string;
   blurDataUrl?: string;
-  objectFit?: 'cover' | 'contain';
 }
 const mockAvatar = '/mockAvatar.jpg';
 
@@ -26,7 +25,6 @@ const NextImageVithViewer: FC<Props> = ({
   sizes,
   blurDataUrl,
   alt,
-  objectFit,
 }) => {
   const [isViewerOpen, setIsViewerOpen] = useState(false);
   const images = imageUrl ? [imageUrl] : [mockAvatar];
@@ -40,13 +38,15 @@ const NextImageVithViewer: FC<Props> = ({
         className={`${small && `rounded-[50%]`}  ${
           fullscreen && 'cursor-pointer '
         } ${customImgClassName}`}
+        style={{
+          objectFit: 'cover',
+        }}
         src={imageUrl ? imageUrl : '/mockAvatar.jpg'}
         alt={alt}
         onClick={openImageViewer}
         fill
         sizes={sizes}
         priority
-        objectFit={objectFit ? objectFit : 'cover'}
         placeholder={blurDataUrl ? 'blur' : 'empty'}
         blurDataURL={blurDataUrl ? blurDataUrl : undefined}
       />

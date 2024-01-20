@@ -45,7 +45,9 @@ const Blogposts: React.FC<Props> = ({
                 isMine={
                   knownOwner?._id === mySessionId
                     ? true
-                    : mySessionId === blogpost.owner._id
+                    : mySessionId
+                    ? mySessionId === blogpost.owner._id
+                    : false
                 }
                 deleteOptimisticBlogpost={deleteOptimisticBlogpost}
               />

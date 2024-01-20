@@ -4,7 +4,6 @@ import { getServerSession } from 'next-auth';
 import { authConfig } from '@/configs/auth';
 import { getSingleUser } from '@/services/userServices';
 import UserInfo from '../components/Users/UserInfo';
-import Blogposts from '../components/Blogposts/Blogposts';
 import { RequestTags, SearchQueriesNames } from '@/types/requestTypes';
 import Search from '../components/common/Search';
 import { BlogpostTags } from '@/types/blogTypes';
