@@ -4,6 +4,7 @@ import { likeDislikeBlogpost } from '@/actions/likeDislikeBlogpost';
 import { ISmBlogpost } from '@/types/blogTypes';
 import React from 'react';
 import { FaHeart, FaRegHeart } from 'react-icons/fa6';
+import { toast } from 'react-hot-toast';
 
 interface Props {
   isLiked: boolean;
@@ -33,8 +34,11 @@ const BlogpostLikes: React.FC<Props> = ({
       manipulateOptimisticBlogpost({ blogpostId, userId });
     }
 
-    const { errMsg, success } = await bindedAction();
-    console.log(errMsg);
+    const { errMsg } = await bindedAction();
+
+    if (errMsg) {
+      toast.error(errMsg);
+    }
   };
 
   return (

@@ -17,15 +17,16 @@ export const likeDislikeBlogpost = async ({
     const blogpost = await Blog.findById(blogpostId);
     const isLiked = blogpost?.likes?.get(userId);
 
-    console.log(blogpost, isLiked);
-
     if (isLiked) {
       blogpost?.likes?.delete(userId);
     } else {
-      blogpost.likes = {
-        ...blogpost.likes,
-        [userId]: true,
-      };
+      if (!blogpost?.likes) {
+        blogpost.likes = {
+          [userId]: true,
+        };
+      } else {
+        blogpost.likes.set(userId, true);
+      }
     }
 
     await Blog.findByIdAndUpdate(blogpostId, {
