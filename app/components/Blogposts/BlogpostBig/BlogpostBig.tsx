@@ -25,13 +25,6 @@ const BlogpostBig: React.FC<Props> = ({ blogpost, myId }) => {
       <div className="flex justify-between items-center mb-4">
         <BlogpostTagBig customClassName="mr-3 !mb-0" tag={blogpost.tag} />
         {isMeOwner ? (
-          // <Link
-          //   className="inline-block"
-          //   href={`/blogposts/${blogpost._id}/edit`}
-          //   title="Edit blogpost"
-          // >
-          //   <LuPencil className="dark:text-light-gray" size={24} />
-          // </Link>
           <BlogpostControls
             customClassName="w-[70px]"
             blogpostId={blogpost._id}

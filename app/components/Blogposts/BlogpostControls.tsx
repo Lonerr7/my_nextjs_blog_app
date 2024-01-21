@@ -8,7 +8,10 @@ interface Props {
   iconSize?: number;
   deleteIconSize?: number;
   withRedirect?: boolean;
-  deleteOptimisticBlogpost?: (action: unknown) => void;
+  manipulateOptimisticBlogpost?: (action: {
+    userId?: string;
+    blogpostId?: string;
+  }) => void;
 }
 
 const BlogpostControls: React.FC<Props> = ({
@@ -17,7 +20,7 @@ const BlogpostControls: React.FC<Props> = ({
   iconSize,
   deleteIconSize,
   withRedirect,
-  deleteOptimisticBlogpost,
+  manipulateOptimisticBlogpost,
 }) => {
   return (
     <div
@@ -33,7 +36,7 @@ const BlogpostControls: React.FC<Props> = ({
         blogpostId={blogpostId}
         iconSize={deleteIconSize}
         withRedirect={withRedirect}
-        deleteOptimisticBlogpost={deleteOptimisticBlogpost}
+        manipulateOptimisticBlogpost={manipulateOptimisticBlogpost}
       />
     </div>
   );

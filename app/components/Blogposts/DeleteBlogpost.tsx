@@ -11,14 +11,17 @@ interface Props {
   blogpostId: string;
   iconSize?: number;
   withRedirect?: boolean;
-  deleteOptimisticBlogpost?: (action: unknown) => void;
+  manipulateOptimisticBlogpost?: (action: {
+    userId?: string;
+    blogpostId?: string;
+  }) => void;
 }
 
 const DeleteBlogpost: React.FC<Props> = ({
   blogpostId,
   iconSize,
   withRedirect,
-  deleteOptimisticBlogpost,
+  manipulateOptimisticBlogpost,
 }) => {
   const [isPopupOpen, setIsPopupOpen] = useState(false);
   const router = useRouter();
@@ -32,8 +35,8 @@ const DeleteBlogpost: React.FC<Props> = ({
 
   const bindedAction = deleteBlogpost.bind(null, blogpostId);
   const clientAction = async () => {
-    if (deleteOptimisticBlogpost) {
-      deleteOptimisticBlogpost(blogpostId);
+    if (manipulateOptimisticBlogpost) {
+      manipulateOptimisticBlogpost({ blogpostId });
     }
     const { errMsg, success } = await bindedAction();
 

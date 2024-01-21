@@ -6,20 +6,29 @@ import BlogpostTagSm from './BlogpostTagSm';
 import { cropStringByLength } from '@/utils/cropStringByLength';
 import BlogpostControls from './BlogpostControls';
 import BlogpostDate from './BlogpostDate';
+import BlogpostLikes from './BlogpostLikes';
 
 export const BlogpostSm = ({
+  mySessionId,
   blogpost,
   blurredDataUrl,
   owner,
   isMine,
-  deleteOptimisticBlogpost,
+  manipulateOptimisticBlogpost,
 }: {
+  mySessionId: string | undefined;
   blogpost: ISmBlogpost; //! не понятно по типам где будет подтягиваться овнер, а где нет
   blurredDataUrl: any;
   owner: IUser;
   isMine: boolean;
-  deleteOptimisticBlogpost: (action: unknown) => void;
+  manipulateOptimisticBlogpost: (action: {
+    userId?: string;
+    blogpostId?: string;
+  }) => void;
 }) => {
+  const isLiked =
+    blogpost?.likes && mySessionId ? blogpost.likes[mySessionId] : false;
+
   return (
     <li className="p-4 border rounded-xl border-solid border-blogpost-border-light h-[500px] flex flex-col justify-between hover:bg-light-gray dark:hover:bg-item-bg-dark_x2_hover">
       <Link className="h-[450px]" href={`/blogposts/${blogpost._id}`}>
@@ -61,18 +70,26 @@ export const BlogpostSm = ({
             customClassName="text-blogpost-info"
             locales="en-EN"
             options={{
-              month: 'long',
+              month: 'numeric',
               day: '2-digit',
-              year: 'numeric',
+              year: '2-digit',
             }}
           />
         </div>
+
+        <BlogpostLikes
+          blogpostLikes={blogpost?.likes}
+          isLiked={isLiked}
+          blogpostId={blogpost._id}
+          userId={mySessionId!}
+          manipulateOptimisticBlogpost={manipulateOptimisticBlogpost}
+        />
 
         {/* Blogpost controls if it's mine */}
         {isMine ? (
           <BlogpostControls
             blogpostId={blogpost._id}
-            deleteOptimisticBlogpost={deleteOptimisticBlogpost}
+            manipulateOptimisticBlogpost={manipulateOptimisticBlogpost}
           />
         ) : null}
       </div>

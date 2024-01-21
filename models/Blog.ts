@@ -31,6 +31,11 @@ const blogSchema = new Schema(
       ref: 'User',
       required: [true, 'Blog must belong to a user'],
     },
+    likes: {
+      type: Map,
+      of: Boolean,
+      default: {},
+    },
     createdAt: Date,
     lastUpdatedAt: Date,
   },

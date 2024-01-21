@@ -4,10 +4,11 @@ import { IUser } from '@/types/userTypes';
 import { BlogpostSm } from './BlogpostSm';
 import { ISmBlogpost } from '@/types/blogTypes';
 import { useOptimistic } from 'react';
+import { changeteOptimisitcBlogpost } from '@/utils/changeOptimisitcBlogpost';
 
 interface Props {
   knownOwner?: IUser;
-  mySessionId: string | undefined;
+  mySessionId: string;
   noTitle?: boolean;
   blogposts?: ISmBlogpost[];
   blurredUrls: (string | undefined)[] | null;
@@ -20,11 +21,9 @@ const Blogposts: React.FC<Props> = ({
   blogposts,
   blurredUrls,
 }) => {
-  const [optimisticBlogposts, deleteOptimisticBlogpost] = useOptimistic(
+  const [optimisticBlogposts, manipulateOptimisticBlogpost] = useOptimistic(
     blogposts,
-    (state, optimisticValue) => {
-      return state?.filter((todo) => todo._id !== optimisticValue);
-    }
+    changeteOptimisitcBlogpost
   );
 
   return (
@@ -38,6 +37,7 @@ const Blogposts: React.FC<Props> = ({
         {optimisticBlogposts
           ? optimisticBlogposts.map((blogpost, i) => (
               <BlogpostSm
+                mySessionId={mySessionId}
                 key={blogpost._id}
                 blogpost={blogpost}
                 blurredDataUrl={blurredUrls && blurredUrls[i]}
@@ -49,7 +49,7 @@ const Blogposts: React.FC<Props> = ({
                     ? mySessionId === blogpost.owner._id
                     : false
                 }
-                deleteOptimisticBlogpost={deleteOptimisticBlogpost}
+                manipulateOptimisticBlogpost={manipulateOptimisticBlogpost}
               />
             ))
           : null}
