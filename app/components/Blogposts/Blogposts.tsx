@@ -4,7 +4,7 @@ import { IUser } from '@/types/userTypes';
 import { BlogpostSm } from './BlogpostSm';
 import { ISmBlogpost } from '@/types/blogTypes';
 import { useOptimistic } from 'react';
-import { changeteOptimisitcBlogpost } from '@/utils/changeOptimisitcBlogpost';
+import { changeOptimisitcBlogpost } from '@/utils/changeOptimisitcBlogpost';
 
 interface Props {
   knownOwner?: IUser;
@@ -23,7 +23,7 @@ const Blogposts: React.FC<Props> = ({
 }) => {
   const [optimisticBlogposts, manipulateOptimisticBlogpost] = useOptimistic(
     blogposts,
-    changeteOptimisitcBlogpost
+    changeOptimisitcBlogpost
   );
 
   return (

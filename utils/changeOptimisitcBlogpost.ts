@@ -1,6 +1,6 @@
 import { ISmBlogpost } from '@/types/blogTypes';
 
-export const changeteOptimisitcBlogpost = (
+export const changeOptimisitcBlogpost = (
   state: ISmBlogpost[] | undefined,
   { blogpostId, userId }: { blogpostId?: string; userId?: string }
 ) => {
@@ -21,6 +21,6 @@ export const changeteOptimisitcBlogpost = (
     });
   }
 
-  // 2. Если передали только блогпост айди - то хотим только лишт удалить блогпост
+  // 2. Если передали только блогпост айди - то хотим только лишь удалить блогпост
   return state?.filter((blogpost) => blogpost._id !== blogpostId);
 };

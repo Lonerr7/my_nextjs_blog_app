@@ -26,9 +26,11 @@ export interface IBlogPost {
   createdAt: string;
   title: string;
   lastUpdatedAt?: string;
-  likes: {
-    [key: string]: boolean;
-  };
+  likes: BlogpostLikes;
+}
+
+export interface BlogpostLikes {
+  [key: string]: boolean;
 }
 
 export type ISmBlogpost = Omit<IBlogPost, 'text' | 'lastUpdatedAt'>;

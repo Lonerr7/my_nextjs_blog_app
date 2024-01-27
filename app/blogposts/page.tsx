@@ -40,7 +40,7 @@ const BlogpostsPage: React.FC<Props> = async ({ searchParams }) => {
         fallback={<BlogpostsLoadingSkeleton />}
       >
         <BlogpostsContainer
-          mySessionId={session?.user.id}
+          mySessionId={session?.user.id!}
           queryOptions={{
             blogpostTagFilter: tagFilter as BlogpostTags,
             currentPage: currentPage,

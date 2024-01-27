@@ -5,8 +5,10 @@ import { ISmBlogpost } from '@/types/blogTypes';
 import React from 'react';
 import { FaHeart, FaRegHeart } from 'react-icons/fa6';
 import { toast } from 'react-hot-toast';
+import LikeDislikePendingBtn from './LikeDislikePendingBtn';
 
 interface Props {
+  customClassName?: string;
   isLiked: boolean;
   blogpostLikes: ISmBlogpost['likes'];
   blogpostId: string;
@@ -18,6 +20,7 @@ interface Props {
 }
 
 const BlogpostLikes: React.FC<Props> = ({
+  customClassName,
   isLiked,
   blogpostLikes,
   blogpostId,
@@ -42,11 +45,15 @@ const BlogpostLikes: React.FC<Props> = ({
   };
 
   return (
-    <div className="flex items-center">
+    <div className={`flex items-center ${customClassName}`}>
       <form action={clientAction} className="flex items-center">
-        <button className="mr-2" type="submit">
-          {isLiked ? <FaHeart size={20} /> : <FaRegHeart size={20} />}
-        </button>
+        {manipulateOptimisticBlogpost ? (
+          <button className="mr-2" type="submit">
+            {isLiked ? <FaHeart size={20} /> : <FaRegHeart size={20} />}
+          </button>
+        ) : (
+          <LikeDislikePendingBtn isLiked={isLiked} />
+        )}
       </form>
       <p className="text-lg font-semibold">
         {blogpostLikes ? Object.keys(blogpostLikes).length : 0}

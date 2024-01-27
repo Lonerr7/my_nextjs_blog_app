@@ -33,7 +33,6 @@ export const likeDislikeBlogpost = async ({
       likes: blogpost.likes,
     });
 
-    revalidateTag(RequestTags.GET_BLOGPOSTS);
     return {
       success: true,
     };
@@ -43,5 +42,7 @@ export const likeDislikeBlogpost = async ({
     return {
       errMsg: 'Something went wrong, try again later!',
     };
+  } finally {
+    revalidateTag(RequestTags.GET_BLOGPOSTS);
   }
 };

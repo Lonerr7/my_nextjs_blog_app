@@ -7,6 +7,7 @@ import { cropStringByLength } from '@/utils/cropStringByLength';
 import BlogpostControls from './BlogpostControls';
 import BlogpostDate from './BlogpostDate';
 import BlogpostLikes from './BlogpostLikes';
+import { checkedIfBlogpostLiked } from '@/utils/checkIfBlogpostLiked';
 
 export const BlogpostSm = ({
   mySessionId,
@@ -26,8 +27,12 @@ export const BlogpostSm = ({
     blogpostId?: string;
   }) => void;
 }) => {
-  const isLiked =
-    blogpost?.likes && mySessionId ? blogpost.likes[mySessionId] : false;
+  const isLiked = checkedIfBlogpostLiked({
+    likes: blogpost?.likes,
+    mySessionId,
+  });
+
+  console.log(`client`);
 
   return (
     <li className="p-4 border rounded-xl border-solid border-blogpost-border-light h-[500px] flex flex-col justify-between hover:bg-light-gray dark:hover:bg-item-bg-dark_x2_hover">
