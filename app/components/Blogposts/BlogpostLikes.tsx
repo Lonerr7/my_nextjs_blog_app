@@ -6,6 +6,7 @@ import React from 'react';
 import { FaHeart, FaRegHeart } from 'react-icons/fa6';
 import { toast } from 'react-hot-toast';
 import LikeDislikePendingBtn from './LikeDislikePendingBtn';
+import { formatLikesCount } from '@/utils/formatLikesCount';
 
 interface Props {
   customClassName?: string;
@@ -56,7 +57,9 @@ const BlogpostLikes: React.FC<Props> = ({
         )}
       </form>
       <p className="text-lg font-semibold">
-        {blogpostLikes ? Object.keys(blogpostLikes).length : 0}
+        {blogpostLikes
+          ? formatLikesCount(Object.keys(blogpostLikes).length)
+          : 0}
       </p>
     </div>
   );
