@@ -8,7 +8,11 @@ export const GET = async (req: NextRequest) => {
 
     await connectToDB();
 
-    const blogpost = await Blog.findById(blogpostId).populate('owner', 'username image');
+    // Здесь будет if else в котором если мы передали параметр, чтобы сделать populate лайков, то выполнится одна ветка if else, если нет, то другая ветка
+
+    const blogpost = await Blog.findById(blogpostId)
+      .populate('owner', 'username image')
+      
 
     if (!blogpost) {
       throw new Error('Failed to fetch blogpost');

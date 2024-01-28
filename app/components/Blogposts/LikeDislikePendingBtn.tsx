@@ -4,7 +4,7 @@ import { useFormStatus } from 'react-dom';
 import { FaHeart, FaRegHeart } from 'react-icons/fa6';
 
 interface Props {
-  isLiked: boolean;
+  isLiked: string | false;
 }
 
 const LikeDislikePendingBtn: React.FC<Props> = ({ isLiked }) => {
@@ -16,7 +16,11 @@ const LikeDislikePendingBtn: React.FC<Props> = ({ isLiked }) => {
       type="submit"
       disabled={pending}
     >
-      {isLiked ? <FaHeart size={20} /> : <FaRegHeart size={20} />}
+      {isLiked && isLiked.length !== 0 ? (
+        <FaHeart size={20} />
+      ) : (
+        <FaRegHeart size={20} />
+      )}
     </button>
   );
 };

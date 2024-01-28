@@ -22,10 +22,10 @@ export const likeDislikeBlogpost = async ({
     } else {
       if (!blogpost?.likes) {
         blogpost.likes = {
-          [userId]: true,
+          [userId]: userId,
         };
       } else {
-        blogpost.likes.set(userId, true);
+        blogpost.likes.set(userId, userId);
       }
     }
 

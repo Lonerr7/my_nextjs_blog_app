@@ -6,6 +6,7 @@ import { MdDelete } from 'react-icons/md';
 import AreYouSurePopup from '../common/AreYouSurePopup';
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
+import PopupContainer from '../common/PopupContainer';
 
 interface Props {
   blogpostId: string;
@@ -59,10 +60,12 @@ const DeleteBlogpost: React.FC<Props> = ({
     <>
       {isPopupOpen ? (
         <form action={clientAction}>
-          <AreYouSurePopup
-            popupPhrase="Are you sure you want to delete this blogpost?"
-            closePopup={closePopup}
-          />
+          <PopupContainer closePopup={closePopup}>
+            <AreYouSurePopup
+              popupPhrase="Are you sure you want to delete this blogpost?"
+              closePopup={closePopup}
+            />
+          </PopupContainer>
         </form>
       ) : (
         <button type="button" title="Delete Blogpost" onClick={openPopup}>

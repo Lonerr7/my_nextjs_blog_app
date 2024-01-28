@@ -8,10 +8,10 @@ export const changeOptimisitcBlogpost = (
   if (blogpostId && userId) {
     return state?.map((blogpost) => {
       if (blogpost._id === blogpostId) {
-        if (blogpost.likes[userId]) {
+        if (blogpost?.likes?.[userId]) {
           delete blogpost.likes[userId];
-        } else if (!blogpost.likes[userId]) {
-          blogpost.likes[userId] = true;
+        } else if (!blogpost.likes?.[userId]) {
+          blogpost.likes[userId] = userId;
         }
 
         return blogpost;

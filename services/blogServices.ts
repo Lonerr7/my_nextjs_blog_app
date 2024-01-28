@@ -2,7 +2,13 @@ import {
   BLOGS_ITEMS_PER_PAGE,
   MAX_IMAGE_FILE_SIZE_IN_KB,
 } from '@/configs/requestConfig';
-import { BlogpostTags, CreateBlogInput, IBlogPost, ISmBlogpost } from '@/types/blogTypes';
+import {
+  IBlogpostRichLikes,
+  BlogpostTags,
+  CreateBlogInput,
+  IBlogPost,
+  ISmBlogpost,
+} from '@/types/blogTypes';
 import { RequestTags, SearchQueriesNames } from '@/types/requestTypes';
 import { getBase64Size } from '@/utils/getBase64StringSize';
 import { unstable_noStore as no_store } from 'next/cache';
@@ -178,6 +184,37 @@ export const getSingleBlogpost = async (blogpostId: string) => {
 
     return {
       blogpost: data as IBlogPost,
+    };
+  } catch (error) {
+    console.error(error);
+
+    return {
+      errMsg: 'Something went wrong! Try again later!',
+    };
+  }
+};
+
+export const getSingleBlogpostLikes = async (
+  blogpostId: string,
+  { page }: { page?: number; query?: string } //!
+) => {
+  try {
+    no_store();
+
+    const resposne = await fetch(
+      `${process.env.NEXTAUTH_URL}/api/blogpostLikes?blogpostId=${blogpostId}&page=${page}`
+    );
+
+    const data = await resposne.json();
+
+    if (!resposne.ok) {
+      console.error(data);
+
+      throw new Error('Error when fetching a blogpost');
+    }
+
+    return {
+      blogpost: data as IBlogpostRichLikes,
     };
   } catch (error) {
     console.error(error);

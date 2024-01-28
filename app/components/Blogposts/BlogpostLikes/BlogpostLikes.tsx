@@ -2,15 +2,17 @@
 
 import { likeDislikeBlogpost } from '@/actions/likeDislikeBlogpost';
 import { ISmBlogpost } from '@/types/blogTypes';
-import React from 'react';
+import React, { useState } from 'react';
 import { FaHeart, FaRegHeart } from 'react-icons/fa6';
 import { toast } from 'react-hot-toast';
-import LikeDislikePendingBtn from './LikeDislikePendingBtn';
+import LikeDislikePendingBtn from '../LikeDislikePendingBtn';
 import { formatLikesCount } from '@/utils/formatLikesCount';
+import BlogpostLikesViewer from './BlogpostLikesViewer';
+import PopupContainer from '../../common/PopupContainer';
 
 interface Props {
   customClassName?: string;
-  isLiked: boolean;
+  isLiked: string | false;
   blogpostLikes: ISmBlogpost['likes'];
   blogpostId: string;
   userId: string;
@@ -28,6 +30,8 @@ const BlogpostLikes: React.FC<Props> = ({
   userId,
   manipulateOptimisticBlogpost,
 }) => {
+  const [isLikesViewerOpen, setIsLikesViewerOpen] = useState(false);
+
   const bindedAction = likeDislikeBlogpost.bind(null, {
     blogpostId,
     userId,
@@ -56,11 +60,19 @@ const BlogpostLikes: React.FC<Props> = ({
           <LikeDislikePendingBtn isLiked={isLiked} />
         )}
       </form>
-      <p className="text-lg font-semibold">
+      <button
+        className="text-lg font-semibold"
+        onClick={() => setIsLikesViewerOpen(true)}
+      >
         {blogpostLikes
           ? formatLikesCount(Object.keys(blogpostLikes).length)
           : 0}
-      </p>
+      </button>
+      {isLikesViewerOpen ? (
+        <PopupContainer closePopup={() => setIsLikesViewerOpen(false)}>
+          <BlogpostLikesViewer />
+        </PopupContainer>
+      ) : null}
     </div>
   );
 };

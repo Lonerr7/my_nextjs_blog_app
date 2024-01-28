@@ -33,7 +33,10 @@ const blogSchema = new Schema(
     },
     likes: {
       type: Map,
-      of: Boolean,
+      of: {
+        type: 'ObjectId',
+        ref: 'User',
+      },
       default: {},
     },
     createdAt: Date,

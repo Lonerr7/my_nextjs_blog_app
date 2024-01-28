@@ -6,7 +6,7 @@ import BlogpostTagSm from './BlogpostTagSm';
 import { cropStringByLength } from '@/utils/cropStringByLength';
 import BlogpostControls from './BlogpostControls';
 import BlogpostDate from './BlogpostDate';
-import BlogpostLikes from './BlogpostLikes';
+import BlogpostLikes from './BlogpostLikes/BlogpostLikes';
 import { checkedIfBlogpostLiked } from '@/utils/checkIfBlogpostLiked';
 
 export const BlogpostSm = ({

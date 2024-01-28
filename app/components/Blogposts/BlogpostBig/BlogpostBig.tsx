@@ -7,7 +7,7 @@ import BlogpostCleanText from '../BlogpostCleanText';
 import s from './BlogpostBig.module.css';
 import BlogpostControls from '../BlogpostControls';
 import { checkedIfBlogpostLiked } from '@/utils/checkIfBlogpostLiked';
-import BlogpostLikes from '../BlogpostLikes';
+import BlogpostLikes from '../BlogpostLikes/BlogpostLikes';
 
 interface Props {
   blogpost?: IBlogPost;
@@ -24,6 +24,8 @@ const BlogpostBig: React.FC<Props> = ({ blogpost, myId }) => {
     likes: blogpost?.likes,
     mySessionId: myId,
   });
+
+  console.log(blogpost);
 
   return (
     <div>

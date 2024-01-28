@@ -1,8 +1,8 @@
-import { BlogpostOption, BlogpostTags } from '@/types/blogTypes';
+import { SelectOption, BlogpostTags } from '@/types/blogTypes';
 import Select from 'react-select';
 
 interface Props {
-  selectOptions: BlogpostOption[];
+  selectOptions: SelectOption[];
   selectValue: BlogpostTags | '';
   classNamePrefix?: string;
   className?: string;

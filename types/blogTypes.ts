@@ -30,7 +30,11 @@ export interface IBlogPost {
 }
 
 export interface BlogpostLikes {
-  [key: string]: boolean;
+  [key: string]: string;
+}
+
+export interface IBlogpostRichLikes {
+  [key: string]: Pick<IUser, 'username' | 'image'>
 }
 
 export type ISmBlogpost = Omit<IBlogPost, 'text' | 'lastUpdatedAt'>;
