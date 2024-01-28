@@ -25,9 +25,17 @@ const PopupContainer: React.FC<Props> = ({ closePopup, children }) => {
     // eslint-disable-next-line
   }, []);
 
+  useEffect(() => {
+    document.body.style.overflowY = 'hidden';
+
+    return () => {
+      document.body.style.overflowY = 'auto';
+    };
+  }, []);
+
   return (
     <div
-      className="fixed w-full h-full inset-x-0 inset-y-0 bg-[#000000cc] z-30 flex justify-center items-center"
+      className="fixed w-full h-full inset-x-0 inset-y-0 bg-[#000000cc] z-30 flex justify-center items-center popup-container"
       onClick={closePopup}
     >
       <div

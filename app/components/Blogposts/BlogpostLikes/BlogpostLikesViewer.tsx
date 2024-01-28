@@ -1,9 +1,17 @@
 'use client';
 
+import { useEffect } from 'react';
+
 interface Props {}
 
 const BlogpostLikesViewer: React.FC<Props> = ({}) => {
-  return <p>dsaawd</p>;
+  useEffect(() => {}, []);
+
+  return (
+    <div className="overflow-y-scroll">
+       
+    </div>
+  );
 };
 
 export default BlogpostLikesViewer;
