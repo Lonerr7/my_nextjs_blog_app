@@ -10,7 +10,7 @@ export const GET = async (req: NextRequest) => {
 
     await connectToDB();
     const blogpost = await Blog.findById(blogpostId)
-      .select('_id')
+      .select('_id likes')
       .populate({
         path: 'likes.$*',
         select: 'image username',
@@ -21,7 +21,7 @@ export const GET = async (req: NextRequest) => {
         },
       });
 
-    return new Response(JSON.stringify(blogpost.likes));
+    return new Response(JSON.stringify(blogpost.likes), { status: 200 });
   } catch (error) {
     console.error(error);
 

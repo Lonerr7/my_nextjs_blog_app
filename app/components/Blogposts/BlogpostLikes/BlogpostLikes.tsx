@@ -70,7 +70,7 @@ const BlogpostLikes: React.FC<Props> = ({
       </button>
       {isLikesViewerOpen ? (
         <PopupContainer closePopup={() => setIsLikesViewerOpen(false)}>
-          <BlogpostLikesViewer />
+          <BlogpostLikesViewer blogpostId={blogpostId} />
         </PopupContainer>
       ) : null}
     </div>

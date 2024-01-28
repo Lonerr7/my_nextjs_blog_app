@@ -139,7 +139,7 @@ export const getBlogposts = async (
       blogs: data as ISmBlogpost[],
     };
   } catch (error: any) {
-    console.log(error);
+    console.error(error);
 
     return {
       errMsg: 'Error when fetching',
@@ -202,7 +202,7 @@ export const getSingleBlogpostLikes = async (
     no_store();
 
     const resposne = await fetch(
-      `${process.env.NEXTAUTH_URL}/api/blogpostLikes?blogpostId=${blogpostId}&page=${page}`
+      `http://localhost:3000/api/blogpostLikes?blogpostId=${blogpostId}&page=${page}`
     );
 
     const data = await resposne.json();
@@ -214,7 +214,7 @@ export const getSingleBlogpostLikes = async (
     }
 
     return {
-      blogpost: data as IBlogpostRichLikes,
+      blogpostLikes: data as IBlogpostRichLikes,
     };
   } catch (error) {
     console.error(error);
