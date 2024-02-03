@@ -69,7 +69,11 @@ const BlogpostLikes: React.FC<Props> = ({
           : 0}
       </button>
       {isLikesViewerOpen ? (
-        <PopupContainer closePopup={() => setIsLikesViewerOpen(false)}>
+        <PopupContainer
+          customBodyClassName="max-w-[400px] h-[400px] !justify-start p-0"
+          customCloseBtnClassName='top-[15px]'
+          closePopup={() => setIsLikesViewerOpen(false)}
+        >
           <BlogpostLikesViewer blogpostId={blogpostId} />
         </PopupContainer>
       ) : null}

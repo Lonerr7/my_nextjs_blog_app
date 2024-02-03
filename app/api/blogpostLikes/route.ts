@@ -13,7 +13,7 @@ export const GET = async (req: NextRequest) => {
       .select('_id likes')
       .populate({
         path: 'likes.$*',
-        select: 'image username',
+        select: 'image username status',
         model: 'User',
         options: {
           limit: 2, // лимит потом поменяем

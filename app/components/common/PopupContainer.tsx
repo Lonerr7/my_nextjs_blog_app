@@ -4,11 +4,20 @@ import { useEffect } from 'react';
 import { ImCross } from 'react-icons/im';
 
 interface Props {
-  closePopup: () => void;
   children: React.ReactNode;
+  customWrapperClassName?: string;
+  customBodyClassName?: string;
+  customCloseBtnClassName?: string;
+  closePopup: () => void;
 }
 
-const PopupContainer: React.FC<Props> = ({ closePopup, children }) => {
+const PopupContainer: React.FC<Props> = ({
+  closePopup,
+  children,
+  customBodyClassName,
+  customWrapperClassName,
+  customCloseBtnClassName,
+}) => {
   const handleEscKey = (e: KeyboardEvent) => {
     if (e.key === 'Escape') {
       closePopup();
@@ -35,17 +44,17 @@ const PopupContainer: React.FC<Props> = ({ closePopup, children }) => {
 
   return (
     <div
-      className="fixed w-full h-full inset-x-0 inset-y-0 bg-[#000000cc] z-30 flex justify-center items-center popup-container"
+      className={`fixed w-full h-full inset-x-0 inset-y-0 bg-[#000000cc] z-30 flex justify-center items-center popup-container ${customWrapperClassName}`}
       onClick={closePopup}
     >
       <div
-        className="relative w-[600px] h-[400px] px-4 bg-light-gray rounded-xl dark:bg-dark-blue flex flex-col items-center justify-center z-40"
+        className={`relative w-[600px] h-[400px] p-4 bg-light-gray rounded-xl dark:bg-dark-blue flex flex-col items-center justify-center z-40 ${customBodyClassName}`}
         onClick={(e) => {
           e.stopPropagation();
         }}
       >
         <button
-          className="absolute top-[10px] right-[10px] transition delay-[30ms] hover:text-red-500"
+          className={`absolute top-[10px] right-[10px] transition delay-[30ms] hover:text-red-500 ${customCloseBtnClassName}`}
           type="button"
           onClick={closePopup}
         >
