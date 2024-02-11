@@ -31,23 +31,13 @@ const blogSchema = new Schema(
       ref: 'User',
       required: [true, 'Blog must belong to a user'],
     },
-    likes: {
-      // !потом удалим
-      type: Map,
-      of: {
-        type: 'ObjectId',
+    likes: [
+      {
+        type: Schema.ObjectId,
         ref: 'User',
+        default: [],
       },
-      default: {},
-    },
-    likesCount: {
-      type: Number,
-      default: 0,
-    },
-    isLikedByMe: {
-      type: Boolean,
-      default: false,
-    },
+    ],
     createdAt: Date,
     lastUpdatedAt: Date,
   },

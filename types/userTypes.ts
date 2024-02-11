@@ -22,6 +22,9 @@ export interface UserSocials {
   twitter?: string;
   youtube?: string;
 }
+
+export type ILikedUser = Pick<IUser, '_id' | 'username' | 'status' | 'image'>;
+
 export enum RegisterUserInputFields {
   USERNAME = 'username',
   EMAIL = 'email',

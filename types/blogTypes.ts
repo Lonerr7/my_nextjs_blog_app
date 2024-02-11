@@ -1,4 +1,4 @@
-import { IImage, IUser } from './userTypes';
+import { IImage, ILikedUser, IUser } from './userTypes';
 
 export interface CreateBlogInput {
   userId: string;
@@ -26,9 +26,7 @@ export interface IBlogPost {
   createdAt: string;
   title: string;
   lastUpdatedAt?: string;
-  likes: BlogpostLikes;
-  likesCount: number;
-  isLikedByMe: boolean;
+  likes: string[];
 }
 
 export interface BlogpostLikes {

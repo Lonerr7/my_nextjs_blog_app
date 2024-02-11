@@ -21,6 +21,7 @@ const UserSm: FC<Props> = ({ id, username, avatarUrl, status }) => {
           imageUrl={avatarUrl}
           small
           sizes="125px"
+          alt="avatar"
         />
         <div className="min-h-[60px]">
           <p className="font-bold mb-2">{username}</p>

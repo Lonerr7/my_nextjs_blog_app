@@ -15,11 +15,8 @@ interface Props {
   isLiked: boolean;
   blogpostLikes: number;
   blogpostId: string;
-  userId: string;
-  manipulateOptimisticBlogpost?: (action: {
-    userId?: string;
-    blogpostId?: string;
-  }) => void;
+
+  manipulateOptimisticBlogpost?: (action: string) => void;
 }
 
 const BlogpostLikes: React.FC<Props> = ({
@@ -27,16 +24,15 @@ const BlogpostLikes: React.FC<Props> = ({
   isLiked,
   blogpostLikes,
   blogpostId,
-  userId,
+
   manipulateOptimisticBlogpost,
 }) => {
   const [isLikesViewerOpen, setIsLikesViewerOpen] = useState(false);
-
   const bindedAction = likeDislikeBlogpost.bind(null, blogpostId);
 
   const clientAction = async () => {
     // if (manipulateOptimisticBlogpost) {
-    //   manipulateOptimisticBlogpost({ blogpostId, userId });
+    //   manipulateOptimisticBlogpost(blogpostId);
     // }
 
     const { errMsg } = await bindedAction();

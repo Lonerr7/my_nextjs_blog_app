@@ -8,10 +8,7 @@ interface Props {
   iconSize?: number;
   deleteIconSize?: number;
   withRedirect?: boolean;
-  manipulateOptimisticBlogpost?: (action: {
-    userId?: string;
-    blogpostId?: string;
-  }) => void;
+  withoutDelete?: boolean;
 }
 
 const BlogpostControls: React.FC<Props> = ({
@@ -20,11 +17,13 @@ const BlogpostControls: React.FC<Props> = ({
   iconSize,
   deleteIconSize,
   withRedirect,
-  manipulateOptimisticBlogpost,
+  withoutDelete,
 }) => {
   return (
     <div
-      className={`w-[15%] flex justify-between items-center ${customClassName}`}
+      className={`w-[15%] flex ${
+        withoutDelete ? 'justify-end' : 'justify-between'
+      } items-center ${customClassName}`}
     >
       <Link
         className="inline-block mr-1"
@@ -32,12 +31,13 @@ const BlogpostControls: React.FC<Props> = ({
       >
         <LuPencil className="dark:text-light-gray" size={iconSize || 18} />
       </Link>
-      <DeleteBlogpost
-        blogpostId={blogpostId}
-        iconSize={deleteIconSize}
-        withRedirect={withRedirect}
-        manipulateOptimisticBlogpost={manipulateOptimisticBlogpost}
-      />
+      {withoutDelete ? null : (
+        <DeleteBlogpost
+          blogpostId={blogpostId}
+          iconSize={deleteIconSize}
+          withRedirect={withRedirect}
+        />
+      )}
     </div>
   );
 };

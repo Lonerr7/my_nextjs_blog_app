@@ -14,25 +14,21 @@ export const likeDislikeBlogpost = async (blogpostId: string) => {
     const session = await getServerSession(authConfig);
     const myId = session?.user.id;
 
-    const [blogpost, likeToBeModified] = await Promise.all([
-      Blog.findById(blogpostId),
-      BlogpostLike.findOneAndDelete({
-        userId: myId,
-        blogpostId,
-      }),
-    ]);
+    // 1. Получаем блогпост, который хотим лайкнуть/дизлайкнуть
+    const blogpost = await Blog.findById(blogpostId);
 
-    if (blogpost.isLikedByMe && likeToBeModified) {
-      // значит лайк на этот блогпост уже был в системе и мы хотим дизлайкнуть
-      blogpost.isLikedByMe = false;
-      blogpost.likesCount -= 1;
+    // 2. Проверяем есть ли в массиве лайков мой id
+    if (blogpost?.likes?.includes(myId)) {
+      // 2.1. Если да - дизалйкаем
+      blogpost.likes = blogpost.likes.filter((like: string) => String(like) !== myId);
     } else {
-      await BlogpostLike.create({ userId: myId, blogpostId });
-      blogpost.isLikedByMe = true;
-      blogpost.likesCount += 1;
+      // 2.2. Если нет - лайкаем
+      blogpost.likes.push(myId);
     }
 
     await blogpost.save();
+
+    revalidateTag(RequestTags.GET_BLOGPOSTS);
 
     return {
       success: true,
@@ -43,7 +39,5 @@ export const likeDislikeBlogpost = async (blogpostId: string) => {
     return {
       errMsg: 'Something went wrong, try again later!',
     };
-  } finally {
-    revalidateTag(RequestTags.GET_BLOGPOSTS);
   }
 };

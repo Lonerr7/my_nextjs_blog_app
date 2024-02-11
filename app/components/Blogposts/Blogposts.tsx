@@ -1,10 +1,6 @@
-'use client';
-
 import { IUser } from '@/types/userTypes';
 import { BlogpostSm } from './BlogpostSm';
 import { ISmBlogpost } from '@/types/blogTypes';
-import { useOptimistic } from 'react';
-import { changeOptimisitcBlogpost } from '@/utils/changeOptimisitcBlogpost';
 
 interface Props {
   knownOwner?: IUser;
@@ -21,11 +17,6 @@ const Blogposts: React.FC<Props> = ({
   blogposts,
   blurredUrls,
 }) => {
-  const [optimisticBlogposts, manipulateOptimisticBlogpost] = useOptimistic(
-    blogposts,
-    changeOptimisitcBlogpost
-  );
-
   return (
     <div>
       {noTitle || (
@@ -37,11 +28,11 @@ const Blogposts: React.FC<Props> = ({
         {blogposts
           ? blogposts.map((blogpost, i) => (
               <BlogpostSm
-                mySessionId={mySessionId}
                 key={blogpost._id}
                 blogpost={blogpost}
                 blurredDataUrl={blurredUrls && blurredUrls[i]}
                 owner={knownOwner ? knownOwner : blogpost.owner}
+                mySessionId={mySessionId}
                 isMine={
                   knownOwner?._id === mySessionId
                     ? true
@@ -49,7 +40,6 @@ const Blogposts: React.FC<Props> = ({
                     ? mySessionId === blogpost.owner._id
                     : false
                 }
-                manipulateOptimisticBlogpost={manipulateOptimisticBlogpost}
               />
             ))
           : null}

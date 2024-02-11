@@ -37,12 +37,7 @@ const BlogpostLikesViewerContainer: React.FC<Props> = ({ blogpostId }) => {
     // eslint-disable-next-line
   }, []);
 
-  return (
-    <BlogpostLikesViewer
-    // likedUsers={likedUsers}
-    // mySessionId={session?.user.id}
-    />
-  );
+  return <BlogpostLikesViewer blogpostId={blogpostId} />;
 };
 
 export default BlogpostLikesViewerContainer;

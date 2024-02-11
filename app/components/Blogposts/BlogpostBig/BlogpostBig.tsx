@@ -6,8 +6,8 @@ import BlogpostDate from '../BlogpostDate';
 import BlogpostCleanText from '../BlogpostCleanText';
 import s from './BlogpostBig.module.css';
 import BlogpostControls from '../BlogpostControls';
-import { checkedIfBlogpostLiked } from '@/utils/checkIfBlogpostLiked';
 import BlogpostLikes from '../BlogpostLikes/BlogpostLikes';
+import { checkIfBlogpostIsLikedByMe } from '@/utils/checkIfBlogpostIsLikedByMe';
 
 interface Props {
   blogpost?: IBlogPost;
@@ -20,12 +20,6 @@ const BlogpostBig: React.FC<Props> = ({ blogpost, myId }) => {
   }
 
   const isMeOwner = myId === blogpost?.owner._id;
-  const isLiked = checkedIfBlogpostLiked({
-    likes: blogpost?.likes,
-    mySessionId: myId,
-  });
-
-  console.log(blogpost);
 
   return (
     <div>
@@ -45,9 +39,8 @@ const BlogpostBig: React.FC<Props> = ({ blogpost, myId }) => {
       <BlogpostLikes
         customClassName="mb-5"
         blogpostId={blogpost._id}
-        blogpostLikes={blogpost.likes}
-        isLiked={isLiked}
-        userId={myId!}
+        blogpostLikes={blogpost?.likes?.length}
+        isLiked={checkIfBlogpostIsLikedByMe(myId!, blogpost?.likes)}
       />
 
       <div className="flex items-center justify-between text-text-gray mb-8">

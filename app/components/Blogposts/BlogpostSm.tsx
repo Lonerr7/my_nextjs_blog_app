@@ -7,29 +7,23 @@ import { cropStringByLength } from '@/utils/cropStringByLength';
 import BlogpostControls from './BlogpostControls';
 import BlogpostDate from './BlogpostDate';
 import BlogpostLikes from './BlogpostLikes/BlogpostLikes';
-import { checkedIfBlogpostLiked } from '@/utils/checkIfBlogpostLiked';
 
 export const BlogpostSm = ({
-  mySessionId,
   blogpost,
   blurredDataUrl,
   owner,
   isMine,
-  manipulateOptimisticBlogpost,
+  mySessionId,
 }: {
-  mySessionId: string | undefined;
   blogpost: ISmBlogpost; //! не понятно по типам где будет подтягиваться овнер, а где нет
   blurredDataUrl: any;
   owner: IUser;
   isMine: boolean;
-  manipulateOptimisticBlogpost: (action: {
-    userId?: string;
-    blogpostId?: string;
-  }) => void;
+  mySessionId: string;
 }) => {
-  const isLiked = blogpost.isLikedByMe;
-
-  console.log(`client`);
+  const isLiked = blogpost?.likes?.find((id) => id === mySessionId)
+    ? true
+    : false;
 
   return (
     <li className="p-4 border rounded-xl border-solid border-blogpost-border-light h-[500px] flex flex-col justify-between hover:bg-light-gray dark:hover:bg-item-bg-dark_x2_hover">
@@ -80,19 +74,14 @@ export const BlogpostSm = ({
         </div>
 
         <BlogpostLikes
-          blogpostLikes={blogpost.likesCount}
+          blogpostLikes={blogpost?.likes?.length}
           isLiked={isLiked}
           blogpostId={blogpost._id}
-          userId={mySessionId!}
-          manipulateOptimisticBlogpost={manipulateOptimisticBlogpost}
         />
 
         {/* Blogpost controls if it's mine */}
         {isMine ? (
-          <BlogpostControls
-            blogpostId={blogpost._id}
-            manipulateOptimisticBlogpost={manipulateOptimisticBlogpost}
-          />
+          <BlogpostControls blogpostId={blogpost._id} withoutDelete />
         ) : null}
       </div>
     </li>
