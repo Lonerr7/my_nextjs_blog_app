@@ -1,37 +1,38 @@
 'use server';
 
+import { authConfig } from '@/configs/auth';
 import Blog from '@/models/Blog';
+import BlogpostLike from '@/models/BlogpostLike';
 import { RequestTags } from '@/types/requestTypes';
 import { connectToDB } from '@/utils/connectToDB';
+import { getServerSession } from 'next-auth';
 import { revalidateTag } from 'next/cache';
 
-export const likeDislikeBlogpost = async ({
-  blogpostId,
-  userId,
-}: {
-  blogpostId: string;
-  userId: string;
-}) => {
+export const likeDislikeBlogpost = async (blogpostId: string) => {
   try {
     await connectToDB();
-    const blogpost = await Blog.findById(blogpostId);
-    const isLiked = blogpost?.likes?.get(userId);
+    const session = await getServerSession(authConfig);
+    const myId = session?.user.id;
 
-    if (isLiked) {
-      blogpost?.likes?.delete(userId);
+    const [blogpost, likeToBeModified] = await Promise.all([
+      Blog.findById(blogpostId),
+      BlogpostLike.findOneAndDelete({
+        userId: myId,
+        blogpostId,
+      }),
+    ]);
+
+    if (blogpost.isLikedByMe && likeToBeModified) {
+      // значит лайк на этот блогпост уже был в системе и мы хотим дизлайкнуть
+      blogpost.isLikedByMe = false;
+      blogpost.likesCount -= 1;
     } else {
-      if (!blogpost?.likes) {
-        blogpost.likes = {
-          [userId]: userId,
-        };
-      } else {
-        blogpost.likes.set(userId, userId);
-      }
+      await BlogpostLike.create({ userId: myId, blogpostId });
+      blogpost.isLikedByMe = true;
+      blogpost.likesCount += 1;
     }
 
-    await Blog.findByIdAndUpdate(blogpostId, {
-      likes: blogpost.likes,
-    });
+    await blogpost.save();
 
     return {
       success: true,

@@ -27,10 +27,7 @@ export const BlogpostSm = ({
     blogpostId?: string;
   }) => void;
 }) => {
-  const isLiked = checkedIfBlogpostLiked({
-    likes: blogpost?.likes,
-    mySessionId,
-  });
+  const isLiked = blogpost.isLikedByMe;
 
   console.log(`client`);
 
@@ -83,7 +80,7 @@ export const BlogpostSm = ({
         </div>
 
         <BlogpostLikes
-          blogpostLikes={blogpost?.likes}
+          blogpostLikes={blogpost.likesCount}
           isLiked={isLiked}
           blogpostId={blogpost._id}
           userId={mySessionId!}

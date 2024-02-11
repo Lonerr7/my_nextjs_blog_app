@@ -12,8 +12,8 @@ import PopupContainer from '../../common/PopupContainer';
 
 interface Props {
   customClassName?: string;
-  isLiked: string | false;
-  blogpostLikes: ISmBlogpost['likes'];
+  isLiked: boolean;
+  blogpostLikes: number;
   blogpostId: string;
   userId: string;
   manipulateOptimisticBlogpost?: (action: {
@@ -32,15 +32,12 @@ const BlogpostLikes: React.FC<Props> = ({
 }) => {
   const [isLikesViewerOpen, setIsLikesViewerOpen] = useState(false);
 
-  const bindedAction = likeDislikeBlogpost.bind(null, {
-    blogpostId,
-    userId,
-  });
+  const bindedAction = likeDislikeBlogpost.bind(null, blogpostId);
 
   const clientAction = async () => {
-    if (manipulateOptimisticBlogpost) {
-      manipulateOptimisticBlogpost({ blogpostId, userId });
-    }
+    // if (manipulateOptimisticBlogpost) {
+    //   manipulateOptimisticBlogpost({ blogpostId, userId });
+    // }
 
     const { errMsg } = await bindedAction();
 
@@ -64,14 +61,12 @@ const BlogpostLikes: React.FC<Props> = ({
         className="text-lg font-semibold"
         onClick={() => setIsLikesViewerOpen(true)}
       >
-        {blogpostLikes
-          ? formatLikesCount(Object.keys(blogpostLikes).length)
-          : 0}
+        {formatLikesCount(blogpostLikes)}
       </button>
       {isLikesViewerOpen ? (
         <PopupContainer
           customBodyClassName="max-w-[400px] h-[400px] !justify-start p-0"
-          customCloseBtnClassName='top-[15px]'
+          customCloseBtnClassName="top-[15px]"
           closePopup={() => setIsLikesViewerOpen(false)}
         >
           <BlogpostLikesViewer blogpostId={blogpostId} />

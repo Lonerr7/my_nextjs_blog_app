@@ -34,8 +34,8 @@ const Blogposts: React.FC<Props> = ({
         </h2>
       )}
       <ul className="grid grid-cols-3 gap-5">
-        {optimisticBlogposts
-          ? optimisticBlogposts.map((blogpost, i) => (
+        {blogposts
+          ? blogposts.map((blogpost, i) => (
               <BlogpostSm
                 mySessionId={mySessionId}
                 key={blogpost._id}

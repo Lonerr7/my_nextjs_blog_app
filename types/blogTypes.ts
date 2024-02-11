@@ -27,6 +27,8 @@ export interface IBlogPost {
   title: string;
   lastUpdatedAt?: string;
   likes: BlogpostLikes;
+  likesCount: number;
+  isLikedByMe: boolean;
 }
 
 export interface BlogpostLikes {
@@ -34,7 +36,7 @@ export interface BlogpostLikes {
 }
 
 export interface IBlogpostRichLikes {
-  [key: string]: Pick<IUser, 'username' | 'image'>
+  [key: string]: Pick<IUser, 'username' | 'image'>;
 }
 
 export type ISmBlogpost = Omit<IBlogPost, 'text' | 'lastUpdatedAt'>;
