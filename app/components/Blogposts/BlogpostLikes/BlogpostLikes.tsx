@@ -1,40 +1,32 @@
 'use client';
 
 import { likeDislikeBlogpost } from '@/actions/likeDislikeBlogpost';
-import { ISmBlogpost } from '@/types/blogTypes';
 import React, { useState } from 'react';
-import { FaHeart, FaRegHeart } from 'react-icons/fa6';
 import { toast } from 'react-hot-toast';
 import LikeDislikePendingBtn from '../LikeDislikePendingBtn';
 import { formatLikesCount } from '@/utils/formatLikesCount';
-import BlogpostLikesViewer from './BlogpostLikesViewer';
 import PopupContainer from '../../common/PopupContainer';
+import BlogpostLikesViewerContainer from './BlogpostLikesViewerContainer';
 
 interface Props {
   customClassName?: string;
   isLiked: boolean;
-  blogpostLikes: number;
+  blogpostLikesCount: number;
   blogpostId: string;
-
-  manipulateOptimisticBlogpost?: (action: string) => void;
+  mySessionId: string;
 }
 
 const BlogpostLikes: React.FC<Props> = ({
   customClassName,
   isLiked,
-  blogpostLikes,
+  blogpostLikesCount,
   blogpostId,
-
-  manipulateOptimisticBlogpost,
+  mySessionId
 }) => {
   const [isLikesViewerOpen, setIsLikesViewerOpen] = useState(false);
   const bindedAction = likeDislikeBlogpost.bind(null, blogpostId);
 
   const clientAction = async () => {
-    // if (manipulateOptimisticBlogpost) {
-    //   manipulateOptimisticBlogpost(blogpostId);
-    // }
-
     const { errMsg } = await bindedAction();
 
     if (errMsg) {
@@ -45,19 +37,13 @@ const BlogpostLikes: React.FC<Props> = ({
   return (
     <div className={`flex items-center ${customClassName}`}>
       <form action={clientAction} className="flex items-center">
-        {manipulateOptimisticBlogpost ? (
-          <button className="mr-2" type="submit">
-            {isLiked ? <FaHeart size={20} /> : <FaRegHeart size={20} />}
-          </button>
-        ) : (
-          <LikeDislikePendingBtn isLiked={isLiked} />
-        )}
+        <LikeDislikePendingBtn isLiked={isLiked} />
       </form>
       <button
         className="text-lg font-semibold"
         onClick={() => setIsLikesViewerOpen(true)}
       >
-        {formatLikesCount(blogpostLikes)}
+        {formatLikesCount(blogpostLikesCount)}
       </button>
       {isLikesViewerOpen ? (
         <PopupContainer
@@ -65,7 +51,7 @@ const BlogpostLikes: React.FC<Props> = ({
           customCloseBtnClassName="top-[15px]"
           closePopup={() => setIsLikesViewerOpen(false)}
         >
-          <BlogpostLikesViewer blogpostId={blogpostId} />
+          <BlogpostLikesViewerContainer blogpostId={blogpostId} mySessionId={mySessionId} />
         </PopupContainer>
       ) : null}
     </div>

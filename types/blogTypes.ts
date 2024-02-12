@@ -33,9 +33,7 @@ export interface BlogpostLikes {
   [key: string]: string;
 }
 
-export interface IBlogpostRichLikes {
-  [key: string]: Pick<IUser, 'username' | 'image'>;
-}
+export type IBlogpostLikedUsers = ILikedUser[];
 
 export type ISmBlogpost = Omit<IBlogPost, 'text' | 'lastUpdatedAt'>;
 

@@ -1,19 +1,17 @@
-import { ILikedUser } from '@/types/blogTypes';
+import { ILikedUser } from '@/types/userTypes';
 import NextImageVithViewer from './NextImageVithViewer';
 import Link from 'next/link';
 
 interface Props {
   user: ILikedUser;
-  isMine: boolean;
+  isMe: boolean;
 }
 
-const LikedUserSm: React.FC<Props> = ({ user, isMine }) => {
-  console.log(user);
-
+const LikedUserSm: React.FC<Props> = ({ user, isMe }) => {
   return (
     <li className="w-full flex justify-between items-center mb-4 last:mb-0">
       <div className="flex items-center">
-        <Link href={isMine ? '/my-page' : `/users/${user._id}`}>
+        <Link href={isMe ? '/my-page' : `/users/${user._id}`}>
           <NextImageVithViewer
             imageUrl={user?.image?.imageUrl}
             alt="avatar"
@@ -23,7 +21,7 @@ const LikedUserSm: React.FC<Props> = ({ user, isMine }) => {
           />
         </Link>
         <div>
-          <Link href={isMine ? '/my-page' : `/users/${user._id}`}>
+          <Link href={isMe ? '/my-page' : `/users/${user._id}`}>
             <p className="mb-1 font-semibold">{user.username}</p>
           </Link>
           <p className="text-sm">{user.status}</p>

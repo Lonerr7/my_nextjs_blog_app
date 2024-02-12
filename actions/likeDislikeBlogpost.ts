@@ -2,7 +2,6 @@
 
 import { authConfig } from '@/configs/auth';
 import Blog from '@/models/Blog';
-import BlogpostLike from '@/models/BlogpostLike';
 import { RequestTags } from '@/types/requestTypes';
 import { connectToDB } from '@/utils/connectToDB';
 import { getServerSession } from 'next-auth';

@@ -3,10 +3,10 @@ import {
   MAX_IMAGE_FILE_SIZE_IN_KB,
 } from '@/configs/requestConfig';
 import {
-  IBlogpostRichLikes,
   BlogpostTags,
   CreateBlogInput,
   IBlogPost,
+  IBlogpostLikedUsers,
   ISmBlogpost,
 } from '@/types/blogTypes';
 import { RequestTags, SearchQueriesNames } from '@/types/requestTypes';
@@ -214,7 +214,7 @@ export const getSingleBlogpostLikes = async (
     }
 
     return {
-      blogpostLikes: data as IBlogpostRichLikes,
+      blogpostLikes: data as IBlogpostLikedUsers,
     };
   } catch (error) {
     console.error(error);

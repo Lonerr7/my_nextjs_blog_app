@@ -12,9 +12,8 @@ export const GET = async (req: NextRequest) => {
     const blogpost = await Blog.findById(blogpostId)
       .select('_id likes')
       .populate({
-        path: 'likes.$*',
+        path: 'likes',
         select: 'image username status',
-        model: 'User',
         options: {
           limit: 2, // лимит потом поменяем
           skip: (Number(page) - 1) * 2,

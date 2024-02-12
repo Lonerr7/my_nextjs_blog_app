@@ -74,9 +74,10 @@ export const BlogpostSm = ({
         </div>
 
         <BlogpostLikes
-          blogpostLikes={blogpost?.likes?.length}
+          blogpostLikesCount={blogpost?.likes?.length}
           isLiked={isLiked}
           blogpostId={blogpost._id}
+          mySessionId={mySessionId}
         />
 
         {/* Blogpost controls if it's mine */}

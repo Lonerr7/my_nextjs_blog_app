@@ -1,19 +1,18 @@
 'use client';
 
 import { getSingleBlogpostLikes } from '@/services/blogServices';
-import { IBlogpostRichLikes } from '@/types/blogTypes';
+import { IBlogpostLikedUsers } from '@/types/blogTypes';
 import { useEffect, useState } from 'react';
 import { toast } from 'react-hot-toast';
 import BlogpostLikesViewer from './BlogpostLikesViewer';
 
 interface Props {
   blogpostId: string;
+  mySessionId: string;
 }
 
-const BlogpostLikesViewerContainer: React.FC<Props> = ({ blogpostId }) => {
-  const [likedUsers, setLikedUsers] = useState<IBlogpostRichLikes | null>(null);
-
-  console.log(likedUsers);
+const BlogpostLikesViewerContainer: React.FC<Props> = ({ blogpostId, mySessionId }) => {
+  const [likedUsers, setLikedUsers] = useState<IBlogpostLikedUsers>([]);
 
   useEffect(() => {
     (async () => {
@@ -30,14 +29,16 @@ const BlogpostLikesViewerContainer: React.FC<Props> = ({ blogpostId }) => {
       }
 
       if (blogpostLikes) {
-        setLikedUsers((prevState) => ({ ...prevState, ...blogpostLikes }));
+        console.log(blogpostLikes);
+
+        setLikedUsers((prevState) => [...prevState, ...blogpostLikes]);
       }
     })();
 
     // eslint-disable-next-line
   }, []);
 
-  return <BlogpostLikesViewer blogpostId={blogpostId} />;
+  return <BlogpostLikesViewer likedUsers={likedUsers} mySessionId={mySessionId} />;
 };
 
 export default BlogpostLikesViewerContainer;
