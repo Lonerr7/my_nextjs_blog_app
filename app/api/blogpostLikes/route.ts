@@ -7,8 +7,7 @@ export const GET = async (req: NextRequest) => {
     // 1. Getting params from query URL
     const blogpostId = req.nextUrl.searchParams.get('blogpostId');
     const page = req.nextUrl.searchParams.get('page');
-
-    console.log(page);
+    const searchQuery = req.nextUrl.searchParams.get('searchQuery');
 
     await connectToDB();
     const blogpost = await Blog.findById(blogpostId)
@@ -17,10 +16,11 @@ export const GET = async (req: NextRequest) => {
         {
           path: 'likes',
           select: 'image username status',
+          match: { username: { $regex: searchQuery, $options: 'i' } },
           options: {
             skip: (Number(page) - 1) * 5,
             limit: 5,
-            sort: {},
+            sort: { $natural: 1 },
           },
         },
       ]);

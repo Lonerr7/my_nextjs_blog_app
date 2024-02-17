@@ -4,6 +4,7 @@ import { useCallback, useRef, useState } from 'react';
 import { toast } from 'react-hot-toast';
 import BlogpostLikesViewer from './BlogpostLikesViewer';
 import { useBlogpostLikes } from '@/hooks/useBlogpostLikes';
+import { useDebouncedCallback } from 'use-debounce';
 
 interface Props {
   blogpostId: string;
@@ -14,18 +15,22 @@ const BlogpostLikesViewerContainer: React.FC<Props> = ({
   blogpostId,
   mySessionId,
 }) => {
+  const [searchQuery, setSearchQuery] = useState('');
   const [pageNumber, setPageNumber] = useState(1);
   const observer = useRef<IntersectionObserver | null>(null);
   const { error, hasMore, likedUsers, loading } = useBlogpostLikes({
     blogpostId,
     pageNumber: pageNumber,
+    searchQuery,
   });
 
-  console.log(pageNumber);
-  
+  const handleSearch = useDebouncedCallback((searchTerm: string) => {
+    setSearchQuery(searchTerm);
+    setPageNumber(1);
+  }, 400);
 
   const lastLikedUserRef = useCallback(
-    (node) => {
+    (node: any) => {
       if (loading) {
         return;
       }
@@ -37,7 +42,6 @@ const BlogpostLikesViewerContainer: React.FC<Props> = ({
       observer.current = new IntersectionObserver((entries) => {
         if (entries[0].isIntersecting && hasMore) {
           setPageNumber((prevPageNum) => prevPageNum + 1);
-          console.log(`page 2`);
         }
       });
 
@@ -50,11 +54,16 @@ const BlogpostLikesViewerContainer: React.FC<Props> = ({
     [hasMore, loading]
   );
 
+  if (error) {
+    toast.error(error);
+  }
+
   return (
     <BlogpostLikesViewer
       likedUsers={likedUsers}
       mySessionId={mySessionId}
       lastLikedUserRef={lastLikedUserRef}
+      handleSearch={handleSearch}
     />
   );
 };

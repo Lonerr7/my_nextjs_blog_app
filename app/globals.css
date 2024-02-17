@@ -50,6 +50,10 @@ body {
   @apply px-2.5 py-1 text-sm leading-5 max-w-[300px] text-blogpost-tag-primary bg-blogpost-tag-primary/5 text-center border rounded-md border-transparent mb-4 hover:bg-blogpost-tag-primary/25;
 }
 
+.search-input {
+  @apply w-full rounded-lg focus:ring-2 focus:ring-inset focus:ring-indigo-600 dark:bg-item-bg-dark;
+}
+
 .dropzone {
   height: 300px;
   width: 300px;

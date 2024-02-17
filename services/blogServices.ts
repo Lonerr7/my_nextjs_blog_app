@@ -197,15 +197,17 @@ export const getSingleBlogpost = async (blogpostId: string) => {
 export const getSingleBlogpostLikes = async ({
   page,
   blogpostId,
+  searchQuery,
 }: {
   page?: number;
   blogpostId: string;
+  searchQuery: string;
 }) => {
   try {
     no_store();
 
     const resposne = await fetch(
-      `http://localhost:3000/api/blogpostLikes?blogpostId=${blogpostId}&page=${page}`
+      `http://localhost:3000/api/blogpostLikes?blogpostId=${blogpostId}&page=${page}&searchQuery=${searchQuery}`
     );
 
     const data = await resposne.json();

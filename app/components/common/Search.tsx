@@ -50,7 +50,7 @@ const Search: FC<Props> = ({
       </label>
       <div className="relative w-1/2 mx-auto">
         <input
-          className="pl-7 pr-5 py-3 mb-2 w-full rounded-lg focus:ring-2 focus:ring-inset focus:ring-indigo-600 dark:bg-item-bg-dark"
+          className="search-input pl-7 pr-5 py-3 mb-2"
           type="text"
           id="search"
           name="search"

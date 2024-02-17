@@ -45,11 +45,11 @@ const PopupContainer: React.FC<Props> = ({
   return (
     <div
       className={`fixed w-full h-full inset-x-0 inset-y-0 bg-[#000000cc] z-30 flex justify-center items-center popup-container ${customWrapperClassName}`}
-      onClick={closePopup}
+      onMouseDown={closePopup}
     >
       <div
-        className={`relative w-[600px] h-[400px] p-4 bg-light-gray rounded-xl dark:bg-dark-blue flex flex-col items-center justify-center z-40 ${customBodyClassName}`}
-        onClick={(e) => {
+        className={`relative w-[600px] h-[480px] p-4 bg-light-gray rounded-xl dark:bg-dark-blue flex flex-col items-center justify-center z-40 ${customBodyClassName}`}
+        onMouseDown={(e) => {
           e.stopPropagation();
         }}
       >
