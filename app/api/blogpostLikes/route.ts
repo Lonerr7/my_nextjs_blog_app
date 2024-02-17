@@ -8,17 +8,22 @@ export const GET = async (req: NextRequest) => {
     const blogpostId = req.nextUrl.searchParams.get('blogpostId');
     const page = req.nextUrl.searchParams.get('page');
 
+    console.log(page);
+
     await connectToDB();
     const blogpost = await Blog.findById(blogpostId)
       .select('_id likes')
-      .populate({
-        path: 'likes',
-        select: 'image username status',
-        options: {
-          limit: 2, // лимит потом поменяем
-          skip: (Number(page) - 1) * 2,
+      .populate([
+        {
+          path: 'likes',
+          select: 'image username status',
+          options: {
+            skip: (Number(page) - 1) * 5,
+            limit: 5,
+            sort: {},
+          },
         },
-      });
+      ]);
 
     return new Response(JSON.stringify(blogpost.likes), { status: 200 });
   } catch (error) {

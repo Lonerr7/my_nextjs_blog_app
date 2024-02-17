@@ -194,10 +194,13 @@ export const getSingleBlogpost = async (blogpostId: string) => {
   }
 };
 
-export const getSingleBlogpostLikes = async (
-  blogpostId: string,
-  { page }: { page?: number; query?: string } //!
-) => {
+export const getSingleBlogpostLikes = async ({
+  page,
+  blogpostId,
+}: {
+  page?: number;
+  blogpostId: string;
+}) => {
   try {
     no_store();
 

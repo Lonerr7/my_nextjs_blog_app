@@ -5,11 +5,15 @@ import Link from 'next/link';
 interface Props {
   user: ILikedUser;
   isMe: boolean;
+  lastLikedUserRef?: (node: any) => void;
 }
 
-const LikedUserSm: React.FC<Props> = ({ user, isMe }) => {
+const LikedUserSm: React.FC<Props> = ({ user, isMe, lastLikedUserRef }) => {
   return (
-    <li className="w-full flex justify-between items-center mb-4 last:mb-0">
+    <li
+      className="w-full flex justify-between items-center mb-4 last:mb-0"
+      ref={lastLikedUserRef}
+    >
       <div className="flex items-center">
         <Link href={isMe ? '/my-page' : `/users/${user._id}`}>
           <NextImageVithViewer

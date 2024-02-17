@@ -21,7 +21,7 @@ const BlogpostLikes: React.FC<Props> = ({
   isLiked,
   blogpostLikesCount,
   blogpostId,
-  mySessionId
+  mySessionId,
 }) => {
   const [isLikesViewerOpen, setIsLikesViewerOpen] = useState(false);
   const bindedAction = likeDislikeBlogpost.bind(null, blogpostId);
@@ -51,7 +51,10 @@ const BlogpostLikes: React.FC<Props> = ({
           customCloseBtnClassName="top-[15px]"
           closePopup={() => setIsLikesViewerOpen(false)}
         >
-          <BlogpostLikesViewerContainer blogpostId={blogpostId} mySessionId={mySessionId} />
+          <BlogpostLikesViewerContainer
+            blogpostId={blogpostId}
+            mySessionId={mySessionId}
+          />
         </PopupContainer>
       ) : null}
     </div>
