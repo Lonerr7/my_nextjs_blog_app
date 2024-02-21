@@ -1,4 +1,6 @@
-import { FC } from 'react';
+
+
+import { FC, useEffect } from 'react';
 import Logo from '../Logo';
 import ThemeSwitcher from '../ThemeSwitcher';
 import NavList from './NavList';
@@ -15,6 +17,8 @@ const Navbar: FC = async () => {
   let userDoc = session?.user
     ? await getSingleUser(session?.user.id!, RequestTags.GET_ME, false)
     : undefined;
+
+
 
   return (
     <nav className="flex items-center justify-between text-xl">
@@ -35,7 +39,7 @@ const Navbar: FC = async () => {
           <Link className="link mr-4 dark:text-white" href="/my-page">
             Hello,{' '}
             <span className="font-bold">
-              {userDoc?.user && userDoc?.user.username}
+              {userDoc?.user && userDoc.user.username}
             </span>
           </Link>
         )}

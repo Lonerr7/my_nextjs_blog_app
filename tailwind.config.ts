@@ -42,6 +42,8 @@ const config: Config = {
         'blogpost-border-light': '#E8E8EA',
         'blogpost-tag-primary': '#4B6BFB',
         'blogpost-info': '#97989F',
+        'scrolled-header-light': '#d2d2d2',
+        'scrolled-header-dark': '#0d0e17',
       },
     },
     screens: {
