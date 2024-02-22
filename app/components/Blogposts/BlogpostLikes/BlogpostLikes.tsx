@@ -45,6 +45,7 @@ const BlogpostLikes: React.FC<Props> = ({
       >
         {formatLikesCount(blogpostLikesCount)}
       </button>
+      
       {isLikesViewerOpen ? (
         <PopupContainer
           customBodyClassName="max-w-[400px] h-[400px] !justify-start p-0"

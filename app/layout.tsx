@@ -32,6 +32,7 @@ export default function RootLayout({
           </Header>
           <Main>{children}</Main>
           <Footer />
+          <div id="app-portal" />
         </Providers>
       </body>
     </html>

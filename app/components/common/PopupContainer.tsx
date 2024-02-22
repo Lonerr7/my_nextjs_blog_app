@@ -1,6 +1,7 @@
 'use client';
 
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
+import { createPortal } from 'react-dom';
 import { ImCross } from 'react-icons/im';
 
 interface Props {
@@ -42,7 +43,7 @@ const PopupContainer: React.FC<Props> = ({
     };
   }, []);
 
-  return (
+  const modalContent = (
     <div
       className={`fixed w-full h-full inset-x-0 inset-y-0 bg-[#000000cc] z-30 flex justify-center items-center popup-container ${customWrapperClassName}`}
       onMouseDown={closePopup}
@@ -65,6 +66,8 @@ const PopupContainer: React.FC<Props> = ({
       </div>
     </div>
   );
+
+  return createPortal(modalContent, document.getElementById('app-portal')!);
 };
 
 export default PopupContainer;
