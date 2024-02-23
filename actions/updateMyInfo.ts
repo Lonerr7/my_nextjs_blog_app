@@ -7,7 +7,6 @@ import { handleServerActionError } from '@/utils/handleServerActionError';
 import { getServerSession } from 'next-auth';
 import { revalidateTag } from 'next/cache';
 import { z } from 'zod';
-import { cookies } from 'next/headers';
 import { RequestTags } from '@/types/requestTypes';
 
 const EditMyInfoSchema = z.object({

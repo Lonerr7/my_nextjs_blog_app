@@ -38,6 +38,10 @@ const blogSchema = new Schema(
         default: [],
       },
     ],
+    commentsCount: {
+      type: Number,
+      default: 0,
+    },
     createdAt: Date,
     lastUpdatedAt: Date,
   },

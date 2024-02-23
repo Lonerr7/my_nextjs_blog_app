@@ -36,7 +36,11 @@ const BlogpostLikesViewer: React.FC<Props> = ({
       {initialLoading ? (
         <Preloader customClassName="absolute right-0 left-0 mx-auto w-[75px]" />
       ) : (
-        <ul className="px-4 py-2 flex flex-col items-center overflow-y-scroll max-h-[330px]">
+        <ul
+          className={`px-4 py-2 flex flex-col items-center  max-h-[330px] ${
+            likedUsers.length > 5 && 'overflow-y-scroll'
+          }`}
+        >
           {likedUsers?.map((user, i) => {
             if (likedUsers.length === i + 1) {
               return (

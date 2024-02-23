@@ -39,8 +39,9 @@ const BlogpostBig: React.FC<Props> = ({ blogpost, myId }) => {
       <BlogpostLikes
         customClassName="mb-5"
         blogpostId={blogpost._id}
-        blogpostLikes={blogpost?.likes?.length}
+        blogpostLikesCount={blogpost?.likes?.length}
         isLiked={checkIfBlogpostIsLikedByMe(myId!, blogpost?.likes)}
+        mySessionId={myId!}
       />
 
       <div className="flex items-center justify-between text-text-gray mb-8">

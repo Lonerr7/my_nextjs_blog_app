@@ -7,6 +7,7 @@ import { cropStringByLength } from '@/utils/cropStringByLength';
 import BlogpostControls from './BlogpostControls';
 import BlogpostDate from './BlogpostDate';
 import BlogpostLikes from './BlogpostLikes/BlogpostLikes';
+import BlogpostComments from './BlogpostComments/BlogpostComments';
 
 export const BlogpostSm = ({
   blogpost,
@@ -73,12 +74,16 @@ export const BlogpostSm = ({
           />
         </div>
 
-        <BlogpostLikes
-          blogpostLikesCount={blogpost?.likes?.length}
-          isLiked={isLiked}
-          blogpostId={blogpost._id}
-          mySessionId={mySessionId}
-        />
+        <div className="flex items-center">
+          <BlogpostLikes
+            customClassName="mr-3"
+            blogpostLikesCount={blogpost?.likes?.length}
+            isLiked={isLiked}
+            blogpostId={blogpost._id}
+            mySessionId={mySessionId}
+          />
+          <BlogpostComments blogpostId={blogpost._id} />
+        </div>
 
         {/* Blogpost controls if it's mine */}
         {isMine ? (

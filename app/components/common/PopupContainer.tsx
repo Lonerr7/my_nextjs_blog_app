@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { createPortal } from 'react-dom';
 import { ImCross } from 'react-icons/im';
 
@@ -39,7 +39,7 @@ const PopupContainer: React.FC<Props> = ({
     document.body.style.overflowY = 'hidden';
 
     return () => {
-      document.body.style.overflowY = 'auto';
+      document.body.style.overflowY = 'scroll';
     };
   }, []);
 
