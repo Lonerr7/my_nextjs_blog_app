@@ -1,4 +1,3 @@
-import Blog from '@/models/Blog';
 import Comment from '@/models/Comment';
 import { connectToDB } from '@/utils/connectToDB';
 import { NextRequest } from 'next/server';
@@ -11,16 +10,20 @@ export const GET = async (req: NextRequest) => {
     const searchQuery = req.nextUrl.searchParams.get('searchQuery');
 
     await connectToDB();
-    const comments = await Comment.find({ blogpostId }).populate({
-      path: 'owner',
-      match: { username: { $regex: searchQuery, $options: 'i' } },
-      select: 'username image',
-      options: {
-        skip: (Number(page) - 1) * 8,
-        limit: 8,
-        sort: { $natural: 1 },
-      },
-    });
+    const comments = await Comment.find({ blogpostId })
+      .skip((Number(page) - 1) * 8)
+      .sort({ $natural: 1 })
+      .limit(8)
+      .populate({
+        path: 'owner',
+        match: { username: { $regex: searchQuery, $options: 'i' } },
+        select: 'username image',
+        // options: {
+        //   skip: (Number(page) - 1) * 8,
+        //   limit: 8,
+        //   sort: { $natural: 1 },
+        // },
+      });
 
     return new Response(JSON.stringify(comments), { status: 200 });
   } catch (error) {

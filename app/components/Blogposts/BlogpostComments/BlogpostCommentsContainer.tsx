@@ -2,33 +2,56 @@
 
 import BlogpostCommentsViewer from './BlogpostCommentsViewer';
 import BlogpostCommentInput from './BlogpostCommentInput';
+import { useCallback, useRef, useState } from 'react';
+import { useInfiniteScroll } from '@/hooks/useBlogpostLikes';
 import { getBlogpostComments } from '@/services/blogServices';
-import { useEffect, useState } from 'react';
+import { setPageNumIfLastElemExists } from '@/utils/setPageNumIfLastElemExists';
+import { toast } from 'react-hot-toast';
+import { useDebouncedCallback } from 'use-debounce';
 
 interface Props {
   blogpostId: string;
 }
 
 const BlogpostCommentsContainer: React.FC<Props> = ({ blogpostId }) => {
-  const [comments, setComments] = useState<any[]>([]);
+  const [searchQuery, setSearchQuery] = useState('');
+  const [pageNumber, setPageNumber] = useState(1);
+  const observer = useRef<IntersectionObserver | null>(null);
+  const { error, hasMore, state, loading, initialLoading } = useInfiniteScroll({
+    blogpostId,
+    pageNumber: pageNumber,
+    searchQuery,
+    responseFieldName: 'blogpostComments',
+    requestFunc: getBlogpostComments,
+  });
 
-  useEffect(() => {
-    (async () => {
-      const { blogpostComments, errMsg } = await getBlogpostComments({
-        blogpostId,
-        page: 1,
-        searchQuery: '',
-      });
+  console.log(pageNumber);
 
-      setComments(blogpostComments);
-    })();
-  }, []);
+  const handleSearch = useDebouncedCallback((searchTerm: string) => {
+    setSearchQuery(searchTerm);
+    setPageNumber(1);
+  }, 400);
 
-  console.log(comments);
+  const lastLikedCommentRef = useCallback(
+    setPageNumIfLastElemExists({ hasMore, loading, observer, setPageNumber }),
+
+    // eslint-disable-next-line
+    [hasMore, loading]
+  );
+
+  if (error) {
+    toast.error(error);
+  }
 
   return (
     <>
-      <BlogpostCommentsViewer />
+      <BlogpostCommentsViewer
+        lastLikedCommentRef={lastLikedCommentRef}
+        comments={state}
+        handleSearch={handleSearch}
+        initialLoading={initialLoading}
+        mySessionId="" //!
+      />
       <BlogpostCommentInput blogpostId={blogpostId} />
     </>
   );

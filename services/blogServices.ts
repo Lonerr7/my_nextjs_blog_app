@@ -236,14 +236,17 @@ export const getBlogpostComments = async ({
   searchQuery,
 }: {
   blogpostId: string;
-  page: number;
+  page?: number;
   searchQuery: string;
 }) => {
   try {
     no_store();
 
     const response = await fetch(
-      `http://localhost:3000/api/blogpostComments?blogpostId=${blogpostId}&page=${page}&searchQuery=${searchQuery}`
+      `http://localhost:3000/api/blogpostComments?blogpostId=${blogpostId}&page=${page}&searchQuery=${searchQuery}`,
+      {
+        next: { tags: [RequestTags.GET_BLOGPOST_COMMENTS] },
+      }
     );
 
     const data = await response.json();

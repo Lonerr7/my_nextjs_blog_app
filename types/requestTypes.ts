@@ -3,6 +3,7 @@ export enum RequestTags {
   GET_ME = 'myself',
   GET_SINGLE_USER = 'user',
   GET_BLOGPOSTS = 'blogposts',
+  GET_BLOGPOST_COMMENTS = 'blogpostComments'
 }
 
 export enum SearchQueriesNames {
@@ -10,3 +11,4 @@ export enum SearchQueriesNames {
   BLOGPOSTS_SEARCH_QUERY = 'blogpostsSearchQuery',
   BLOGPOSTS_TAG_FILTER = 'blogpostsTagFilter',
 }
+

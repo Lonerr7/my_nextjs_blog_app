@@ -1,25 +1,35 @@
-import { getSingleBlogpostLikes } from '@/services/blogServices';
-import { IBlogpostLikedUsers } from '@/types/blogTypes';
 import { useEffect, useState } from 'react';
 
-export const useBlogpostLikes = ({
+export const useInfiniteScroll = ({
   blogpostId,
   pageNumber,
   searchQuery,
+  responseFieldName,
+  requestFunc,
 }: {
   blogpostId: string;
   pageNumber: number;
   searchQuery: string;
+  responseFieldName: string;
+  requestFunc: ({
+    page,
+    blogpostId,
+    searchQuery,
+  }: {
+    page?: number | undefined;
+    blogpostId: string;
+    searchQuery: string;
+  }) => any;
 }) => {
   const [loading, setLoading] = useState(false);
   const [initialLoading, setInitialLoading] = useState(false);
   const [isInitialLoading, setIsInitialLoading] = useState(true);
   const [error, setError] = useState('');
-  const [likedUsers, setLikedUsers] = useState<IBlogpostLikedUsers>([]);
+  const [state, setState] = useState<any>([]);
   const [hasMore, setHasMore] = useState(false);
 
   useEffect(() => {
-    setLikedUsers([]);
+    setState([]);
   }, [searchQuery]);
 
   useEffect(() => {
@@ -30,15 +40,18 @@ export const useBlogpostLikes = ({
     setLoading(true);
     setError('');
 
-    getSingleBlogpostLikes({
+    requestFunc({
       blogpostId,
       page: pageNumber,
       searchQuery,
     })
-      .then((res) => {
-        if (res.blogpostLikes) {
-          setLikedUsers((prevState) => [...prevState, ...res.blogpostLikes]);
-          setHasMore(res.blogpostLikes?.length > 0);
+      .then((res: any) => {
+        if (res[responseFieldName]) {
+          setState((prevState: any) => [
+            ...prevState,
+            ...res[responseFieldName],
+          ]);
+          setHasMore(res[responseFieldName]?.length > 0);
         }
 
         if (res.errMsg) {
@@ -62,5 +75,5 @@ export const useBlogpostLikes = ({
     // eslint-disable-next-line
   }, [pageNumber, searchQuery]);
 
-  return { loading, error, likedUsers, hasMore, initialLoading };
+  return { loading, error, state, hasMore, initialLoading };
 };
