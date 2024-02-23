@@ -27,6 +27,7 @@ export const useInfiniteScroll = ({
   const [error, setError] = useState('');
   const [state, setState] = useState<any>([]);
   const [hasMore, setHasMore] = useState(false);
+  const [firstItemAdded, setFirstItemAdded] = useState(false); // We need it to refetch comments when we create a first comment 
 
   useEffect(() => {
     setState([]);
@@ -73,7 +74,15 @@ export const useInfiniteScroll = ({
       });
 
     // eslint-disable-next-line
-  }, [pageNumber, searchQuery]);
+  }, [pageNumber, searchQuery, firstItemAdded]);
 
-  return { loading, error, state, hasMore, initialLoading };
+  return {
+    loading,
+    error,
+    state,
+    hasMore,
+    initialLoading,
+    setState,
+    setFirstItemAdded,
+  };
 };

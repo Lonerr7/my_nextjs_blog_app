@@ -82,7 +82,7 @@ export const BlogpostSm = ({
             blogpostId={blogpost._id}
             mySessionId={mySessionId}
           />
-          <BlogpostComments blogpostId={blogpost._id} />
+          <BlogpostComments blogpostId={blogpost._id} commentsCount={blogpost.commentsCount} />
         </div>
 
         {/* Blogpost controls if it's mine */}

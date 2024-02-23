@@ -3,7 +3,7 @@
 import { useCallback, useRef, useState } from 'react';
 import { toast } from 'react-hot-toast';
 import BlogpostLikesViewer from './BlogpostLikesViewer';
-import { useInfiniteScroll } from '@/hooks/useBlogpostLikes';
+import { useInfiniteScroll } from '@/hooks/useInfiniteScroll';
 import { useDebouncedCallback } from 'use-debounce';
 import { getSingleBlogpostLikes } from '@/services/blogServices';
 import { setPageNumIfLastElemExists } from '@/utils/setPageNumIfLastElemExists';

@@ -3,7 +3,7 @@
 import BlogpostCommentsViewer from './BlogpostCommentsViewer';
 import BlogpostCommentInput from './BlogpostCommentInput';
 import { useCallback, useRef, useState } from 'react';
-import { useInfiniteScroll } from '@/hooks/useBlogpostLikes';
+import { useInfiniteScroll } from '@/hooks/useInfiniteScroll';
 import { getBlogpostComments } from '@/services/blogServices';
 import { setPageNumIfLastElemExists } from '@/utils/setPageNumIfLastElemExists';
 import { toast } from 'react-hot-toast';
@@ -17,13 +17,14 @@ const BlogpostCommentsContainer: React.FC<Props> = ({ blogpostId }) => {
   const [searchQuery, setSearchQuery] = useState('');
   const [pageNumber, setPageNumber] = useState(1);
   const observer = useRef<IntersectionObserver | null>(null);
-  const { error, hasMore, state, loading, initialLoading } = useInfiniteScroll({
-    blogpostId,
-    pageNumber: pageNumber,
-    searchQuery,
-    responseFieldName: 'blogpostComments',
-    requestFunc: getBlogpostComments,
-  });
+  const { error, hasMore, state, loading, initialLoading, setState, setFirstItemAdded } =
+    useInfiniteScroll({
+      blogpostId,
+      pageNumber: pageNumber,
+      searchQuery,
+      responseFieldName: 'blogpostComments',
+      requestFunc: getBlogpostComments,
+    });
 
   console.log(pageNumber);
 
@@ -52,7 +53,12 @@ const BlogpostCommentsContainer: React.FC<Props> = ({ blogpostId }) => {
         initialLoading={initialLoading}
         mySessionId="" //!
       />
-      <BlogpostCommentInput blogpostId={blogpostId} />
+      <BlogpostCommentInput
+        blogpostId={blogpostId}
+        setPageNumber={setPageNumber}
+        setScrollState={setState}
+        setFirstItemAdded={setFirstItemAdded}
+      />
     </>
   );
 };

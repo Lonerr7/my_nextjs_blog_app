@@ -26,6 +26,7 @@ export interface IBlogPost {
   createdAt: string;
   title: string;
   lastUpdatedAt?: string;
+  commentsCount: number;
   likes: string[];
 }
 

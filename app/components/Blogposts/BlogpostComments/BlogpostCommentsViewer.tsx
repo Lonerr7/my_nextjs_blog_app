@@ -1,4 +1,4 @@
-import { useInfiniteScroll } from '@/hooks/useBlogpostLikes';
+import { useInfiniteScroll } from '@/hooks/useInfiniteScroll';
 import { getBlogpostComments } from '@/services/blogServices';
 import { IComment } from '@/types/commentTypes';
 import React, { FC, useRef, useState } from 'react';

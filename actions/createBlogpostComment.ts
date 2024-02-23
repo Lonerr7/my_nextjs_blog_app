@@ -1,6 +1,7 @@
 'use server';
 
 import { authConfig } from '@/configs/auth';
+import Blog from '@/models/Blog';
 import Comment from '@/models/Comment';
 import { RequestTags } from '@/types/requestTypes';
 import { connectToDB } from '@/utils/connectToDB';
@@ -36,12 +37,24 @@ export const createBlogpostComment = async ({
 
   try {
     await connectToDB();
+    const blogpost = await Blog.findById(blogpostId);
+
+    if (!blogpost) {
+      return {
+        errMessage:
+          'Blogpost you are trying to comment on does no longer exist!',
+      };
+    }
+
     await Comment.create({
       text,
       owner: session?.user.id,
       to: blogpostId,
       createdAt: getCorrectDateTime(),
     });
+
+    blogpost.commentsCount += 1;
+    await blogpost.save();
   } catch (error: any) {
     console.error(error);
 

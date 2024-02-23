@@ -1,14 +1,22 @@
 'use client';
 
 import { createBlogpostComment } from '@/actions/createBlogpostComment';
-import { useState } from 'react';
+import { Dispatch, SetStateAction, useState } from 'react';
 import { toast } from 'react-hot-toast';
 
 interface Props {
   blogpostId: string;
+  setScrollState: Dispatch<any>;
+  setPageNumber: Dispatch<SetStateAction<number>>;
+  setFirstItemAdded: Dispatch<SetStateAction<boolean>>;
 }
 
-const BlogpostCommentInput: React.FC<Props> = ({ blogpostId }) => {
+const BlogpostCommentInput: React.FC<Props> = ({
+  blogpostId,
+  setScrollState,
+  setPageNumber,
+  setFirstItemAdded,
+}) => {
   const [text, setText] = useState('');
 
   const clientAction = async () => {
@@ -19,6 +27,11 @@ const BlogpostCommentInput: React.FC<Props> = ({ blogpostId }) => {
     if (!errMessage) {
       toast.success('Successfully created a comment!');
       setText('');
+
+      // Next 2 lines are needed to refetch all coments when we create a new one so that it appears immideatly
+      setScrollState([]);
+      setPageNumber(1);
+      setFirstItemAdded(true);
     } else {
       toast.error(errMessage);
     }

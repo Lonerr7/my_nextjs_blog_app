@@ -242,6 +242,8 @@ export const getBlogpostComments = async ({
   try {
     no_store();
 
+    console.log(`get blogpost comments`);
+
     const response = await fetch(
       `http://localhost:3000/api/blogpostComments?blogpostId=${blogpostId}&page=${page}&searchQuery=${searchQuery}`,
       {

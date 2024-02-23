@@ -1,5 +1,7 @@
+import { authConfig } from '@/configs/auth';
 import Comment from '@/models/Comment';
 import { connectToDB } from '@/utils/connectToDB';
+import { getServerSession } from 'next-auth';
 import { NextRequest } from 'next/server';
 
 export const GET = async (req: NextRequest) => {
@@ -9,10 +11,15 @@ export const GET = async (req: NextRequest) => {
     const page = req.nextUrl.searchParams.get('page');
     const searchQuery = req.nextUrl.searchParams.get('searchQuery');
 
+    const session = await getServerSession(authConfig);
+
     await connectToDB();
-    const comments = await Comment.find({ blogpostId })
+    const comments = await Comment.find({
+      to: blogpostId,
+      owner: session?.user.id,
+    })
       .skip((Number(page) - 1) * 8)
-      .sort({ $natural: 1 })
+      .sort({ createdAt: -1 })
       .limit(8)
       .populate({
         path: 'owner',

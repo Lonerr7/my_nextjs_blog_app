@@ -8,9 +8,10 @@ import BlogpostCommentsContainer from './BlogpostCommentsContainer';
 
 interface Props {
   blogpostId: string;
+  commentsCount: number;
 }
 
-const BlogpostComments: React.FC<Props> = ({ blogpostId }) => {
+const BlogpostComments: React.FC<Props> = ({ blogpostId, commentsCount }) => {
   const [isCommentsViewerOpen, setIsCommentsViewerOpen] = useState(false);
 
   return (
@@ -20,8 +21,8 @@ const BlogpostComments: React.FC<Props> = ({ blogpostId }) => {
         onClick={() => setIsCommentsViewerOpen(true)}
       >
         <FaComment size={22} />
-        <span className="absolute top-[-7px] left-[13px] bg-white h-[18px] text-[10px] rounded-xl w-[18px] flex flex-col justify-center bg-rose-500 text-white">
-          <span className="mb-[1px]">{formatLikesCount(11)}</span>
+        <span className="absolute top-[-7px] left-[13px] h-[18px] text-[10px] rounded-xl w-[18px] flex flex-col justify-center bg-rose-500 text-white">
+          <span className="mb-[1px]">{formatLikesCount(commentsCount)}</span>
         </span>
       </button>
 
