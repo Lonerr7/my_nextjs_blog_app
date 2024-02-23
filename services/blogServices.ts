@@ -206,20 +206,56 @@ export const getSingleBlogpostLikes = async ({
   try {
     no_store();
 
-    const resposne = await fetch(
+    const response = await fetch(
       `http://localhost:3000/api/blogpostLikes?blogpostId=${blogpostId}&page=${page}&searchQuery=${searchQuery}`
     );
 
-    const data = await resposne.json();
+    const data = await response.json();
 
-    if (!resposne.ok) {
+    if (!response.ok) {
       console.error(data);
 
-      throw new Error('Error when fetching a blogpost');
+      throw new Error('Error when fetching blogpost likes');
     }
 
     return {
       blogpostLikes: data as IBlogpostLikedUsers,
+    };
+  } catch (error) {
+    console.error(error);
+
+    return {
+      errMsg: 'Something went wrong! Try again later!',
+    };
+  }
+};
+
+export const getBlogpostComments = async ({
+  blogpostId,
+  page,
+  searchQuery,
+}: {
+  blogpostId: string;
+  page: number;
+  searchQuery: string;
+}) => {
+  try {
+    no_store();
+
+    const response = await fetch(
+      `http://localhost:3000/api/blogpostComments?blogpostId=${blogpostId}&page=${page}&searchQuery=${searchQuery}`
+    );
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      console.error(data);
+
+      throw new Error('Error when fetching blogpost comments');
+    }
+
+    return {
+      blogpostComments: data, //! Нужно получить тип данных для коммента
     };
   } catch (error) {
     console.error(error);
