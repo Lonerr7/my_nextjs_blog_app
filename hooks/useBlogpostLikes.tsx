@@ -12,6 +12,8 @@ export const useBlogpostLikes = ({
   searchQuery: string;
 }) => {
   const [loading, setLoading] = useState(false);
+  const [initialLoading, setInitialLoading] = useState(false);
+  const [isInitialLoading, setIsInitialLoading] = useState(true);
   const [error, setError] = useState('');
   const [likedUsers, setLikedUsers] = useState<IBlogpostLikedUsers>([]);
   const [hasMore, setHasMore] = useState(false);
@@ -21,6 +23,10 @@ export const useBlogpostLikes = ({
   }, [searchQuery]);
 
   useEffect(() => {
+    if (isInitialLoading) {
+      setInitialLoading(true);
+    }
+
     setLoading(true);
     setError('');
 
@@ -45,11 +51,16 @@ export const useBlogpostLikes = ({
         setError('Something went wrong! Try again later!');
       })
       .finally(() => {
+        if (isInitialLoading) {
+          setInitialLoading(false);
+          setIsInitialLoading(false);
+        }
+
         setLoading(false);
       });
 
     // eslint-disable-next-line
   }, [pageNumber, searchQuery]);
 
-  return { loading, error, likedUsers, hasMore };
+  return { loading, error, likedUsers, hasMore, initialLoading };
 };

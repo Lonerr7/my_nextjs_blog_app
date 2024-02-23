@@ -18,11 +18,12 @@ const BlogpostLikesViewerContainer: React.FC<Props> = ({
   const [searchQuery, setSearchQuery] = useState('');
   const [pageNumber, setPageNumber] = useState(1);
   const observer = useRef<IntersectionObserver | null>(null);
-  const { error, hasMore, likedUsers, loading } = useBlogpostLikes({
-    blogpostId,
-    pageNumber: pageNumber,
-    searchQuery,
-  });
+  const { error, hasMore, likedUsers, loading, initialLoading } =
+    useBlogpostLikes({
+      blogpostId,
+      pageNumber: pageNumber,
+      searchQuery,
+    });
 
   const handleSearch = useDebouncedCallback((searchTerm: string) => {
     setSearchQuery(searchTerm);
@@ -64,6 +65,7 @@ const BlogpostLikesViewerContainer: React.FC<Props> = ({
       mySessionId={mySessionId}
       lastLikedUserRef={lastLikedUserRef}
       handleSearch={handleSearch}
+      initialLoading={initialLoading}
     />
   );
 };
