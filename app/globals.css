@@ -2,6 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
+html {
+  scrollbar-gutter: stable;
+}
+
 body {
   overflow-y: scroll;
 }
@@ -10,6 +14,10 @@ body {
   max-width: 1216px;
   margin: 0 auto;
   padding: 0 15px;
+}
+
+.delete-btn {
+  @apply transition hover:delay-[30ms] text-red-500 hover:text-red-700;
 }
 
 .link {
@@ -42,6 +50,14 @@ body {
   text-align: center;
 }
 
+.blogpost-tag {
+  @apply px-2.5 py-1 text-sm leading-5 max-w-[300px] text-blogpost-tag-primary bg-blogpost-tag-primary/5 text-center border rounded-md border-transparent mb-4 hover:bg-blogpost-tag-primary/25;
+}
+
+.search-input {
+  @apply w-full rounded-lg focus:ring-2 focus:ring-inset focus:ring-indigo-600 dark:bg-item-bg-dark;
+}
+
 .dropzone {
   height: 300px;
   width: 300px;
@@ -53,6 +69,7 @@ body {
 }
 
 /* Blog Select */
+
 .blogpost__control,
 .blogpost__menu {
   @apply dark:bg-item-bg-dark;

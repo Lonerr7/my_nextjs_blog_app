@@ -2,6 +2,7 @@
 
 import { authConfig } from '@/configs/auth';
 import User from '@/models/User';
+import { RequestTags } from '@/types/requestTypes';
 import { connectToDB } from '@/utils/connectToDB';
 import { v2 as cloudinary } from 'cloudinary';
 import { getServerSession } from 'next-auth';
@@ -74,6 +75,7 @@ export const deleteMyProfilePicture = async () => {
     };
   }
 
-  revalidateTag('myself');
-  revalidateTag('getUsers');
+  revalidateTag(RequestTags.GET_ME);
+  revalidateTag(RequestTags.GET_USERS);
+  revalidateTag(RequestTags.GET_BLOGPOSTS);
 };

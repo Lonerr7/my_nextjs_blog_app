@@ -3,6 +3,7 @@
 import User from '@/models/User';
 import { IUser } from '@/types/userTypes';
 import { connectToDB } from '@/utils/connectToDB';
+import { getCorrectDateTime } from '@/utils/getCorrectTimeDate';
 import { z } from 'zod';
 
 const RegisterFormSchema = z
@@ -52,6 +53,7 @@ export const registerUserAction = async (inputData: {
         username: inputData.username,
         password: inputData.password,
         passwordConfirm: inputData.passwordConfirm,
+        createdAt: getCorrectDateTime(),
       });
 
       // resetting the password so we don't return it (we take password from the input to log the user in)

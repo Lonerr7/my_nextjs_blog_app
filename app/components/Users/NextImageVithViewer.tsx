@@ -1,42 +1,54 @@
 'use client';
 
 import { FC, useState } from 'react';
-
 import ImageViewer from 'react-simple-image-viewer';
 import Image from 'next/image';
 
 interface Props {
-  avatarURL?: string;
+  imageUrl?: string;
   small?: boolean;
   customClassName?: string;
+  customImgClassName?: string;
   fullscreen?: boolean;
+  sizes: string;
+  alt: string;
+  blurDataUrl?: string;
 }
 const mockAvatar = '/mockAvatar.jpg';
 
-const Avatar: FC<Props> = ({
-  avatarURL,
+const NextImageVithViewer: FC<Props> = ({
+  imageUrl,
   small,
   customClassName,
+  customImgClassName,
   fullscreen,
+  sizes,
+  blurDataUrl,
+  alt,
 }) => {
   const [isViewerOpen, setIsViewerOpen] = useState(false);
-  const images = avatarURL ? [avatarURL] : [mockAvatar];
+  const images = imageUrl ? [imageUrl] : [mockAvatar];
 
   const openImageViewer = () => setIsViewerOpen(true);
   const closeImageViewer = () => setIsViewerOpen(false);
 
   return (
-    <div className={`relative min-w-[125px] min-h-[125px] ${customClassName}`}>
+    <div className={`relative min-h-[125px] min-w-[125px] ${customClassName}`}>
       <Image
-        className={`object-cover ${small && `rounded-[50%]`} ${
-          fullscreen && 'cursor-pointer'
-        }`}
-        src={avatarURL ? avatarURL : '/mockAvatar.jpg'}
-        alt="avatar"
+        className={`${small && `rounded-[50%]`}  ${
+          fullscreen && 'cursor-pointer '
+        } ${customImgClassName}`}
+        style={{
+          objectFit: 'cover',
+        }}
+        src={imageUrl ? imageUrl : '/mockAvatar.jpg'}
+        alt={alt}
         onClick={openImageViewer}
         fill
-        sizes="125px"
+        sizes={sizes}
         priority
+        placeholder={blurDataUrl ? 'blur' : 'empty'}
+        blurDataURL={blurDataUrl ? blurDataUrl : undefined}
       />
       {fullscreen && isViewerOpen ? (
         <ImageViewer
@@ -55,4 +67,4 @@ const Avatar: FC<Props> = ({
   );
 };
 
-export default Avatar;
+export default NextImageVithViewer;

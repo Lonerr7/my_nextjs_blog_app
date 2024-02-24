@@ -1,12 +1,17 @@
 import React from 'react';
 import CreateBlogPostContainer from '../components/CreateBlogPost/CreateBlogPostContainer';
+import { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: 'Create blogpost | Meta Blog',
+};
 
 const CreateBlogPostPage = () => {
   return (
-    <div>
-      <h1 className='page-title'>Create Blog Post</h1>
+    <section>
+      <h1 className="page-title">Create Blogpost</h1>
       <CreateBlogPostContainer />
-    </div>
+    </section>
   );
 };
 

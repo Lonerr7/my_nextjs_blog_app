@@ -1,10 +1,13 @@
 import Blog from '@/models/Blog';
-import { CreateBlogApiRouteInput } from '@/types/blogTypes';
+import { CreateBlogApiRouteInput, IBlogPost } from '@/types/blogTypes';
 import { connectToDB } from '@/utils/connectToDB';
 import { getCorrectDateTime } from '@/utils/getCorrectTimeDate';
 import { NextRequest } from 'next/server';
 import { UploadApiOptions, v2 as cloudinary } from 'cloudinary';
 import { revalidateTag } from 'next/cache';
+import { generateMongooseSearchOptions } from '@/utils/generateMongooseSearchOptions';
+import { BLOGS_ITEMS_PER_PAGE } from '@/configs/requestConfig';
+import { RequestTags } from '@/types/requestTypes';
 
 // Cloudinary config
 cloudinary.config({
@@ -22,7 +25,6 @@ const uploadOptions: UploadApiOptions = {
 export const POST = async (req: NextRequest) => {
   try {
     const owner = req.nextUrl.searchParams.get('userId');
-    console.log(owner);
 
     if (!owner) {
       return new Response(
@@ -31,7 +33,8 @@ export const POST = async (req: NextRequest) => {
       );
     }
 
-    const { image, tag, text }: CreateBlogApiRouteInput = await req.json();
+    const { image, tag, text, title }: CreateBlogApiRouteInput =
+      await req.json();
 
     // Загружаем картинку на cloudinary
     const { secure_url, public_id } = await cloudinary.uploader.upload(
@@ -40,12 +43,11 @@ export const POST = async (req: NextRequest) => {
     );
     await connectToDB();
 
-    console.log(secure_url, public_id);
-
     // Creating a blogpost
     const newBlogPost = await Blog.create({
       tag,
       text,
+      title,
       image: {
         imageUrl: secure_url,
         publicId: public_id,
@@ -54,11 +56,54 @@ export const POST = async (req: NextRequest) => {
       createdAt: getCorrectDateTime(),
     });
 
-    revalidateTag('myself');
+    revalidateTag(RequestTags.GET_ME);
 
     return new Response(JSON.stringify(newBlogPost), { status: 200 });
   } catch (error) {
-    console.log(error);
+    console.error(error);
+
+    return new Response(
+      JSON.stringify({ errMsg: 'Something went worng! Try again later!' }),
+      { status: 500 }
+    );
+  }
+};
+
+export const GET = async (req: NextRequest) => {
+  try {
+    // 1. Getting params from query URL
+    const owner =
+      req.nextUrl.searchParams.get('ownerId') == 'null' ||
+      req.nextUrl.searchParams.get('ownerId') == 'undefined'
+        ? null
+        : req.nextUrl.searchParams.get('ownerId');
+    const searchOptions = generateMongooseSearchOptions(req);
+    const page = req.nextUrl.searchParams.get('page');
+
+    // 2. Getting the result from DB based on passed parametres
+    let blogposts: IBlogPost[];
+    await connectToDB();
+
+    if (owner) {
+      blogposts = await Blog.find(
+        { owner, ...searchOptions },
+        '-text -lastUpdatedAt'
+      )
+        .sort('-createdAt')
+        .limit(BLOGS_ITEMS_PER_PAGE)
+        .skip((Number(page) - 1) * BLOGS_ITEMS_PER_PAGE);
+    } else {
+      blogposts = await Blog.find(searchOptions)
+        .sort('-createdAt')
+        .limit(BLOGS_ITEMS_PER_PAGE)
+        .skip((Number(page) - 1) * BLOGS_ITEMS_PER_PAGE)
+        .select('-text -lastUpdatedAt')
+        .populate('owner', 'username image');
+    }
+
+    return new Response(JSON.stringify(blogposts));
+  } catch (error) {
+    console.error(error);
 
     return new Response(
       JSON.stringify({ errMsg: 'Something went worng! Try again later!' }),

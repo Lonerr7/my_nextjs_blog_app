@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import { FC } from 'react';
-import Avatar from './Avatar';
+import Avatar from './NextImageVithViewer';
 
 interface Props {
   id: string;
@@ -16,7 +16,13 @@ const UserSm: FC<Props> = ({ id, username, avatarUrl, status }) => {
         className="flex items-center p-3 dark:text-white"
         href={`/users/${id}`}
       >
-        <Avatar customClassName="mr-4" avatarURL={avatarUrl} small />
+        <Avatar
+          customClassName="mr-4"
+          imageUrl={avatarUrl}
+          small
+          sizes="125px"
+          alt="avatar"
+        />
         <div className="min-h-[60px]">
           <p className="font-bold mb-2">{username}</p>
           <p>

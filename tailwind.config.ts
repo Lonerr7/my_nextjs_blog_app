@@ -8,6 +8,9 @@ const config: Config = {
   ],
   theme: {
     extend: {
+      fontFamily: {
+        'source-serif-pro': ['var(--font-source-seif-pro)'],
+      },
       backgroundImage: {
         'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
         'gradient-conic':
@@ -35,7 +38,13 @@ const config: Config = {
         'dark-gray': '#BABABF',
         'dark-blue': '#242535',
         'item-gray': '#cccccc',
-        'quill-btn_hover': '#444444'
+        'quill-btn_hover': '#444444',
+        'blogpost-border-light': '#E8E8EA',
+        'blogpost-tag-primary': '#4B6BFB',
+        'blogpost-info': '#97989F',
+        'scrolled-header-light': '#d2d2d2',
+        'scrolled-header-dark': '#0d0e17',
+        'comment-text': '#cfcfcf',
       },
     },
     screens: {

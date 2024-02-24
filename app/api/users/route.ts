@@ -3,16 +3,16 @@ import User from '@/models/User';
 import { IUser } from '@/types/userTypes';
 import { connectToDB } from '@/utils/connectToDB';
 import { generateMongooseSearchOptions } from '@/utils/generateMongooseSearchOptions';
-
 import { NextRequest } from 'next/server';
 
-export const GET = async (req: NextRequest, res: Response) => {
+export const GET = async (req: NextRequest) => {
   try {
     const searchOptions = generateMongooseSearchOptions(req);
     const page = req.nextUrl.searchParams.get('page');
 
     await connectToDB();
     const allUsers: IUser[] = await User.find(searchOptions)
+      .sort({ createdAt: -1 })
       .limit(USERS_ITEMS_PER_PAGE)
       .skip((Number(page) - 1) * USERS_ITEMS_PER_PAGE);
 

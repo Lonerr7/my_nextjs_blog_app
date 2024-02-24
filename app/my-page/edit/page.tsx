@@ -1,14 +1,12 @@
 import EditMyInfoForm from '@/app/components/my-page/EditMyInfoForm';
-import EditMyInfoNav from '@/app/components/my-page/EditMyInfoNav';
 import { authConfig } from '@/configs/auth';
 import { getSingleUser } from '@/services/userServices';
+import { RequestTags } from '@/types/requestTypes';
 import { getServerSession } from 'next-auth';
 
 const EditMyPage = async () => {
   const session = await getServerSession(authConfig);
-  const { user, error } = await getSingleUser(session?.user.id!, 'myself');
-
-  console.log(`edit my page user:`, user);
+  const { user, error } = await getSingleUser(session?.user.id!, RequestTags.GET_ME);
 
   if (!user && error) {
     <p>Error{error}</p>;

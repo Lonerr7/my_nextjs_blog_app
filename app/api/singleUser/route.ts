@@ -6,14 +6,14 @@ import { NextRequest } from 'next/server';
 export const GET = async (req: NextRequest) => {
   try {
     const id = req.nextUrl.searchParams.get('id')!;
-    const populateBlogs = req.nextUrl.searchParams.get('populateBlogs')!;
+    const populateBlogs = req.nextUrl.searchParams.get('populateBlogs');
 
     let user: any = undefined;
     await connectToDB();
 
-    if (populateBlogs) {
+    if (populateBlogs === 'true') {
       Blog; // не хочет делать virtual populate без "регистрации" модели Blog
-      user = await User.findById(id).populate('blogs');
+      user = await User.findById(id).populate('blogs', '-text');
     } else {
       user = await User.findById(id);
     }
@@ -21,8 +21,6 @@ export const GET = async (req: NextRequest) => {
     if (!user) {
       throw new Error('Failed to get the user');
     }
-
-    console.log(user);
 
     return new Response(JSON.stringify(user), { status: 200 });
   } catch (error) {

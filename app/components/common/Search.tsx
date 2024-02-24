@@ -1,15 +1,24 @@
 'use client';
 
+import { BlogpostTags } from '@/types/blogTypes';
+import { SearchQueriesNames } from '@/types/requestTypes';
 import { useSearchParams, usePathname, useRouter } from 'next/navigation';
 import { FC } from 'react';
 import { IoMdSearch } from 'react-icons/io';
 import { useDebouncedCallback } from 'use-debounce';
+import SearchTag from './SearchTag';
 
 interface Props {
   palceholder: string;
+  queryToChange: SearchQueriesNames;
+  blogpostsTagFilter?: BlogpostTags;
 }
 
-const Search: FC<Props> = ({ palceholder }) => {
+const Search: FC<Props> = ({
+  palceholder,
+  queryToChange,
+  blogpostsTagFilter,
+}) => {
   const searchParams = useSearchParams();
   const pathname = usePathname();
   const { replace } = useRouter();
@@ -18,13 +27,21 @@ const Search: FC<Props> = ({ palceholder }) => {
     const params = new URLSearchParams(searchParams);
 
     if (searchTerm) {
-      params.set('query', searchTerm);
+      params.set(queryToChange, searchTerm);
+      params.set('page', '1');
     } else {
-      params.delete('query');
+      params.delete(queryToChange);
     }
 
     replace(`${pathname}?${params.toString()}`);
   }, 300);
+
+  const handleSearchTagDelete = () => {
+    const params = new URLSearchParams(searchParams);
+    params.delete(SearchQueriesNames.BLOGPOSTS_TAG_FILTER);
+
+    replace(`${pathname}?${params.toString()}`);
+  };
 
   return (
     <div className="mx-auto w-full mb-8">
@@ -33,7 +50,7 @@ const Search: FC<Props> = ({ palceholder }) => {
       </label>
       <div className="relative w-1/2 mx-auto">
         <input
-          className="pl-7 pr-5 py-3 w-full rounded-lg focus:ring-2 focus:ring-inset focus:ring-indigo-600 dark:bg-item-bg-dark"
+          className="search-input pl-7 pr-5 py-3 mb-2"
           type="text"
           id="search"
           name="search"
@@ -46,6 +63,13 @@ const Search: FC<Props> = ({ palceholder }) => {
           }`}
         />
         <IoMdSearch className="absolute top-[13px] left-[6px]" size={18} />
+
+        {blogpostsTagFilter ? (
+          <SearchTag
+            searchTag={blogpostsTagFilter}
+            handleSearchTagDelete={handleSearchTagDelete}
+          />
+        ) : null}
       </div>
     </div>
   );

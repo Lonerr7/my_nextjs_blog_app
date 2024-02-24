@@ -6,6 +6,7 @@ import { NextRequest } from 'next/server';
 export const GET = async (req: NextRequest) => {
   try {
     const searchOptions = generateMongooseSearchOptions(req);
+    console.log(`searchOptions`, searchOptions);
 
     await connectToDB();
     const totalUsersPages = await User.countDocuments(searchOptions);

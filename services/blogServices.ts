@@ -1,8 +1,18 @@
-import { BlogpostTags, CreateBlogInput } from '@/types/blogTypes';
+import {
+  BLOGS_ITEMS_PER_PAGE,
+  MAX_IMAGE_FILE_SIZE_IN_KB,
+} from '@/configs/requestConfig';
+import {
+  BlogpostTags,
+  CreateBlogInput,
+  IBlogPost,
+  IBlogpostLikedUsers,
+  ISmBlogpost,
+} from '@/types/blogTypes';
+import { RequestTags, SearchQueriesNames } from '@/types/requestTypes';
 import { getBase64Size } from '@/utils/getBase64StringSize';
+import { unstable_noStore as no_store } from 'next/cache';
 import { z } from 'zod';
-
-const MAX_FILE_SIZE_IN_KB = 2048;
 
 const UploadBlogPostSchema = z.object({
   image: z
@@ -12,7 +22,8 @@ const UploadBlogPostSchema = z.object({
       'Only images are allowed!'
     )
     .refine(
-      (base64Image) => getBase64Size(base64Image, true) <= MAX_FILE_SIZE_IN_KB,
+      (base64Image) =>
+        getBase64Size(base64Image, true) <= MAX_IMAGE_FILE_SIZE_IN_KB,
       `Max image size is 2MB.`
     ),
   tag: z.nativeEnum(BlogpostTags, {
@@ -29,11 +40,15 @@ const UploadBlogPostSchema = z.object({
       'Blogpost cannot be empty!'
     ),
   userId: z.string(),
+  title: z
+    .string()
+    .min(3, 'Title should be at least 3 characters')
+    .max(125, "Title shouldn't be more than 125 characters"),
 });
 
 export const createBlogpost = async ({
   userId,
-  body: { tag, image, text },
+  body: { tag, image, text, title },
 }: CreateBlogInput) => {
   try {
     const validatedUserInput = UploadBlogPostSchema.safeParse({
@@ -41,6 +56,7 @@ export const createBlogpost = async ({
       image,
       text,
       userId,
+      title,
     });
 
     // Валидируем инпут
@@ -59,6 +75,7 @@ export const createBlogpost = async ({
           tag: validatedUserInput.data.tag,
           image: validatedUserInput.data.image,
           text: validatedUserInput.data.text,
+          title: validatedUserInput.data.title,
         }),
         headers: {
           Accept: 'application/json',
@@ -89,6 +106,164 @@ export const createBlogpost = async ({
     return {
       errMsg: 'Something went wrong! Try again later!',
       success: null,
+    };
+  }
+};
+
+export const getBlogposts = async (
+  ownerId: string | undefined,
+  {
+    page,
+    blogpostTagFilter,
+    query,
+  }: { page?: number; blogpostTagFilter?: BlogpostTags; query?: string }
+) => {
+  try {
+    no_store();
+    const response = await fetch(
+      `${process.env.NEXTAUTH_URL}/api/blogs?ownerId=${ownerId}&${SearchQueriesNames.BLOGPOSTS_SEARCH_QUERY}=${query}&page=${page}&${SearchQueriesNames.BLOGPOSTS_TAG_FILTER}=${blogpostTagFilter}`,
+      {
+        next: {
+          tags: [RequestTags.GET_BLOGPOSTS],
+        },
+      }
+    );
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      throw new Error(data.error);
+    }
+
+    return {
+      blogs: data as ISmBlogpost[],
+    };
+  } catch (error: any) {
+    console.error(error);
+
+    return {
+      errMsg: 'Error when fetching',
+    };
+  }
+};
+
+export const getBlogpostsPages = async (
+  query?: string,
+  tagFilter?: string,
+  owner?: string
+) => {
+  try {
+    no_store();
+    const response = await fetch(
+      `${process.env.NEXTAUTH_URL}/api/blogpostsPageCount?${SearchQueriesNames.BLOGPOSTS_SEARCH_QUERY}=${query}&${SearchQueriesNames.BLOGPOSTS_TAG_FILTER}=${tagFilter}&owner=${owner}`
+    );
+
+    const data: number = await response.json();
+
+    return Math.ceil(data / BLOGS_ITEMS_PER_PAGE);
+  } catch (error) {
+    console.error('Database Error:', error);
+    throw new Error('Failed to fetch total number of blogpost pages');
+  }
+};
+
+export const getSingleBlogpost = async (blogpostId: string) => {
+  try {
+    no_store();
+    const resposne = await fetch(
+      `${process.env.NEXTAUTH_URL}/api/singleBlogpost?blogpostId=${blogpostId}`
+    );
+
+    const data = await resposne.json();
+
+    if (!resposne.ok) {
+      console.error(data);
+
+      throw new Error('Error when fetching a blogpost');
+    }
+
+    return {
+      blogpost: data as IBlogPost,
+    };
+  } catch (error) {
+    console.error(error);
+
+    return {
+      errMsg: 'Something went wrong! Try again later!',
+    };
+  }
+};
+
+export const getSingleBlogpostLikes = async ({
+  page,
+  blogpostId,
+  searchQuery,
+}: {
+  page?: number;
+  blogpostId: string;
+  searchQuery: string;
+}) => {
+  try {
+    no_store();
+
+    const response = await fetch(
+      `http://localhost:3000/api/blogpostLikes?blogpostId=${blogpostId}&page=${page}&searchQuery=${searchQuery}`
+    );
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      console.error(data);
+
+      throw new Error('Error when fetching blogpost likes');
+    }
+
+    return {
+      blogpostLikes: data as IBlogpostLikedUsers,
+    };
+  } catch (error) {
+    console.error(error);
+
+    return {
+      errMsg: 'Something went wrong! Try again later!',
+    };
+  }
+};
+
+export const getBlogpostComments = async ({
+  blogpostId,
+
+  page,
+  searchQuery,
+}: {
+  blogpostId: string;
+  page?: number;
+  searchQuery: string;
+}) => {
+  try {
+    no_store();
+
+    const response = await fetch(
+      `http://localhost:3000/api/blogpostComments?blogpostId=${blogpostId}&page=${page}&searchQuery=${searchQuery}`,
+      {
+        next: { tags: [RequestTags.GET_BLOGPOST_COMMENTS] },
+      }
+    );
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      throw new Error('Error when fetching blogpost comments');
+    }
+
+    return {
+      blogpostComments: data, //! Нужно получить тип данных для коммента
+    };
+  } catch (error) {
+    console.error(error);
+
+    return {
+      errMsg: 'Something went wrong! Try again later!',
     };
   }
 };

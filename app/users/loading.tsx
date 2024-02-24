@@ -1,7 +1,7 @@
-import React from 'react';
+import UsersPageLoadingSkeleton from '../components/ui/skeletons/UsersPageLoadingSkeleton';
 
 const LoadingPage = () => {
-  return <div>Loading...</div>;
+  return <UsersPageLoadingSkeleton />;
 };
 
 export default LoadingPage;

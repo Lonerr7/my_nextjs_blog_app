@@ -43,9 +43,9 @@ const NavList: FC = () => {
       <li className="mr-2">
         <Link
           className={clsx('link dark:text-white text-light-black', {
-            'font-bold': pathname === '/blogs',
+            'font-bold': pathname === '/blogposts',
           })}
-          href="/blogs"
+          href="/blogposts"
         >
           Blogs
         </Link>

@@ -4,6 +4,7 @@ import { deleteMyProfilePicture } from '@/actions/deleteMyProfilePic';
 import { toast } from 'react-hot-toast';
 import { useState } from 'react';
 import AreYouSurePopup from '../common/AreYouSurePopup';
+import PopupContainer from '../common/PopupContainer';
 
 const DeleteMyAvatarForm = () => {
   const [isPopupOpen, setIsPopupOpen] = useState(false);
@@ -29,10 +30,11 @@ const DeleteMyAvatarForm = () => {
     <>
       <form className="w-1/2" action={clientAction}>
         {isPopupOpen ? (
-          <AreYouSurePopup
-            popupPhrase="delete your profile picture"
-            closePopup={closePopup}
-          />
+          <PopupContainer closePopup={closePopup}>
+            <AreYouSurePopup
+              popupPhrase="delete your profile picture"
+            />
+          </PopupContainer>
         ) : null}
       </form>
       <button

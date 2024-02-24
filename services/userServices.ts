@@ -1,11 +1,12 @@
 import { USERS_ITEMS_PER_PAGE } from '@/configs/requestConfig';
+import { RequestTags, SearchQueriesNames } from '@/types/requestTypes';
 import { IUser } from '@/types/userTypes';
 import { unstable_noStore as noStore } from 'next/cache';
 
 export const getUsers = async (query: string, page: number) => {
   try {
     const response = await fetch(
-      `${process.env.NEXTAUTH_URL}/api/users?query=${query}&page=${page}`,
+      `${process.env.NEXTAUTH_URL}/api/users?${SearchQueriesNames.USERS_SEARCH_QUERY}=${query}&page=${page}`,
       {
         next: {
           revalidate: 15,
@@ -32,7 +33,7 @@ export const getUsersPages = async (query: string) => {
   try {
     noStore();
     const response = await fetch(
-      `${process.env.NEXTAUTH_URL}/api/usersDocsNumber?query=${query}`
+      `${process.env.NEXTAUTH_URL}/api/usersDocsNumber?${SearchQueriesNames.USERS_SEARCH_QUERY}=${query}`
     );
 
     const data: number = await response.json();
@@ -46,8 +47,8 @@ export const getUsersPages = async (query: string) => {
 
 export const getSingleUser = async (
   userId: string | undefined,
-  tag: 'myself' | 'user',
-  populateBlogs: boolean
+  tag: RequestTags.GET_SINGLE_USER | RequestTags.GET_ME,
+  populateBlogs?: boolean
 ) => {
   try {
     noStore();

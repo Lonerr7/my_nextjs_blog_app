@@ -3,6 +3,11 @@ import { Schema, model, models } from 'mongoose';
 
 const blogSchema = new Schema(
   {
+    title: {
+      type: String,
+      required: [true, "Please enter blog's title"],
+      maxLength: [125, 'Title cannot be more than 125 characters long'],
+    },
     tag: {
       type: String,
       required: [true, "Please enter blog's tag"],
@@ -26,7 +31,19 @@ const blogSchema = new Schema(
       ref: 'User',
       required: [true, 'Blog must belong to a user'],
     },
+    likes: [
+      {
+        type: Schema.ObjectId,
+        ref: 'User',
+        default: [],
+      },
+    ],
+    commentsCount: {
+      type: Number,
+      default: 0,
+    },
     createdAt: Date,
+    lastUpdatedAt: Date,
   },
   {
     toJSON: { virtuals: true },
