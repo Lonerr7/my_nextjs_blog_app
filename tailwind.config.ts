@@ -9,7 +9,7 @@ const config: Config = {
   theme: {
     extend: {
       fontFamily: {
-        'source-serif-pro': ['var(--font-source-seif-pro)']
+        'source-serif-pro': ['var(--font-source-seif-pro)'],
       },
       backgroundImage: {
         'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
@@ -44,6 +44,7 @@ const config: Config = {
         'blogpost-info': '#97989F',
         'scrolled-header-light': '#d2d2d2',
         'scrolled-header-dark': '#0d0e17',
+        'comment-text': '#cfcfcf',
       },
     },
     screens: {

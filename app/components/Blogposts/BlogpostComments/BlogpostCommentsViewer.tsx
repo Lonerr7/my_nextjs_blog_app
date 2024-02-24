@@ -1,7 +1,5 @@
-import { useInfiniteScroll } from '@/hooks/useInfiniteScroll';
-import { getBlogpostComments } from '@/services/blogServices';
 import { IComment } from '@/types/commentTypes';
-import React, { FC, useRef, useState } from 'react';
+import React, { FC } from 'react';
 import { DebouncedState } from 'use-debounce';
 import Preloader from '../../common/Preloader';
 import BlogpostComment from './BlogpostComment';
@@ -38,7 +36,7 @@ const BlogpostCommentsViewer: FC<Props> = ({
         <Preloader customClassName="absolute right-0 left-0 mx-auto w-[75px]" />
       ) : (
         <ul
-          className={`px-4 py-2 flex flex-col items-center  max-h-[330px] ${
+          className={`px-4 py-2 max-h-[456px] ${
             comments.length > 5 && 'overflow-y-scroll'
           }`}
         >
@@ -49,11 +47,18 @@ const BlogpostCommentsViewer: FC<Props> = ({
                   key={comment._id}
                   comment={comment}
                   lastLikedCommentRef={lastLikedCommentRef}
+                  isMine={mySessionId === comment.owner._id}
                 />
               );
             }
 
-            return <BlogpostComment key={comment._id} comment={comment} />;
+            return (
+              <BlogpostComment
+                key={comment._id}
+                comment={comment}
+                isMine={mySessionId === comment.owner._id}
+              />
+            );
           })}
         </ul>
       )}

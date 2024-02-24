@@ -4,7 +4,7 @@ import { likeDislikeBlogpost } from '@/actions/likeDislikeBlogpost';
 import React, { useState } from 'react';
 import { toast } from 'react-hot-toast';
 import LikeDislikePendingBtn from '../LikeDislikePendingBtn';
-import { formatLikesCount } from '@/utils/formatLikesCount';
+import { formatNumber } from '@/utils/formatNumber';
 import PopupContainer from '../../common/PopupContainer';
 import BlogpostLikesViewerContainer from './BlogpostLikesViewerContainer';
 
@@ -43,7 +43,7 @@ const BlogpostLikes: React.FC<Props> = ({
         className="text-lg font-semibold"
         onClick={() => setIsLikesViewerOpen(true)}
       >
-        {formatLikesCount(blogpostLikesCount)}
+        {formatNumber(blogpostLikesCount)}
       </button>
 
       {isLikesViewerOpen ? (

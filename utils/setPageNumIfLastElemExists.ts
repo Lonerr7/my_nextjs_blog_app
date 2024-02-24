@@ -22,8 +22,6 @@ export const setPageNumIfLastElemExists =
     }
 
     observer.current = new IntersectionObserver((entries) => {
-      console.log(hasMore);
-      
       if (entries[0].isIntersecting && hasMore) {
         setPageNumber((prevPageNum) => prevPageNum + 1);
       }

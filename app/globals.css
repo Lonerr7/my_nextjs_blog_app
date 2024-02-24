@@ -16,6 +16,10 @@ body {
   padding: 0 15px;
 }
 
+.delete-btn {
+  @apply transition hover:delay-[30ms] text-red-500 hover:text-red-700;
+}
+
 .link {
   @apply inline-block transition-[opacity] delay-[30ms] hover:opacity-70;
 }

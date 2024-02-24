@@ -232,6 +232,7 @@ export const getSingleBlogpostLikes = async ({
 
 export const getBlogpostComments = async ({
   blogpostId,
+
   page,
   searchQuery,
 }: {
@@ -241,8 +242,6 @@ export const getBlogpostComments = async ({
 }) => {
   try {
     no_store();
-
-    console.log(`get blogpost comments`);
 
     const response = await fetch(
       `http://localhost:3000/api/blogpostComments?blogpostId=${blogpostId}&page=${page}&searchQuery=${searchQuery}`,
@@ -254,8 +253,6 @@ export const getBlogpostComments = async ({
     const data = await response.json();
 
     if (!response.ok) {
-      console.error(data);
-
       throw new Error('Error when fetching blogpost comments');
     }
 

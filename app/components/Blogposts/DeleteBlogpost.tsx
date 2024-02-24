@@ -53,18 +53,12 @@ const DeleteBlogpost: React.FC<Props> = ({
       {isPopupOpen ? (
         <form action={clientAction}>
           <PopupContainer closePopup={closePopup}>
-            <AreYouSurePopup
-              popupPhrase="Are you sure you want to delete this blogpost?"
-              closePopup={closePopup}
-            />
+            <AreYouSurePopup popupPhrase="Are you sure you want to delete this blogpost?" />
           </PopupContainer>
         </form>
       ) : (
         <button type="button" title="Delete Blogpost" onClick={openPopup}>
-          <MdDelete
-            className="transition delay-30ms text-red-500 hover:text-red-700"
-            size={iconSize || 24}
-          />
+          <MdDelete className="delete-btn" size={iconSize || 24} />
         </button>
       )}
     </>

@@ -5,7 +5,7 @@ interface Props {
   options?: Intl.DateTimeFormatOptions | undefined;
 }
 
-const BlogpostDate: React.FC<Props> = ({
+const FormattedDate: React.FC<Props> = ({
   customClassName,
   date,
   locales,
@@ -18,4 +18,4 @@ const BlogpostDate: React.FC<Props> = ({
   );
 };
 
-export default BlogpostDate;
+export default FormattedDate;

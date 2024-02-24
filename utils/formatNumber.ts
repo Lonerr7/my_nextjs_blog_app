@@ -1,4 +1,4 @@
-export const formatLikesCount = (likes: number) => {
+export const formatNumber = (likes: number) => {
   const formatter = Intl.NumberFormat('en', {
     notation: 'compact',
   });

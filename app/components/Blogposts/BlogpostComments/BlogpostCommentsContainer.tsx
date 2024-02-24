@@ -11,22 +11,31 @@ import { useDebouncedCallback } from 'use-debounce';
 
 interface Props {
   blogpostId: string;
+  mySessionId: string;
 }
 
-const BlogpostCommentsContainer: React.FC<Props> = ({ blogpostId }) => {
+const BlogpostCommentsContainer: React.FC<Props> = ({
+  blogpostId,
+  mySessionId,
+}) => {
   const [searchQuery, setSearchQuery] = useState('');
   const [pageNumber, setPageNumber] = useState(1);
   const observer = useRef<IntersectionObserver | null>(null);
-  const { error, hasMore, state, loading, initialLoading, setState, setFirstItemAdded } =
-    useInfiniteScroll({
-      blogpostId,
-      pageNumber: pageNumber,
-      searchQuery,
-      responseFieldName: 'blogpostComments',
-      requestFunc: getBlogpostComments,
-    });
-
-  console.log(pageNumber);
+  const {
+    error,
+    hasMore,
+    state,
+    loading,
+    initialLoading,
+    setState,
+    setFirstItemAdded,
+  } = useInfiniteScroll({
+    blogpostId,
+    pageNumber: pageNumber,
+    searchQuery,
+    responseFieldName: 'blogpostComments',
+    requestFunc: getBlogpostComments,
+  });
 
   const handleSearch = useDebouncedCallback((searchTerm: string) => {
     setSearchQuery(searchTerm);
@@ -51,7 +60,7 @@ const BlogpostCommentsContainer: React.FC<Props> = ({ blogpostId }) => {
         comments={state}
         handleSearch={handleSearch}
         initialLoading={initialLoading}
-        mySessionId="" //!
+        mySessionId={mySessionId}
       />
       <BlogpostCommentInput
         blogpostId={blogpostId}

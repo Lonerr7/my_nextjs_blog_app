@@ -5,7 +5,7 @@ import NextImageVithViewer from '../Users/NextImageVithViewer';
 import BlogpostTagSm from './BlogpostTagSm';
 import { cropStringByLength } from '@/utils/cropStringByLength';
 import BlogpostControls from './BlogpostControls';
-import BlogpostDate from './BlogpostDate';
+import FormattedDate from '../common/FormattedDate';
 import BlogpostLikes from './BlogpostLikes/BlogpostLikes';
 import BlogpostComments from './BlogpostComments/BlogpostComments';
 
@@ -62,7 +62,7 @@ export const BlogpostSm = ({
             <p className="text-blogpost-info">{owner?.username}</p>
           </Link>
 
-          <BlogpostDate
+          <FormattedDate
             date={blogpost.createdAt}
             customClassName="text-blogpost-info"
             locales="en-EN"
@@ -82,7 +82,11 @@ export const BlogpostSm = ({
             blogpostId={blogpost._id}
             mySessionId={mySessionId}
           />
-          <BlogpostComments blogpostId={blogpost._id} commentsCount={blogpost.commentsCount} />
+          <BlogpostComments
+            blogpostId={blogpost._id}
+            commentsCount={blogpost.commentsCount}
+            mySessionId={mySessionId}
+          />
         </div>
 
         {/* Blogpost controls if it's mine */}

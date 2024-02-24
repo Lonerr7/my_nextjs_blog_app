@@ -22,6 +22,11 @@ const BlogpostCommentInput: React.FC<Props> = ({
   const clientAction = async () => {
     const bindedAction = createBlogpostComment.bind(null, { blogpostId, text });
 
+    if (!text) {
+      toast.error('Please, enter your comment!');
+      return;
+    }
+
     const { errMessage } = await bindedAction();
 
     if (!errMessage) {

@@ -2,7 +2,7 @@ import { IBlogPost } from '@/types/blogTypes';
 import BlogpostTagBig from '../BlogpostTagBig';
 import NextImageVithViewer from '../../Users/NextImageVithViewer';
 import Link from 'next/link';
-import BlogpostDate from '../BlogpostDate';
+import FormattedDate from '../../common/FormattedDate';
 import BlogpostCleanText from '../BlogpostCleanText';
 import s from './BlogpostBig.module.css';
 import BlogpostControls from '../BlogpostControls';
@@ -61,7 +61,7 @@ const BlogpostBig: React.FC<Props> = ({ blogpost, myId }) => {
 
         <div className="flex items-center flex-wrap mr-3">
           <p className="mr-2">Created at: </p>
-          <BlogpostDate
+          <FormattedDate
             date={blogpost.createdAt}
             locales="en-EN"
             options={{
@@ -74,7 +74,7 @@ const BlogpostBig: React.FC<Props> = ({ blogpost, myId }) => {
         {blogpost.lastUpdatedAt ? (
           <div className="flex items-center flex-wrap mr-3">
             <p className="mr-2">Last Updated at: </p>
-            <BlogpostDate
+            <FormattedDate
               date={blogpost.lastUpdatedAt}
               locales="en-EN"
               options={{
