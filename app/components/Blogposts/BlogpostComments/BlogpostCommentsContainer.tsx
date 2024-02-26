@@ -47,11 +47,16 @@ const BlogpostCommentsContainer: React.FC<Props> = ({
         comments={state}
         initialLoading={initialLoading}
         mySessionId={mySessionId}
+        pageNumber={pageNumber}
+        blogpostId={blogpostId}
+        setScrollState={setState}
+        setPageNumber={setPageNumber}
       />
       <BlogpostCommentInput
         blogpostId={blogpostId}
         setPageNumber={setPageNumber}
         setScrollState={setState}
+        pageNumber={pageNumber}
       />
     </>
   );

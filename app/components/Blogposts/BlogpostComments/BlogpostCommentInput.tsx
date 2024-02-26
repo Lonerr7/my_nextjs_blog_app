@@ -2,17 +2,20 @@
 
 import { createBlogpostComment } from '@/actions/createBlogpostComment';
 import { getBlogpostComments } from '@/services/blogServices';
+import { refetchComments } from '@/utils/refetchComments';
 import { Dispatch, SetStateAction, useState } from 'react';
 import { toast } from 'react-hot-toast';
 
 interface Props {
   blogpostId: string;
+  pageNumber: number;
   setScrollState: Dispatch<any>;
   setPageNumber: Dispatch<SetStateAction<number>>;
 }
 
 const BlogpostCommentInput: React.FC<Props> = ({
   blogpostId,
+  pageNumber,
   setScrollState,
   setPageNumber,
 }) => {
@@ -28,25 +31,15 @@ const BlogpostCommentInput: React.FC<Props> = ({
 
     const { errMessage } = await bindedAction();
 
-    if (!errMessage) {
-      toast.success('Successfully created a comment!');
-      setText('');
+    await refetchComments({
+      blogpostId,
+      errMessage,
+      pageNumber,
+      setPageNumber,
+      setScrollState,
+    });
 
-      // Manually refetching comments when created a new one
-
-      const { blogpostComments } = await getBlogpostComments({
-        blogpostId,
-        page: 1,
-        searchQuery: '',
-      });
-
-      if (blogpostComments) {
-        setPageNumber(1);
-        setScrollState(blogpostComments);
-      }
-    } else {
-      toast.error(errMessage);
-    }
+    setText('');
   };
 
   return (

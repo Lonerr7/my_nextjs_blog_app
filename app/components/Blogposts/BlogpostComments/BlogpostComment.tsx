@@ -11,12 +11,14 @@ interface Props {
   lastLikedCommentRef?: (node: any) => void;
   comment: IComment;
   isMine: boolean;
+  deleteComment: () => Promise<void>;
 }
 
 const BlogpostComment: FC<Props> = ({
   comment,
   lastLikedCommentRef,
   isMine,
+  deleteComment,
 }) => {
   return (
     <li
@@ -69,9 +71,11 @@ const BlogpostComment: FC<Props> = ({
         </div>
 
         {isMine ? (
-          <button className="delete-btn">
-            <MdDelete size={20} />
-          </button>
+          <form action={deleteComment}>
+            <button className="delete-btn" type="submit">
+              <MdDelete size={20} />
+            </button>
+          </form>
         ) : null}
       </div>
     </li>

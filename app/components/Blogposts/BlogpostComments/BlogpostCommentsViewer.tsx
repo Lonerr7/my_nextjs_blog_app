@@ -1,14 +1,23 @@
+'use client';
+
 import { IComment } from '@/types/commentTypes';
-import React, { FC } from 'react';
-import { DebouncedState } from 'use-debounce';
+import { Dispatch, FC, SetStateAction } from 'react';
 import Preloader from '../../common/Preloader';
 import BlogpostComment from './BlogpostComment';
+import { deleteComment } from '@/actions/deleteComment';
+import { toast } from 'react-hot-toast';
+import { getBlogpostComments } from '@/services/blogServices';
+import { refetchComments } from '@/utils/refetchComments';
 
 interface Props {
   comments: IComment[];
   mySessionId: string;
   lastLikedCommentRef: (node: any) => void;
   initialLoading: boolean;
+  pageNumber: number;
+  blogpostId: string;
+  setScrollState: Dispatch<any>;
+  setPageNumber: Dispatch<SetStateAction<number>>;
 }
 
 const BlogpostCommentsViewer: FC<Props> = ({
@@ -16,7 +25,29 @@ const BlogpostCommentsViewer: FC<Props> = ({
   initialLoading,
   comments,
   mySessionId,
+  pageNumber,
+  blogpostId,
+  setScrollState,
+  setPageNumber,
 }) => {
+  const deleteCommentHandler =
+    (commentId: string, blogpostId: string) => async () => {
+      const bindedAction = deleteComment.bind(null, {
+        blogpostId,
+        commentId,
+      });
+
+      const { errMessage } = await bindedAction();
+
+      refetchComments({
+        blogpostId,
+        errMessage,
+        pageNumber,
+        setPageNumber,
+        setScrollState,
+      });
+    };
+
   return (
     <div className="w-full">
       <h4 className="font-semibold mb-6 py-4 w-full block border-b border-solid border-item-gray text-center">
@@ -39,6 +70,7 @@ const BlogpostCommentsViewer: FC<Props> = ({
                   comment={comment}
                   lastLikedCommentRef={lastLikedCommentRef}
                   isMine={mySessionId === comment.owner?._id}
+                  deleteComment={deleteCommentHandler(comment._id, blogpostId)}
                 />
               );
             }
@@ -48,6 +80,7 @@ const BlogpostCommentsViewer: FC<Props> = ({
                 key={comment._id}
                 comment={comment}
                 isMine={mySessionId === comment.owner?._id}
+                deleteComment={deleteCommentHandler(comment._id, blogpostId)}
               />
             );
           })}
