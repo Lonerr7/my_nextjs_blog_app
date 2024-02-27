@@ -86,6 +86,14 @@ const userSchema = new Schema(
     createdAt: {
       type: Date,
     },
+    resetToken: {
+      type: String,
+      required: false,
+    },
+    resetTokenExpires: {
+      type: Date,
+      required: false,
+    },
   },
   {
     toJSON: { virtuals: true },
