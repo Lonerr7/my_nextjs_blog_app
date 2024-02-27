@@ -12,10 +12,10 @@ const SignUp: FC = async () => {
   }
 
   return (
-    <div>
+    <section>
       <h1 className="text-5xl text-center font-bold mb-10">Sign Up</h1>
       <SignUpForm />
-    </div>
+    </section>
   );
 };
 

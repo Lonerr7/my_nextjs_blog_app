@@ -13,11 +13,11 @@ const LoginPage: FC = async () => {
   }
 
   return (
-    <div className="relative">
+    <section className="relative">
       <h1 className="text-5xl text-center font-bold mb-10">Log In</h1>
       <GoBack />
       <LogInForm />
-    </div>
+    </section>
   );
 };
 

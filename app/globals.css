@@ -32,6 +32,10 @@ body {
   @apply bg-white rounded-lg shadow-sm dark:bg-bg-light-dark max-w-[500px] mx-[auto] p-5;
 }
 
+.form-btn-2 {
+  @apply block w-full rounded-md p-3 text-center font-medium bg-light-black text-white transition delay-[30ms] hover:opacity-80 xsm:w-full xsm:mb-4 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 dark:focus-visible:outline-white;
+}
+
 .my-page__form {
   max-width: 50% !important;
 }

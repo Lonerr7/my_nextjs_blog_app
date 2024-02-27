@@ -26,7 +26,7 @@ const BlogpostBig: React.FC<Props> = ({ blogpost, myId }) => {
     <div>
       <div className="flex justify-between items-center mb-4">
         <BlogpostTagBig customClassName="mr-3 !mb-0" tag={blogpost.tag} />
-        
+
         {isMeOwner ? (
           <BlogpostControls
             customClassName="w-[70px]"
