@@ -23,6 +23,11 @@ const commentSchema = new Schema(
       required: [true, 'Comment should have a date of creation'],
     },
     lastUpdatedAt: Date,
+    likes: {
+      type: Map,
+      of: Boolean,
+      default: {},
+    },
   },
   {
     toJSON: { virtuals: true },

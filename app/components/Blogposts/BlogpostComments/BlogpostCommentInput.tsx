@@ -1,7 +1,6 @@
 'use client';
 
 import { createBlogpostComment } from '@/actions/createBlogpostComment';
-import { getBlogpostComments } from '@/services/blogServices';
 import { refetchComments } from '@/utils/refetchComments';
 import { Dispatch, SetStateAction, useState } from 'react';
 import { toast } from 'react-hot-toast';
@@ -35,6 +34,7 @@ const BlogpostCommentInput: React.FC<Props> = ({
       blogpostId,
       errMessage,
       pageNumber,
+      successMessage: 'Sucessfully created a comment!',
       setPageNumber,
       setScrollState,
     });

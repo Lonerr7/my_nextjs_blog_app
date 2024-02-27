@@ -5,9 +5,8 @@ import { Dispatch, FC, SetStateAction } from 'react';
 import Preloader from '../../common/Preloader';
 import BlogpostComment from './BlogpostComment';
 import { deleteComment } from '@/actions/deleteComment';
-import { toast } from 'react-hot-toast';
-import { getBlogpostComments } from '@/services/blogServices';
 import { refetchComments } from '@/utils/refetchComments';
+import { likeDislikeComment } from '@/actions/likeDislikeComment';
 
 interface Props {
   comments: IComment[];
@@ -43,10 +42,26 @@ const BlogpostCommentsViewer: FC<Props> = ({
         blogpostId,
         errMessage,
         pageNumber,
+        successMessage: 'Successfully deleted a comment!',
         setPageNumber,
         setScrollState,
       });
     };
+
+  const likedDislikeCommentHandler = (commentId: string) => async () => {
+    const bindedAction = likeDislikeComment.bind(null, commentId);
+
+    const { errMessage } = await bindedAction();
+
+    refetchComments({
+      blogpostId,
+      errMessage,
+      pageNumber,
+      successMessage: 'Success!',
+      setPageNumber,
+      setScrollState,
+    });
+  };
 
   return (
     <div className="w-full">
@@ -71,6 +86,8 @@ const BlogpostCommentsViewer: FC<Props> = ({
                   lastLikedCommentRef={lastLikedCommentRef}
                   isMine={mySessionId === comment.owner?._id}
                   deleteComment={deleteCommentHandler(comment._id, blogpostId)}
+                  likeDislikeComment={likedDislikeCommentHandler(comment._id)}
+                  myId={mySessionId}
                 />
               );
             }
@@ -81,6 +98,8 @@ const BlogpostCommentsViewer: FC<Props> = ({
                 comment={comment}
                 isMine={mySessionId === comment.owner?._id}
                 deleteComment={deleteCommentHandler(comment._id, blogpostId)}
+                likeDislikeComment={likedDislikeCommentHandler(comment._id)}
+                myId={mySessionId}
               />
             );
           })}

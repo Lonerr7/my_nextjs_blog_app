@@ -6,17 +6,19 @@ export const refetchComments = async ({
   blogpostId,
   errMessage,
   pageNumber,
+  successMessage,
   setPageNumber,
   setScrollState,
 }: {
   blogpostId: string;
   errMessage: string | null;
   pageNumber: number;
+  successMessage: string;
   setScrollState: Dispatch<any>;
   setPageNumber: Dispatch<SetStateAction<number>>;
 }) => {
   if (!errMessage) {
-    toast.success('Successfully deleted a comment!');
+    toast.success(successMessage);
 
     if (pageNumber >= 2) {
       setPageNumber(1);

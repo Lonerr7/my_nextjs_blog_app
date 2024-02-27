@@ -8,6 +8,7 @@ import BlogpostControls from './BlogpostControls';
 import FormattedDate from '../common/FormattedDate';
 import BlogpostLikes from './BlogpostLikes/BlogpostLikes';
 import BlogpostComments from './BlogpostComments/BlogpostComments';
+import { checkIfLikedByMe } from '@/utils/checkIfLikedByMe';
 
 export const BlogpostSm = ({
   blogpost,
@@ -22,9 +23,7 @@ export const BlogpostSm = ({
   isMine: boolean;
   mySessionId: string;
 }) => {
-  const isLiked = blogpost?.likes?.find((id) => id === mySessionId)
-    ? true
-    : false;
+  const isLiked = checkIfLikedByMe(mySessionId, blogpost?.likes);
 
   return (
     <li className="p-4 border rounded-xl border-solid border-blogpost-border-light h-[500px] flex flex-col justify-between hover:bg-light-gray dark:hover:bg-item-bg-dark_x2_hover">
