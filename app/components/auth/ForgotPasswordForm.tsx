@@ -1,13 +1,29 @@
+'use client';
+
 import FormStatelessControl from '../ui/FormStatelessControl';
 import { RegisterUserInputFields } from '@/types/userTypes';
 import TextBetweenLines from '../ui/TextBetweenLines';
 import Link from 'next/link';
 import { forgotPassword } from '@/actions/forgotPassword';
+import { toast } from 'react-hot-toast';
 
 const ForgotPasswordForm = () => {
+  const clientAction = async (formData: FormData) => {
+    const { errMessage, successMsg } = await forgotPassword(formData);
+
+    if (errMessage) {
+      toast.error(errMessage);
+      return;
+    }
+
+    if (successMsg) {
+      toast.success(successMsg);
+    }
+  };
+
   return (
     <div className="form">
-      <form action={forgotPassword}>
+      <form action={clientAction}>
         <FormStatelessControl
           defaultvalue=""
           labelValue="Email"
