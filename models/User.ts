@@ -1,6 +1,5 @@
 import { Schema, model, models } from 'mongoose';
 import bcrypt from 'bcrypt';
-import { getCorrectDateTime } from '@/utils/getCorrectTimeDate';
 
 const userSchema = new Schema(
   {

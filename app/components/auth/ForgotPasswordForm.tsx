@@ -18,7 +18,9 @@ const ForgotPasswordForm = () => {
     }
 
     if (successMsg) {
-      toast.success(successMsg);
+      toast.success(successMsg, {
+        duration: 4000,
+      });
     }
   };
 

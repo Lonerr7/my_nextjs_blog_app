@@ -20,7 +20,7 @@ const LoginPage: FC = async () => {
 
   return (
     <section className="relative">
-      <h1 className="text-5xl text-center font-bold mb-10">Log In</h1>
+      <h1 className="auth-page-title">Log In</h1>
       <GoBack />
       <LogInForm />
     </section>

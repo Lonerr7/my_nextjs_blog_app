@@ -19,7 +19,7 @@ const SignUp: FC = async () => {
 
   return (
     <section>
-      <h1 className="text-5xl text-center font-bold mb-10">Sign Up</h1>
+      <h1 className="auth-page-title">Sign Up</h1>
       <SignUpForm />
     </section>
   );

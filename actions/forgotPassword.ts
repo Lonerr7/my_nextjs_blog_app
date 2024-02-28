@@ -26,9 +26,10 @@ export const forgotPassword = async (formData: FormData) => {
   }
 
   await connectToDB();
-  const user = await User.findOne({ email });
+  let user;
 
   try {
+    user = await User.findOne({ email });
     // 1. Checking if user with entered email exists in DB
     if (!user) {
       console.log('User with this email does not exist!');
