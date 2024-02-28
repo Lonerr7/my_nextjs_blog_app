@@ -2,6 +2,13 @@ import { authConfig } from '@/configs/auth';
 import { getServerSession } from 'next-auth';
 import { redirect } from 'next/navigation';
 import ForgotPasswordForm from '../components/auth/ForgotPasswordForm';
+import { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: 'Forgot Password | Meta Blog',
+  description:
+    'Recieve an email with instructions on how to restore your password.',
+};
 
 const ForgotPassword = async () => {
   const session = await getServerSession(authConfig);

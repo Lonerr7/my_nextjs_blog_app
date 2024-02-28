@@ -4,6 +4,12 @@ import { getServerSession } from 'next-auth';
 import { authConfig } from '@/configs/auth';
 import { redirect } from 'next/navigation';
 import GoBack from '../components/common/GoBack';
+import { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: 'Log In | Meta Blog',
+  description: 'Log In to your account',
+};
 
 const LoginPage: FC = async () => {
   const session = await getServerSession(authConfig);

@@ -8,4 +8,6 @@ export interface RegisterFormState extends LoginFormState {
   username: string;
 }
 
-
+export interface IResetPasswordUser {
+  id: string;
+}

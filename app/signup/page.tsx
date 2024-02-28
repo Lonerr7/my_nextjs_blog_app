@@ -3,6 +3,12 @@ import SignUpForm from '../components/auth/SignUpForm';
 import { getServerSession } from 'next-auth';
 import { redirect } from 'next/navigation';
 import { authConfig } from '@/configs/auth';
+import { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: 'Sign Up | Meta Blog',
+  description: 'Sign up to your account',
+};
 
 const SignUp: FC = async () => {
   const session = await getServerSession(authConfig);

@@ -5,7 +5,6 @@ import { connectToDB } from '@/utils/connectToDB';
 import { z } from 'zod';
 import crypto from 'crypto';
 import { sendEmail } from '@/utils/sendEmail';
-import { getCorrectDateTime } from '@/utils/getCorrectTimeDate';
 
 const ForgotPasswordValidationSchema = z.object({
   email: z
@@ -28,7 +27,6 @@ export const forgotPassword = async (formData: FormData) => {
 
   await connectToDB();
   const user = await User.findOne({ email });
-  console.log(user);
 
   try {
     // 1. Checking if user with entered email exists in DB
@@ -47,18 +45,14 @@ export const forgotPassword = async (formData: FormData) => {
       .update(resetToken)
       .digest('hex');
 
-    const passwordResetExpires = getCorrectDateTime() + 3600000; //! Дата ставится некорректно: на 2 часа раньше нужного
+    const passwordResetExpires = Date.now() + 3600000 * 5; // Только при умножении на 5 получается продлить срок действия на 2 часа вперед
 
     user.resetToken = passwordResetToken;
     user.resetTokenExpires = passwordResetExpires;
 
-    // await user.save();
-
     const resetUrl = `${process.env.NEXTAUTH_URL}/reset-password/${resetToken}`;
     const message = `Forgot your password? Click this link to update your password: <${resetUrl}>.  
     \nIf you didn't - ignore this message!`;
-
-    // throw new Error('eeee');
 
     await sendEmail({
       message,

@@ -6,6 +6,7 @@ import TextBetweenLines from '../ui/TextBetweenLines';
 import Link from 'next/link';
 import { forgotPassword } from '@/actions/forgotPassword';
 import { toast } from 'react-hot-toast';
+import FormButton from '../ui/FormButton';
 
 const ForgotPasswordForm = () => {
   const clientAction = async (formData: FormData) => {
@@ -32,9 +33,7 @@ const ForgotPasswordForm = () => {
           placeholder="Enter your email"
         />
 
-        <button className="form-btn" type="submit">
-          Send
-        </button>
+        <FormButton btnText="Send" loadingText="Sendning" />
       </form>
 
       <TextBetweenLines>Or</TextBetweenLines>

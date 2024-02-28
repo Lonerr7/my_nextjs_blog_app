@@ -31,3 +31,4 @@ export enum RegisterUserInputFields {
   PASSWORD = 'password',
   PASSWORD_CONFIRM = 'passwordConfirm',
 }
+
