@@ -51,6 +51,8 @@ export const forgotPassword = async (formData: FormData) => {
     user.resetToken = passwordResetToken;
     user.resetTokenExpires = passwordResetExpires;
 
+    await user.save({ validateBeforeSave: false });
+
     const resetUrl = `${process.env.NEXTAUTH_URL}/reset-password/${resetToken}`;
     const message = `Forgot your password? Click this link to update your password: <${resetUrl}>.  
     \nIf you didn't - ignore this message!`;
@@ -70,10 +72,10 @@ export const forgotPassword = async (formData: FormData) => {
     user.resetToken = undefined;
     user.resetTokenExpires = undefined;
 
+    await user.save({ validateBeforeSave: false });
+
     return {
       errMessage: 'Something went wrong! Please try again later!',
     };
-  } finally {
-    await user.save({ validateBeforeSave: false });
   }
 };

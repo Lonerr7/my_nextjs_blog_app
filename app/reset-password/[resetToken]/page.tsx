@@ -22,8 +22,6 @@ const ResetPassword: FC<Props> = ({ params: { resetToken } }) => {
   const [validating, setValidating] = useState(true);
   const [error, setError] = useState('');
 
-  console.log(validating);
-
   useEffect(() => {
     (async () => {
       const { errMsg, user } = await verifyPasswordResetToken(resetToken);
@@ -50,6 +48,7 @@ const ResetPassword: FC<Props> = ({ params: { resetToken } }) => {
   return (
     <section>
       <h1 className="auth-page-title">Reset Password</h1>
+
       {validating ? (
         <Preloader customClassName="flex justify-center" />
       ) : error ? (
@@ -61,7 +60,7 @@ const ResetPassword: FC<Props> = ({ params: { resetToken } }) => {
           </Link>
         </div>
       ) : (
-        <ResetPasswordForm />
+        <ResetPasswordForm userId={user?.id!} router={router} />
       )}
     </section>
   );
