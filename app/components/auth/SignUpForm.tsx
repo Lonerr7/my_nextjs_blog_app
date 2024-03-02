@@ -1,13 +1,13 @@
 'use client';
 
-import { SignInResponse, signIn } from 'next-auth/react';
-import { useState, useEffect } from 'react';
-import Link from 'next/link';
-import { toast } from 'react-hot-toast';
-import { useRouter } from 'next/navigation';
 import { registerUserAction } from '@/actions/authActions';
-import { getFormDataFieldValues } from '@/utils/getFormDataFieldValues';
 import { RegisterUserInputFields } from '@/types/userTypes';
+import { getFormDataFieldValues } from '@/utils/getFormDataFieldValues';
+import { SignInResponse, signIn } from 'next-auth/react';
+import Link from 'next/link';
+import { useRouter } from 'next/navigation';
+import { useEffect, useState } from 'react';
+import { toast } from 'react-hot-toast';
 import FormStatelessControl from '../ui/FormStatelessControl';
 import TextBetweenLines from '../ui/TextBetweenLines';
 
@@ -100,10 +100,7 @@ const SignUpForm = () => {
       <TextBetweenLines>Or</TextBetweenLines>
 
       <div className="flex items-center xsm:flex-col justify-between">
-        <Link
-          className="form-btn-2"
-          href="/login"
-        >
+        <Link className="form-btn-2" href="/login">
           Log In
         </Link>
       </div>

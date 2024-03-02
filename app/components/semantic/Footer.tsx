@@ -14,7 +14,7 @@ const Footer: FC = () => {
               <span className="text-xl">
                 Meta <span className="font-extrabold">Blog</span>
               </span>
-              <span>All Rights Reserved. © 2023.</span>
+              <span>All Rights Reserved. © 2024.</span>
             </div>
           </Link>
         </div>

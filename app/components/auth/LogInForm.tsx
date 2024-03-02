@@ -2,11 +2,11 @@
 
 import { LoginFormState } from '@/types/authTypes';
 import { SignInResponse, signIn } from 'next-auth/react';
+import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { FC, useState, FormEvent, useEffect } from 'react';
+import { FC, FormEvent, useEffect, useState } from 'react';
 import { toast } from 'react-hot-toast';
 import FormControl from '../ui/FormControl';
-import Link from 'next/link';
 
 const LogInForm: FC = () => {
   const [{ email, password, passwordConfirm }, setFormState] =

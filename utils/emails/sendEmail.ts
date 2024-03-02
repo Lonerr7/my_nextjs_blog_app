@@ -4,10 +4,12 @@ export const sendEmail = async ({
   to,
   subject,
   message,
+  withHTML,
 }: {
   to: string;
   subject: string;
   message: string;
+  withHTML?: boolean;
 }) => {
   // 1) Create a transporter
   const transporter = nodemailer.createTransport({
@@ -24,7 +26,7 @@ export const sendEmail = async ({
     from: 'NextJS blogpost app: Meta Blog',
     to,
     subject,
-    text: message,
+    [withHTML ? 'html' : 'text']: message,
   };
 
   // 3) Send an email

@@ -4,7 +4,8 @@ import User from '@/models/User';
 import { connectToDB } from '@/utils/connectToDB';
 import { z } from 'zod';
 import crypto from 'crypto';
-import { sendEmail } from '@/utils/sendEmail';
+import { sendEmail } from '@/utils/emails/sendEmail';
+import { compileForgotPasswordTemplate } from '@/utils/emails/templateCompilers/compileForgotPasswordTemplate';
 
 const ForgotPasswordValidationSchema = z.object({
   email: z
@@ -54,13 +55,18 @@ export const forgotPassword = async (formData: FormData) => {
     await user.save({ validateBeforeSave: false });
 
     const resetUrl = `${process.env.NEXTAUTH_URL}/reset-password/${resetToken}`;
-    const message = `Forgot your password? Click this link to update your password: <${resetUrl}>.  
+    const textMessage = `Forgot your password? Click this link to update your password: <${resetUrl}>.
     \nIf you didn't - ignore this message!`;
+    const message = compileForgotPasswordTemplate({
+      username: user.username,
+      url: resetUrl,
+    });
 
     await sendEmail({
-      message,
+      message: message || textMessage,
       subject: 'Forgot your password',
       to: validatedFields.data.email,
+      withHTML: message ? true : false,
     });
 
     return {

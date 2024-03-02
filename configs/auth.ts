@@ -49,8 +49,20 @@ export const authConfig: AuthOptions = {
               credentials.password,
               userToBeLoggedIn.password
             )
-          )
+          ) {
+            // Resetting resetToken and resetTokenExpires fields if user previously used logic of forget password and remembered his password
+            if (
+              userToBeLoggedIn.resetToken &&
+              userToBeLoggedIn.resetTokenExpires
+            ) {
+              userToBeLoggedIn.resetToken = undefined;
+              userToBeLoggedIn.resetTokenExpires = undefined;
+              await userToBeLoggedIn.save({ validateBeforeSave: false });
+            }
+
+            // 1.1) If yes - log in the user by returning it
             return userToBeLoggedIn;
+          }
         }
 
         // Если мы проверили пользователя и его нельзя авторизовать или пользователя нет в БД
