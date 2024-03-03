@@ -20,7 +20,7 @@ const FormButton: FC<Props> = ({
     <button
       className={`form-btn ${customClassName}`}
       type="submit"
-      disabled={disabled}
+      disabled={disabled ? disabled : pending ? true : false}
     >
       {pending ? `${loadingText}...` : btnText}
     </button>

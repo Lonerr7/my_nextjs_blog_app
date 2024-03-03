@@ -7,7 +7,6 @@ import { useInfiniteScroll } from '@/hooks/useInfiniteScroll';
 import { getBlogpostComments } from '@/services/blogServices';
 import { setPageNumIfLastElemExists } from '@/utils/setPageNumIfLastElemExists';
 import { toast } from 'react-hot-toast';
-import { useDebouncedCallback } from 'use-debounce';
 
 interface Props {
   blogpostId: string;
@@ -21,26 +20,14 @@ const BlogpostCommentsContainer: React.FC<Props> = ({
   const [searchQuery, setSearchQuery] = useState('');
   const [pageNumber, setPageNumber] = useState(1);
   const observer = useRef<IntersectionObserver | null>(null);
-  const {
-    error,
-    hasMore,
-    state,
-    loading,
-    initialLoading,
-    setState,
-    setFirstItemAdded,
-  } = useInfiniteScroll({
-    blogpostId,
-    pageNumber: pageNumber,
-    searchQuery,
-    responseFieldName: 'blogpostComments',
-    requestFunc: getBlogpostComments,
-  });
-
-  const handleSearch = useDebouncedCallback((searchTerm: string) => {
-    setSearchQuery(searchTerm);
-    setPageNumber(1);
-  }, 400);
+  const { error, hasMore, state, loading, initialLoading, setState } =
+    useInfiniteScroll({
+      blogpostId,
+      pageNumber: pageNumber,
+      searchQuery,
+      responseFieldName: 'blogpostComments',
+      requestFunc: getBlogpostComments,
+    });
 
   const lastLikedCommentRef = useCallback(
     setPageNumIfLastElemExists({ hasMore, loading, observer, setPageNumber }),
@@ -58,15 +45,18 @@ const BlogpostCommentsContainer: React.FC<Props> = ({
       <BlogpostCommentsViewer
         lastLikedCommentRef={lastLikedCommentRef}
         comments={state}
-        handleSearch={handleSearch}
         initialLoading={initialLoading}
         mySessionId={mySessionId}
+        pageNumber={pageNumber}
+        blogpostId={blogpostId}
+        setScrollState={setState}
+        setPageNumber={setPageNumber}
       />
       <BlogpostCommentInput
         blogpostId={blogpostId}
         setPageNumber={setPageNumber}
         setScrollState={setState}
-        setFirstItemAdded={setFirstItemAdded}
+        pageNumber={pageNumber}
       />
     </>
   );

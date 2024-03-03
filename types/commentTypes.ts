@@ -7,4 +7,9 @@ export interface IComment {
   owner: ILikedUser;
   createdAt: string;
   lastUpadatedAt?: string;
+  likes: CommentLikes;
+}
+
+interface CommentLikes {
+  [key: string]: boolean;
 }

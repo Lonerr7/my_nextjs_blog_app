@@ -1,15 +1,15 @@
 'use client';
 
-import { SignInResponse, signIn } from 'next-auth/react';
-import { useState, useEffect } from 'react';
-import GoogleButton from './GoogleButton';
-import Link from 'next/link';
-import { toast } from 'react-hot-toast';
-import { useRouter } from 'next/navigation';
 import { registerUserAction } from '@/actions/authActions';
-import { getFormDataFieldValues } from '@/utils/getFormDataFieldValues';
 import { RegisterUserInputFields } from '@/types/userTypes';
+import { getFormDataFieldValues } from '@/utils/getFormDataFieldValues';
+import { SignInResponse, signIn } from 'next-auth/react';
+import Link from 'next/link';
+import { useRouter } from 'next/navigation';
+import { useEffect, useState } from 'react';
+import { toast } from 'react-hot-toast';
 import FormStatelessControl from '../ui/FormStatelessControl';
+import TextBetweenLines from '../ui/TextBetweenLines';
 
 const SignUpForm = () => {
   const [canRedirect, setCanRedirect] = useState(false);
@@ -95,22 +95,14 @@ const SignUpForm = () => {
         <button className="form-btn" type="submit">
           Sign up
         </button>
-
-        <div className="flex items-center justify-center mb-6">
-          <span className="block w-[43%] bg-neutral-300 h-[1px] dark:bg-neutral-500"></span>
-          <p className="relative bg-center mx-auto max-w-[100px]">Or</p>
-          <span className="block w-[43%] bg-neutral-300 h-[1px] dark:bg-neutral-500"></span>
-        </div>
       </form>
 
+      <TextBetweenLines>Or</TextBetweenLines>
+
       <div className="flex items-center xsm:flex-col justify-between">
-        <Link
-          className="block w-[48%] rounded-md p-3 text-center font-medium bg-light-black text-white transition delay-30 hover:opacity-80 xsm:w-full xsm:mb-4 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 dark:focus-visible:outline-white"
-          href="/login"
-        >
+        <Link className="form-btn-2" href="/login">
           Log In
         </Link>
-        <GoogleButton />
       </div>
     </div>
   );

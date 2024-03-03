@@ -56,7 +56,7 @@ const UserPage: FC<Props> = async ({ params: { userId }, searchParams }) => {
       >
         <BlogpostsContainer
           knownOwner={user}
-          mySessionId={session?.user.id}
+          mySessionId={session?.user.id!}
           queryOptions={{
             blogpostTagFilter: tagFilter as BlogpostTags,
             currentPage: currentPage,

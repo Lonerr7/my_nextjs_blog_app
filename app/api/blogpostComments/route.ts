@@ -14,18 +14,15 @@ export const GET = async (req: NextRequest) => {
       to: blogpostId,
     })
       .skip((Number(page) - 1) * 10)
-      .sort({ createdAt: -1 })
       .limit(10)
+      .sort({ createdAt: -1 })
       .populate({
         path: 'owner',
         match: { username: { $regex: searchQuery, $options: 'i' } },
         select: 'username image',
-        // options: {
-        //   skip: (Number(page) - 1) * 8,
-        //   limit: 8,
-        //   sort: { $natural: 1 },
-        // },
       });
+
+    console.log(comments.length);
 
     return new Response(JSON.stringify(comments), { status: 200 });
   } catch (error) {

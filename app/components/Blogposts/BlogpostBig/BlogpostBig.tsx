@@ -7,7 +7,8 @@ import BlogpostCleanText from '../BlogpostCleanText';
 import s from './BlogpostBig.module.css';
 import BlogpostControls from '../BlogpostControls';
 import BlogpostLikes from '../BlogpostLikes/BlogpostLikes';
-import { checkIfBlogpostIsLikedByMe } from '@/utils/checkIfBlogpostIsLikedByMe';
+import { checkIfLikedByMe } from '@/utils/checkIfLikedByMe';
+import BlogpostComments from '../BlogpostComments/BlogpostComments';
 
 interface Props {
   blogpost?: IBlogPost;
@@ -25,6 +26,7 @@ const BlogpostBig: React.FC<Props> = ({ blogpost, myId }) => {
     <div>
       <div className="flex justify-between items-center mb-4">
         <BlogpostTagBig customClassName="mr-3 !mb-0" tag={blogpost.tag} />
+
         {isMeOwner ? (
           <BlogpostControls
             customClassName="w-[70px]"
@@ -35,14 +37,23 @@ const BlogpostBig: React.FC<Props> = ({ blogpost, myId }) => {
           />
         ) : null}
       </div>
+
       <h1 className="text-4xl font-semibold mb-3">{blogpost.title}</h1>
-      <BlogpostLikes
-        customClassName="mb-5"
-        blogpostId={blogpost._id}
-        blogpostLikesCount={blogpost?.likes?.length}
-        isLiked={checkIfBlogpostIsLikedByMe(myId!, blogpost?.likes)}
-        mySessionId={myId!}
-      />
+
+      <div className="flex items-center mb-5">
+        <BlogpostLikes
+          customClassName="mr-4"
+          blogpostId={blogpost._id}
+          blogpostLikesCount={blogpost?.likes?.length}
+          isLiked={checkIfLikedByMe(myId!, blogpost?.likes)}
+          mySessionId={myId!}
+        />
+        <BlogpostComments
+          blogpostId={blogpost._id}
+          mySessionId={myId!}
+          commentsCount={blogpost.commentsCount}
+        />
+      </div>
 
       <div className="flex items-center justify-between text-text-gray mb-8">
         <Link

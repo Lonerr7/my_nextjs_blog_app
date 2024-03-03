@@ -4,20 +4,29 @@ import NextImageVithViewer from '../../Users/NextImageVithViewer';
 import Link from 'next/link';
 import { MdDelete } from 'react-icons/md';
 import CommentsLikesBtn from '../../common/CommentsLikesBtn';
-import { FaHeart } from 'react-icons/fa6';
+import { FaHeart, FaRegHeart } from 'react-icons/fa6';
 import FormattedDate from '../../common/FormattedDate';
+import { checkIfLikedByMe } from '@/utils/checkIfLikedByMe';
 
 interface Props {
   lastLikedCommentRef?: (node: any) => void;
   comment: IComment;
   isMine: boolean;
+  myId: string;
+  deleteComment: () => Promise<void>;
+  likeDislikeComment: () => Promise<void>;
 }
 
 const BlogpostComment: FC<Props> = ({
   comment,
   lastLikedCommentRef,
   isMine,
+  myId,
+  deleteComment,
+  likeDislikeComment,
 }) => {
+  const isLiked = checkIfLikedByMe(myId, Object?.keys(comment.likes));
+
   return (
     <li
       className="w-full mb-6 last:mb-0 flex pb-3 border-b border-solid border-[#6c6c6c]"
@@ -59,19 +68,27 @@ const BlogpostComment: FC<Props> = ({
             />
           </div>
           <p className="mb-4 dark:text-comment-text">{comment.text}</p>
-          <CommentsLikesBtn
-            customCounterClassName="text-[8px] !w-[16px] !h-[16px] top-[-5px] left-[8px] rounded-3xl"
-            customNumberClassName="!mb-0"
-            Icon={<FaHeart size={14} />}
-            value={90}
-            onBtnClick={() => {}}
-          />
+
+          <form action={likeDislikeComment}>
+            <CommentsLikesBtn
+              customCounterClassName="text-[8px] !w-[16px] !h-[16px] top-[-5px] left-[8px] rounded-3xl"
+              customNumberClassName="!mb-0"
+              IconLiked={<FaHeart size={14} />}
+              IconNotLiked={<FaRegHeart size={14} />}
+              isLiked={isLiked}
+              value={Object.keys(comment.likes).length}
+              onBtnClick={() => {}}
+              btnType="submit"
+            />
+          </form>
         </div>
 
         {isMine ? (
-          <button className="delete-btn">
-            <MdDelete size={20} />
-          </button>
+          <form action={deleteComment}>
+            <button className="delete-btn" type="submit">
+              <MdDelete size={20} />
+            </button>
+          </form>
         ) : null}
       </div>
     </li>

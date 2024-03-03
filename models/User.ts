@@ -1,6 +1,5 @@
 import { Schema, model, models } from 'mongoose';
 import bcrypt from 'bcrypt';
-import { getCorrectDateTime } from '@/utils/getCorrectTimeDate';
 
 const userSchema = new Schema(
   {
@@ -85,6 +84,14 @@ const userSchema = new Schema(
     },
     createdAt: {
       type: Date,
+    },
+    resetToken: {
+      type: String,
+      required: false,
+    },
+    resetTokenExpires: {
+      type: Date,
+      required: false,
     },
   },
   {
