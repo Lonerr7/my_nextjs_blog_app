@@ -7,14 +7,15 @@ interface Props {
   username: string;
   avatarUrl?: string;
   status?: string;
+  isMe: boolean;
 }
 
-const UserSm: FC<Props> = ({ id, username, avatarUrl, status }) => {
+const UserSm: FC<Props> = ({ id, username, avatarUrl, status, isMe }) => {
   return (
     <li className="border border-solid border-black rounded-xl dark:border-white">
       <Link
         className="flex items-center p-3 dark:text-white"
-        href={`/users/${id}`}
+        href={isMe ? '/' : `/users/${id}`}
       >
         <Avatar
           customClassName="mr-4"
