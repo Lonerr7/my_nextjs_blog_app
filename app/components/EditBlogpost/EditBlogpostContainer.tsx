@@ -61,7 +61,7 @@ const EditBlogpostContainer: React.FC<Props> = ({ blogpost }) => {
     }
 
     toast.success('Successfully updated blogpost!');
-    router.push('/my-page');
+    router.back();
   };
 
   return (
