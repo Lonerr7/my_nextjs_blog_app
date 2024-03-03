@@ -9,6 +9,7 @@ interface Props {
   customWrapperClassName?: string;
   customBodyClassName?: string;
   customCloseBtnClassName?: string;
+  withoutPortal?: boolean;
   closePopup: () => void;
 }
 
@@ -18,6 +19,7 @@ const PopupContainer: React.FC<Props> = ({
   customBodyClassName,
   customWrapperClassName,
   customCloseBtnClassName,
+  withoutPortal,
 }) => {
   const handleEscKey = (e: KeyboardEvent) => {
     if (e.key === 'Escape') {
@@ -67,7 +69,9 @@ const PopupContainer: React.FC<Props> = ({
     </div>
   );
 
-  return createPortal(modalContent, document.getElementById('app-portal')!);
+  return withoutPortal
+    ? modalContent
+    : createPortal(modalContent, document.getElementById('app-portal')!);
 };
 
 export default PopupContainer;
