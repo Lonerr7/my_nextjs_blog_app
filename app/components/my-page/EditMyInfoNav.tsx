@@ -13,9 +13,9 @@ const EditMyInfoNav = () => {
       <li>
         <Link
           className={clsx('link mb-3 dark:text-white text-light-black', {
-            'font-bold': pathname === '/my-page/edit',
+            'font-bold': pathname === '/edit',
           })}
-          href="/my-page/edit"
+          href="/edit"
         >
           Edit my general info
         </Link>
@@ -23,9 +23,9 @@ const EditMyInfoNav = () => {
       <li>
         <Link
           className={clsx('link mb-3 dark:text-white text-light-black', {
-            'font-bold': pathname === '/my-page/edit/profile-picture',
+            'font-bold': pathname === '/edit/profile-picture',
           })}
-          href="/my-page/edit/profile-picture"
+          href="/edit/profile-picture"
         >
           Change my profile picture
         </Link>
@@ -36,10 +36,10 @@ const EditMyInfoNav = () => {
             'link mb-3 dark:text-white text-light-black hover:!text-red-500 hover:opacity-100',
             {
               'font-bold text-red-500 hover:opacity-70':
-                pathname === '/my-page/edit/delete-my-profile',
+                pathname === '/edit/delete-my-profile',
             }
           )}
-          href="/my-page/edit/delete-my-profile"
+          href="/edit/delete-my-profile"
         >
           Delete my profile
         </Link>

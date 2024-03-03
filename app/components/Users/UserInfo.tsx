@@ -16,7 +16,7 @@ const UserInfo: FC<Props> = ({ isMyPage, user }) => {
       {isMyPage ? (
         <Link
           className="dark:text-white transition-opacity delay-[40ms] hover:opacity-60"
-          href="/my-page/edit"
+          href="/edit"
           title="Edit my page"
         >
           <FaGear className="absolute top-5 right-5" size={24} />

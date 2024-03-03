@@ -1,5 +1,3 @@
-
-
 import { FC, useEffect } from 'react';
 import Logo from '../Logo';
 import ThemeSwitcher from '../ThemeSwitcher';
@@ -18,8 +16,6 @@ const Navbar: FC = async () => {
     ? await getSingleUser(session?.user.id!, RequestTags.GET_ME, false)
     : undefined;
 
-
-
   return (
     <nav className="flex items-center justify-between text-xl">
       <Link className="flex items-center" href="/">
@@ -36,7 +32,7 @@ const Navbar: FC = async () => {
       <div className="flex items-center justify-between">
         <ThemeSwitcher />
         {session && (
-          <Link className="link mr-4 dark:text-white" href="/my-page">
+          <Link className="link mr-4 dark:text-white" href="/">
             Hello,{' '}
             <span className="font-bold">
               {userDoc?.user && userDoc.user.username}

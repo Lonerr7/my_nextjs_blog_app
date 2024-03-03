@@ -15,7 +15,7 @@ const LikedUserSm: React.FC<Props> = ({ user, isMe, lastLikedUserRef }) => {
       ref={lastLikedUserRef}
     >
       <div className="flex items-center">
-        <Link href={isMe ? '/my-page' : `/users/${user._id}`}>
+        <Link href={isMe ? '/' : `/users/${user._id}`}>
           <NextImageVithViewer
             imageUrl={user?.image?.imageUrl}
             alt="avatar"
@@ -25,7 +25,7 @@ const LikedUserSm: React.FC<Props> = ({ user, isMe, lastLikedUserRef }) => {
           />
         </Link>
         <div>
-          <Link href={isMe ? '/my-page' : `/users/${user._id}`}>
+          <Link href={isMe ? '/' : `/users/${user._id}`}>
             <p className="mb-1 font-semibold">{user.username}</p>
           </Link>
           <p className="text-sm">{user.status}</p>

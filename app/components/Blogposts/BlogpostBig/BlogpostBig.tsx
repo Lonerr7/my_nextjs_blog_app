@@ -58,7 +58,7 @@ const BlogpostBig: React.FC<Props> = ({ blogpost, myId }) => {
       <div className="flex items-center justify-between text-text-gray mb-8">
         <Link
           className="flex items-center text-text-gray mr-4"
-          href={isMeOwner ? '/my-page' : `/users/${blogpost.owner._id}`}
+          href={isMeOwner ? '/' : `/users/${blogpost.owner._id}`}
         >
           <NextImageVithViewer
             customClassName="min-w-[70px] min-h-[70px] mr-3"

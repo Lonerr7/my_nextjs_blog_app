@@ -49,7 +49,7 @@ export const BlogpostSm = ({
         <div className="flex items-center mr-1">
           <Link
             className="flex items-center mr-5"
-            href={isMine ? `/my-page` : `/users/${owner._id}`}
+            href={isMine ? `/` : `/users/${owner._id}`}
           >
             <NextImageVithViewer
               customClassName="!max-w-[36px] !max-h-[36px] min-w-[36px] min-h-[36px] mr-3"

@@ -17,16 +17,6 @@ const NavList: FC = () => {
           })}
           href="/"
         >
-          Home
-        </Link>
-      </li>
-      <li className="mr-2">
-        <Link
-          className={clsx('link dark:text-white text-light-black', {
-            'font-bold': pathname === '/my-page',
-          })}
-          href="/my-page"
-        >
           My Page
         </Link>
       </li>

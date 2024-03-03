@@ -1,4 +1,4 @@
-import MyOrUserPageLoadingSkeleton from '../components/ui/skeletons/MyOrUserPageLoadingSkeleton';
+import MyOrUserPageLoadingSkeleton from './components/ui/skeletons/MyOrUserPageLoadingSkeleton';
 
 const LoadingPage = () => {
   return <MyOrUserPageLoadingSkeleton />;

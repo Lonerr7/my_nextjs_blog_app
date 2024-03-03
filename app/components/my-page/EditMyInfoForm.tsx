@@ -40,7 +40,7 @@ const EditMyInfoForm: FC<Props> = ({
 
     if (!response?.message) {
       toast.success('Successfully updated!');
-      redirect('/my-page');
+      redirect('/');
     }
   };
 

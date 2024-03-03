@@ -34,7 +34,7 @@ const BlogpostComment: FC<Props> = ({
     >
       <Link
         className="inline-block mr-3"
-        href={isMine ? '/my-page' : `/users/${comment.owner._id}`}
+        href={isMine ? '/' : `/users/${comment.owner._id}`}
       >
         <NextImageVithViewer
           customClassName="!min-w-[50px] !min-h-[50px] max-w-[50px] max-h-[50px]"
@@ -50,7 +50,7 @@ const BlogpostComment: FC<Props> = ({
           <div className="flex mb-2">
             <Link
               className="inline-block font-semibold mr-2 dark:text-white"
-              href={isMine ? '/my-page' : `/users/${comment.owner._id}`}
+              href={isMine ? '/' : `/users/${comment.owner._id}`}
             >
               {comment.owner.username}
             </Link>

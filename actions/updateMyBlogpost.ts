@@ -127,6 +127,7 @@ export const updateMyBlogpost = async (
     blogpost.text = validatedFields.data.text;
     blogpost.title = validatedFields.data.title;
     blogpost.tag = validatedFields.data.tag;
+    
     // Обновим картинку только если мы ее действительно хотим обновить
     if (cloudinaryResponse) {
       blogpost.image = {
