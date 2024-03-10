@@ -14,6 +14,7 @@ import BlogpostsContainer from './components/Blogposts/BlogpostsContainer';
 
 export const metadata: Metadata = {
   title: 'My Page | Meta Blog',
+  description: 'The main page of the application',
 };
 
 interface Props {

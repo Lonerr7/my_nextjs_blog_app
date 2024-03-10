@@ -1,5 +1,11 @@
 import DeleteMyAvatarForm from '@/app/components/my-page/DeleteMyAvatarForm';
 import EditMyProfilePicForm from '@/app/components/my-page/EditMyProfilePicForm';
+import { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: 'Change profile picture | Meta Blog',
+  description: 'The page where you can change your profile picture',
+};
 
 const UpdateMyProfilePicPage = async () => {
   return (

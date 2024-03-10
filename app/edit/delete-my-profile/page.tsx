@@ -1,4 +1,10 @@
 import DeleteMyProfileForm from '@/app/components/my-page/DeleteMyProfileForm';
+import { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: 'Delete my profile | Meta Blog',
+  description: 'The page where you can delete your profile',
+};
 
 const DeleteMyProfilePage = () => {
   return (

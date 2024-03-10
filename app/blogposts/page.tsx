@@ -8,6 +8,12 @@ import { Suspense } from 'react';
 import BlogpostsLoadingSkeleton from '../components/ui/skeletons/BlogpostsLoadingSkeleton';
 import Pagination from '../components/ui/Pagination';
 import BlogpostsContainer from '../components/Blogposts/BlogpostsContainer';
+import { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: 'Blogposts | Meta Blog',
+  description: 'The page with all blogposts created by users',
+};
 
 interface Props {
   searchParams?: {
