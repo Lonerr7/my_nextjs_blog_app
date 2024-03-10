@@ -1,6 +1,6 @@
 import React from 'react';
-import CommonSkeleton from './CommonSkeleton';
-import BlogpostsLoadingSkeleton from './BlogpostsLoadingSkeleton';
+import CommonSkeleton from '../CommonSkeleton';
+import BlogpostsLoadingSkeleton from '../blogposts/BlogpostsLoadingSkeleton';
 
 const MyOrUserPageLoadingSkeleton = () => {
   return (

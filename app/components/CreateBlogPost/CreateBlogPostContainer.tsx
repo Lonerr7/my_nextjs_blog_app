@@ -53,7 +53,7 @@ const CreateBlogPostContainer = () => {
       toast.error(response.errMsg);
     } else {
       toast.success(response.success);
-      router.push('/my-page');
+      router.push('/');
     }
 
     setIsBlogpostCreating(false);

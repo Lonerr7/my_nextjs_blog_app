@@ -1,4 +1,4 @@
-import CommonSkeleton from './CommonSkeleton';
+import CommonSkeleton from '../CommonSkeleton';
 
 const BlogpostsLoadingSkeleton = () => {
   return (

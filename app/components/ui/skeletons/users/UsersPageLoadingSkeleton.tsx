@@ -1,6 +1,6 @@
 import 'react-loading-skeleton/dist/skeleton.css';
 import UsersLoadingSkeleton from './UsersLoadingSkeleton';
-import CommonSkeleton from './CommonSkeleton';
+import CommonSkeleton from '../CommonSkeleton';
 
 const UsersPageLoadingSkeleton = () => {
   return (

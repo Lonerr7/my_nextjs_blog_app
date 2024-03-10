@@ -1,7 +1,7 @@
 import { FC, Suspense } from 'react';
 import Search from '../components/common/Search';
 import UsersList from '../components/Users/Users';
-import UsersLoadingSkeleton from '../components/ui/skeletons/UsersLoadingSkeleton';
+import UsersLoadingSkeleton from '../components/ui/skeletons/users/UsersLoadingSkeleton';
 import { getUsersPages } from '@/services/userServices';
 import Pagination from '../components/ui/Pagination';
 import { Metadata } from 'next';

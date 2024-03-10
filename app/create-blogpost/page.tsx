@@ -1,4 +1,3 @@
-import React from 'react';
 import CreateBlogPostContainer from '../components/CreateBlogPost/CreateBlogPostContainer';
 import { Metadata } from 'next';
 

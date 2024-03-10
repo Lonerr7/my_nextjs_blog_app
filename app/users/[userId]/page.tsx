@@ -2,7 +2,7 @@ import BlogpostsContainer from '@/app/components/Blogposts/BlogpostsContainer';
 import UserInfo from '@/app/components/Users/UserInfo';
 import Search from '@/app/components/common/Search';
 import Pagination from '@/app/components/ui/Pagination';
-import BlogpostsLoadingSkeleton from '@/app/components/ui/skeletons/BlogpostsLoadingSkeleton';
+import BlogpostsLoadingSkeleton from '@/app/components/ui/skeletons/blogposts/BlogpostsLoadingSkeleton';
 import { authConfig } from '@/configs/auth';
 import { getSingleUser } from '@/services/userServices';
 import { BlogpostTags } from '@/types/blogTypes';

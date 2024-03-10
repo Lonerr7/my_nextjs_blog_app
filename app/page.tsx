@@ -8,7 +8,7 @@ import { RequestTags, SearchQueriesNames } from '@/types/requestTypes';
 import Search from './components/common/Search';
 import { BlogpostTags } from '@/types/blogTypes';
 import Pagination from './components/ui/Pagination';
-import BlogpostsLoadingSkeleton from './components/ui/skeletons/BlogpostsLoadingSkeleton';
+import BlogpostsLoadingSkeleton from './components/ui/skeletons/blogposts/BlogpostsLoadingSkeleton';
 import { generateBlogSearchOptions } from '@/utils/generateBlogSearchOptions';
 import BlogpostsContainer from './components/Blogposts/BlogpostsContainer';
 
@@ -52,6 +52,7 @@ const Home: FC<Props> = async ({ searchParams }) => {
   return (
     <section className="relative">
       <UserInfo user={myself} isMyPage />
+
       <Search
         palceholder="Search by blogpost title"
         queryToChange={SearchQueriesNames.BLOGPOSTS_SEARCH_QUERY}
