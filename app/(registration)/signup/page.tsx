@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import SignUpForm from '../components/auth/SignUpForm';
+import SignUpForm from '../../components/auth/SignUpForm';
 import { getServerSession } from 'next-auth';
 import { redirect } from 'next/navigation';
 import { authConfig } from '@/configs/auth';

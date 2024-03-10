@@ -11,3 +11,9 @@ export interface RegisterFormState extends LoginFormState {
 export interface IResetPasswordUser {
   id: string;
 }
+
+export interface ChangePasswordFormState {
+  oldPassword: string;
+  newPassword: string;
+  newPasswordConfirm: string;
+}

@@ -8,6 +8,7 @@ export const config = {
     '/edit',
     '/edit/profile-picture',
     '/edit/delete-my-profile',
+    '/edit/change-password',
     '/blogposts',
     '/blogposts/:blogpostId*',
   ],

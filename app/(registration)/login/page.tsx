@@ -1,9 +1,9 @@
 import { FC } from 'react';
-import LogInForm from '../components/auth/LogInForm';
+import LogInForm from '../../components/auth/LogInForm';
 import { getServerSession } from 'next-auth';
 import { authConfig } from '@/configs/auth';
 import { redirect } from 'next/navigation';
-import GoBack from '../components/common/GoBack';
+import GoBack from '../../components/common/GoBack';
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {

@@ -32,6 +32,16 @@ const EditMyInfoNav = () => {
       </li>
       <li>
         <Link
+          className={clsx('link mb-3 dark:text-white text-light-black', {
+            'font-bold': pathname === '/edit/change-password',
+          })}
+          href="/edit/change-password"
+        >
+          Change password
+        </Link>
+      </li>
+      <li>
+        <Link
           className={clsx(
             'link mb-3 dark:text-white text-light-black hover:!text-red-500 hover:opacity-100',
             {

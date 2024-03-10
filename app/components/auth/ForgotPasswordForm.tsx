@@ -32,6 +32,7 @@ const ForgotPasswordForm = () => {
           labelValue="Email"
           htmlFor={RegisterUserInputFields.EMAIL}
           required
+          type='email'
           placeholder="Enter your email"
         />
 

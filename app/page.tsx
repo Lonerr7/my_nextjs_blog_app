@@ -24,7 +24,7 @@ interface Props {
   };
 }
 
-const Home: React.FC<Props> = async ({ searchParams }) => {
+const Home: FC<Props> = async ({ searchParams }) => {
   const session = await getServerSession(authConfig);
   const { user: myself, error } = await getSingleUser(
     session?.user.id!,
