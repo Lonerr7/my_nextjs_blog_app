@@ -32,7 +32,7 @@ const CommentsLikesBtn: FC<Props> = ({
     >
       {isLiked ? IconLiked : IconNotLiked}
       <span
-        className={`absolute top-[-7px] left-[13px] w-[18px] h-[18px] text-[10px] rounded-xl flex flex-col justify-center bg-rose-500 text-white ${customCounterClassName}`}
+        className={`absolute top-[-7px] left-[13px] w-[18px] h-[18px] text-[10px] rounded-xl flex flex-col justify-center bg-rose-500 text-white ${customCounterClassName} xsm:!top-[-5px] xsm:!left-[8px] xsm:!text-[7px]  xsm:!w-[14px]  xsm:!h-[14px]`}
       >
         <span className={`mb-[1px] ${customNumberClassName}`}>
           {formatNumber(value)}

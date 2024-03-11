@@ -10,6 +10,7 @@ import BlogpostLikesViewerContainer from './BlogpostLikesViewerContainer';
 
 interface Props {
   customClassName?: string;
+  valueCustomClassName?:string
   isLiked: boolean;
   blogpostLikesCount: number;
   blogpostId: string;
@@ -18,6 +19,7 @@ interface Props {
 
 const BlogpostLikes: React.FC<Props> = ({
   customClassName,
+  valueCustomClassName,
   isLiked,
   blogpostLikesCount,
   blogpostId,
@@ -40,7 +42,7 @@ const BlogpostLikes: React.FC<Props> = ({
         <LikeDislikePendingBtn isLiked={isLiked} />
       </form>
       <button
-        className="text-lg font-semibold"
+        className={`text-lg font-semibold ${valueCustomClassName}`}
         onClick={() => setIsLikesViewerOpen(true)}
       >
         {formatNumber(blogpostLikesCount)}
