@@ -34,7 +34,7 @@ export const BlogpostSm = ({
         <div>
           <NextImageVithViewer
             imageUrl={blogpost.image.imageUrl}
-            customClassName="mb-6 !max-w-[360px] h-[240px] mx-auto xsm:!max-w-[510px] xsm:!h-[180px]"
+            customClassName="mb-6 !max-w-[360px] h-[240px] mx-auto xsm:!max-w-[510pxф] xsm:!h-[180px]"
             customImgClassName="border rounded-md border-transparent"
             sizes="400px"
             alt="blogpost_thumbnail"
@@ -48,8 +48,8 @@ export const BlogpostSm = ({
           </h2>
         </div>
       </Link>
-      <div className="flex items-center justify-between md:flex-col xsm:!flex-row">
-        <div className="flex items-center mr-1 md:mb-2 xsm:!mb-0">
+      <div className="flex items-center justify-between md:flex-col xsm:flex-row xxsm:flex-col">
+        <div className="flex items-center mr-1 md:mb-2 xsm:mb-0 xxsm:mb-3">
           <Link
             className="flex items-center mr-5"
             href={isMine ? `/` : `/users/${owner._id}`}
@@ -77,10 +77,10 @@ export const BlogpostSm = ({
         </div>
 
         <div className="flex justify-between items-center grow">
-          <div className="flex items-center">
+          <div className="flex items-center md:mr-3">
             <BlogpostLikes
               customClassName="mr-3"
-              valueCustomClassName='xsm:!text-base'
+              valueCustomClassName="xsm:!text-base"
               blogpostLikesCount={3333} // blogpost?.likes?.length
               isLiked={isLiked}
               blogpostId={blogpost._id}

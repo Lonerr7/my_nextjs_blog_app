@@ -20,7 +20,7 @@ const Blogposts: React.FC<Props> = ({
   return (
     <div>
       {noTitle || (
-        <h2 className="text-[24px] font-bold leading-7 mb-8">
+        <h2 className="text-[24px] font-bold leading-7 mb-8 xsm:text-center xsm:mb-6">
           Latest blogposts
         </h2>
       )}

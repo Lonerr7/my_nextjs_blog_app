@@ -26,14 +26,14 @@ const Pagination: FC<Props> = ({ totalPages, wrapperClassName }) => {
 
   return (
     <div className={wrapperClassName}>
-      <div className="inline-flex">
+      <div className="inline-flex xsm:flex-wrap xsm:justify-center">
         <PaginationArrow
           direction="left"
           href={createPageURL(currentPage - 1)}
           isDisabled={currentPage <= 1}
         />
 
-        <div className="flex -space-x-px">
+        <div className="flex -space-x-px xsm:flex-wrap xsm:justify-center">
           {allPages.map((page, index) => {
             let position: 'first' | 'last' | 'single' | 'middle' | undefined;
 
@@ -112,8 +112,8 @@ const PaginationArrow = ({
     {
       'pointer-events-none text-gray-300 dark:text-gray-500': isDisabled,
       'hover:bg-gray-200 dark:hover:bg-dark-blue dark:text-white': !isDisabled,
-      'mr-2 md:mr-4': direction === 'left',
-      'ml-2 md:ml-4': direction === 'right',
+      'mr-2 md:mr-4 xsm:mr-0': direction === 'left',
+      'ml-2 md:ml-4 xsm:ml-0': direction === 'right',
     }
   );
 
