@@ -35,7 +35,7 @@ const BlogpostsPage: React.FC<Props> = async ({ searchParams }) => {
 
   return (
     <section>
-      <h1 className="page-title xsm:text-[26px]">Recent blogposts</h1>
+      <h1 className="page-title">Recent blogposts</h1>
       <Search
         palceholder="Search by blogpost title"
         queryToChange={SearchQueriesNames.BLOGPOSTS_SEARCH_QUERY}

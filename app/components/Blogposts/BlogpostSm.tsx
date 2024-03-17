@@ -80,7 +80,7 @@ export const BlogpostSm = ({
           <div className="flex items-center md:mr-3">
             <BlogpostLikes
               customClassName="mr-3"
-              blogpostLikesCount={3333} // blogpost?.likes?.length
+              blogpostLikesCount={blogpost?.likes?.length}
               isLiked={isLiked}
               blogpostId={blogpost._id}
               mySessionId={mySessionId}

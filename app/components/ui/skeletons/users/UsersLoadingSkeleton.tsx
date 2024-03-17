@@ -12,7 +12,7 @@ const UserLoadingSkeleton = () => {
 
 const UsersLoadingSkeleton = () => {
   return (
-    <div className="grid grid-cols-3 gap-6">
+    <div className="grid grid-cols-3 gap-6 2md:grid-cols-2 xsm:grid-cols-1">
       <UserLoadingSkeleton />
       <UserLoadingSkeleton />
       <UserLoadingSkeleton />

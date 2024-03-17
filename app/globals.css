@@ -45,10 +45,7 @@ body {
 }
 
 .page-title {
-  font-size: 30px;
-  font-weight: 700;
-  margin-bottom: 30px;
-  text-align: center;
+  @apply text-[30px] font-bold mb-[30px] text-center xsm:text-[26px];
 }
 
 .page-subtitle {

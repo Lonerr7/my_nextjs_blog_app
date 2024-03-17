@@ -16,7 +16,7 @@ const UsersList: FC<Props> = async ({ query, currentPage }) => {
   ]);
 
   return (
-    <ul className="grid grid-cols-3 gap-6">
+    <ul className="grid grid-cols-3 gap-6 2md:grid-cols-2 xsm:grid-cols-1">
       {typeof users === 'object' ? (
         users.map((user) => (
           <UserSm

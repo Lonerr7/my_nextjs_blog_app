@@ -51,6 +51,7 @@ const config: Config = {
       '2xl': { max: '1536px' },
       xl: { max: '1280px' },
       lg: { max: '1024px' },
+      '2md': { max: '850px' },
       md: { max: '768px' },
       sm: { max: '640px' },
       xsm: { max: '510px' },

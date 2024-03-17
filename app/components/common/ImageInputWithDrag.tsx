@@ -6,6 +6,8 @@ import { isImageInputFileValid } from '@/utils/validateImageInputFile';
 import FormButton from '../ui/FormButton';
 
 interface Props {
+  customDragClassName?: string;
+  customPlaceholderClassName?: string;
   file: File | undefined;
   inputRef: React.RefObject<HTMLInputElement>;
   placeholder: string;
@@ -14,6 +16,8 @@ interface Props {
 }
 
 const ImageInputWithDrag: React.FC<Props> = ({
+  customDragClassName,
+  customPlaceholderClassName,
   file,
   inputRef,
   placeholder,
@@ -65,7 +69,7 @@ const ImageInputWithDrag: React.FC<Props> = ({
           file && 'bg-green-100 dark:bg-green-950'
         } border-4 border-[#BABABF] border-dashed flex justify-center items-center cursor-pointer mb-8 px-4 hover:opacity-60 ${
           isDragging && 'bg-[#e0e1e2] dark:bg-[#282b46]'
-        }`}
+        } ${customDragClassName}`}
         onDragOver={handleDrag}
         onDragEnter={() => {
           setIsDragging(true);
@@ -77,7 +81,7 @@ const ImageInputWithDrag: React.FC<Props> = ({
         onClick={() => inputRef.current?.click()}
       >
         {!file ? (
-          <p className="text-3xl text-light-black dark:text-light-gray text-center">
+          <p className={`text-3xl text-light-black dark:text-light-gray text-center ${customPlaceholderClassName}`}>
             {placeholder}
           </p>
         ) : (

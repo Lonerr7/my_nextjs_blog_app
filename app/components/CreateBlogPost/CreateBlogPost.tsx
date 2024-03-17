@@ -42,6 +42,8 @@ const CreateBlogPost: React.FC<Props> = ({
   return (
     <div>
       <ImageInputWithDrag
+        customDragClassName="xsm:h-[200px]"
+        customPlaceholderClassName='xsm:text-xl'
         file={imageFile}
         inputRef={inputRef}
         placeholder="Select or drop here your blogpost image"

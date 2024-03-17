@@ -25,7 +25,7 @@ const Blogposts: React.FC<Props> = ({
         </h2>
       )}
 
-      <ul className="grid grid-cols-3 gap-5 lg:grid-cols-2 xsm:!grid-cols-1">
+      <ul className="grid grid-cols-3 gap-5 lg:grid-cols-2 xsm:grid-cols-1">
         {blogposts
           ? blogposts.map((blogpost, i) => (
               <BlogpostSm
