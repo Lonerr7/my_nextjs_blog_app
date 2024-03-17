@@ -38,7 +38,9 @@ const BlogpostBig: React.FC<Props> = ({ blogpost, myId }) => {
         ) : null}
       </div>
 
-      <h1 className="text-4xl font-semibold mb-3">{blogpost.title}</h1>
+      <h1 className="text-4xl font-semibold mb-3 xsm:text-3xl">
+        {blogpost.title}
+      </h1>
 
       <div className="flex items-center mb-5">
         <BlogpostLikes
@@ -55,9 +57,9 @@ const BlogpostBig: React.FC<Props> = ({ blogpost, myId }) => {
         />
       </div>
 
-      <div className="flex items-center justify-between text-text-gray mb-8">
+      <div className="flex items-center text-text-gray mb-8 xsm:flex-col xsm:items-start">
         <Link
-          className="flex items-center text-text-gray mr-4"
+          className="flex items-center text-text-gray mr-4 xsm:mr-0 xsm:mb-3"
           href={isMeOwner ? '/' : `/users/${blogpost.owner._id}`}
         >
           <NextImageVithViewer
@@ -70,32 +72,34 @@ const BlogpostBig: React.FC<Props> = ({ blogpost, myId }) => {
           <p className="font-medium">{blogpost.owner.username}</p>
         </Link>
 
-        <div className="flex items-center flex-wrap mr-3">
-          <p className="mr-2">Created at: </p>
-          <FormattedDate
-            date={blogpost.createdAt}
-            locales="en-EN"
-            options={{
-              month: 'long',
-              day: '2-digit',
-              year: 'numeric',
-            }}
-          />
-        </div>
-        {blogpost.lastUpdatedAt ? (
+        <div className="flex items-center justify-between grow xsm:w-full">
           <div className="flex items-center flex-wrap mr-3">
-            <p className="mr-2">Last Updated at: </p>
+            <p className="mr-2">Created at: </p>
             <FormattedDate
-              date={blogpost.lastUpdatedAt}
+              date={blogpost.createdAt}
               locales="en-EN"
               options={{
-                month: 'long',
+                month: 'short',
                 day: '2-digit',
-                year: 'numeric',
+                year: '2-digit',
               }}
             />
           </div>
-        ) : null}
+          {blogpost.lastUpdatedAt ? (
+            <div className="flex items-center flex-wrap mr-3">
+              <p className="mr-2">Last Updated at: </p>
+              <FormattedDate
+                date={blogpost.lastUpdatedAt}
+                locales="en-EN"
+                options={{
+                  month: 'short',
+                  day: '2-digit',
+                  year: '2-digit',
+                }}
+              />
+            </div>
+          ) : null}
+        </div>
       </div>
 
       <NextImageVithViewer

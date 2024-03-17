@@ -34,7 +34,7 @@ export const BlogpostSm = ({
         <div>
           <NextImageVithViewer
             imageUrl={blogpost.image.imageUrl}
-            customClassName="mb-6 !max-w-[360px] h-[240px] mx-auto xsm:!max-w-[510pxф] xsm:!h-[180px]"
+            customClassName="mb-6 !max-w-[360px] h-[240px] mx-auto xsm:!max-w-[510px] xsm:!h-[180px]"
             customImgClassName="border rounded-md border-transparent"
             sizes="400px"
             alt="blogpost_thumbnail"
@@ -80,7 +80,6 @@ export const BlogpostSm = ({
           <div className="flex items-center md:mr-3">
             <BlogpostLikes
               customClassName="mr-3"
-              valueCustomClassName="xsm:!text-base"
               blogpostLikesCount={3333} // blogpost?.likes?.length
               isLiked={isLiked}
               blogpostId={blogpost._id}
