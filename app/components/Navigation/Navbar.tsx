@@ -1,35 +1,59 @@
-import { FC, useEffect } from 'react';
-import Logo from '../Logo';
-import ThemeSwitcher from '../ThemeSwitcher';
-import NavList from './NavList';
-import SignOut from '../common/SignOut';
-import { getServerSession } from 'next-auth/next';
+'use client';
+
 import { plusJakartaSans } from '@/app/ui/fonts';
 import Link from 'next/link';
-import { authConfig } from '@/configs/auth';
-import { getSingleUser } from '@/services/userServices';
-import { RequestTags } from '@/types/requestTypes';
+import Logo from '../Logo';
+import ThemeSwitcher from '../ThemeSwitcher';
+import NavList from './NavList/NavList';
+import SignOut from '../common/SignOut';
+import { Session } from 'next-auth';
+import { IUser } from '@/types/userTypes';
+import { useState } from 'react';
+import BurgerBtn from '../ui/BurgerBtn/BurgerBtn';
 
-const Navbar: FC = async () => {
-  const session = await getServerSession(authConfig);
-  let userDoc = session?.user
-    ? await getSingleUser(session?.user.id!, RequestTags.GET_ME, false)
-    : undefined;
+interface Props {
+  session: Session | null;
+  userDoc:
+    | {
+        user: IUser;
+        error?: undefined;
+      }
+    | {
+        error: string;
+        user?: undefined;
+      }
+    | undefined;
+}
+
+const Navbar: React.FC<Props> = ({ session, userDoc }) => {
+  const [isOpen, setOpen] = useState(false);
+
+  const toggleMenuHandler = () => {
+    setOpen(!isOpen);
+  };
+
+  const closeMenu = () => {
+    setOpen(false);
+  };
 
   return (
     <nav className="flex items-center justify-between text-xl">
-      <Link className="flex items-center" href="/">
+      <Link className="flex items-center 2md:hidden" href="/">
         <Logo />
         <span
-          className={`${plusJakartaSans.className} text-xl dark:text-white`}
+          className={`${plusJakartaSans.className} text-xl dark:text-white lg:hidden`}
         >
           Meta <span>Blog</span>
         </span>
       </Link>
 
-      {session && <NavList />}
+      <BurgerBtn
+        customClassName="hidden 2md:block"
+        toggleMenuHandler={toggleMenuHandler}
+      />
+      {session && <NavList isOpen={isOpen} closeMenu={closeMenu} />}
 
-      <div className="flex items-center justify-between">
+      <div className="flex items-center justify-between z-[301]">
         <ThemeSwitcher />
         {session && (
           <Link className="link mr-4 dark:text-white" href="/">
