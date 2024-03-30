@@ -25,7 +25,12 @@ const EditBlogpostPage: React.FC<Props> = async ({
     return <p>{errMsg}</p>;
   }
 
-  return <EditBlogpostContainer blogpost={blogpost!} />;
+  return (
+    <section>
+      <h1 className="page-title">Edit Blogpost</h1>
+      <EditBlogpostContainer blogpost={blogpost!} />
+    </section>
+  );
 };
 
 export default EditBlogpostPage;
