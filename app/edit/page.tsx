@@ -22,7 +22,7 @@ const EditMyPage = async () => {
   }
 
   return (
-    <section>
+    <section className="grow">
       <h1 className="page-title">Edit my Profile</h1>
       <EditMyInfoForm
         username={user?.username}

@@ -26,7 +26,7 @@ const navListItems = [
 
 interface Props {
   isOpen: boolean;
-  closeMenu: () => void
+  closeMenu: () => void;
 }
 
 const NavList: FC<Props> = ({ isOpen, closeMenu }) => {

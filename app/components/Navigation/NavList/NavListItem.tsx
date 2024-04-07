@@ -1,9 +1,10 @@
 import clsx from 'clsx';
 import Link from 'next/link';
-import React from 'react';
 
 interface Props {
   customClassName?: string;
+  customLinkClassName?: string;
+  customCLSXClassName?: string;
   textValue: string;
   pathname: string;
   pathnameValue: string;
@@ -13,9 +14,11 @@ interface Props {
 
 const NavListItem: React.FC<Props> = ({
   customClassName,
+  customLinkClassName,
   textValue,
   pathname,
   pathnameValue,
+  customCLSXClassName,
   isOpen,
   closeMenu,
 }) => {
@@ -25,14 +28,14 @@ const NavListItem: React.FC<Props> = ({
       onClick={() => {
         if (isOpen) {
           console.log(`if is Open`);
-          
+
           closeMenu();
         }
       }}
     >
       <Link
-        className={clsx('link dark:text-white text-light-black', {
-          'font-bold': pathname === pathnameValue,
+        className={clsx(`link dark:text-white text-light-black ${customLinkClassName}`, {
+          [`font-bold ${customCLSXClassName}`]: pathname === pathnameValue,
         })}
         href={pathnameValue}
       >

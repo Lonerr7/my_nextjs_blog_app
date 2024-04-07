@@ -2,22 +2,22 @@ import CommonSkeleton from '../../CommonSkeleton';
 
 const ChangeMyProfilePictureSkeleton = () => {
   return (
-    <div>
+    <div className="grow w-full">
       <CommonSkeleton
         containerClassName="block w-full flex justify-center mb-8"
         className="py-3"
-        width="25%"
+        width="50%"
       />
       <CommonSkeleton
         containerClassName="block w-full flex justify-center mb-4"
         className="py-3"
-        width="20%"
+        width="40%"
       />
       <CommonSkeleton
-        containerClassName="w-1/2 h-[400px] block flex justify-center mx-auto mb-5"
+        containerClassName="w-full h-[400px] block flex justify-center mx-auto mb-5"
         className="py-3"
       />
-      <div className="flex item-center mb-5 w-1/2 mx-auto">
+      <div className="flex item-center mb-5 w-full mx-auto">
         <CommonSkeleton
           containerClassName="w-[48px] h-[36px] block flex justify-center mr-4 grow"
           className="py-3"
@@ -30,10 +30,10 @@ const ChangeMyProfilePictureSkeleton = () => {
       <CommonSkeleton
         containerClassName="block w-full flex justify-center mb-4"
         className="py-3"
-        width="20%"
+        width="40%"
       />
       <CommonSkeleton
-        containerClassName="!w-1/2 block w-full flex justify-center mx-auto"
+        containerClassName="!w-full block w-full flex justify-center mx-auto"
         className="py-3"
       />
     </div>

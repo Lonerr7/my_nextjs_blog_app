@@ -8,8 +8,8 @@ import NavList from './NavList/NavList';
 import SignOut from '../common/SignOut';
 import { Session } from 'next-auth';
 import { IUser } from '@/types/userTypes';
-import { useState } from 'react';
 import BurgerBtn from '../ui/BurgerBtn/BurgerBtn';
+import { useBurger } from '@/hooks/useBurger';
 
 interface Props {
   session: Session | null;
@@ -26,15 +26,7 @@ interface Props {
 }
 
 const Navbar: React.FC<Props> = ({ session, userDoc }) => {
-  const [isOpen, setOpen] = useState(false);
-
-  const toggleMenuHandler = () => {
-    setOpen(!isOpen);
-  };
-
-  const closeMenu = () => {
-    setOpen(false);
-  };
+  const { isMenuOpen: isOpen, closeMenu, toggleMenuHandler } = useBurger();
 
   return (
     <nav className="flex items-center justify-between text-xl">
@@ -48,9 +40,10 @@ const Navbar: React.FC<Props> = ({ session, userDoc }) => {
       </Link>
 
       <BurgerBtn
-        customClassName="hidden 2md:block"
+        customClassName="hidden 2md:block z-[301]"
         toggleMenuHandler={toggleMenuHandler}
       />
+
       {session && <NavList isOpen={isOpen} closeMenu={closeMenu} />}
 
       <div className="flex items-center justify-between z-[301]">

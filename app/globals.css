@@ -33,12 +33,12 @@ body {
 }
 
 .form {
-  @apply bg-white rounded-lg shadow-sm dark:bg-bg-light-dark max-w-[500px] mx-[auto] p-5;
+  @apply bg-white rounded-lg shadow-sm dark:bg-bg-light-dark max-w-[600px] mx-[auto] p-5;
 }
 
-.my-page__form {
-  max-width: 50% !important;
-}
+/* .my-page__form {
+  max-width: 60% !important;
+} */
 
 .auth-page-title {
   @apply text-5xl text-center font-bold mb-10;

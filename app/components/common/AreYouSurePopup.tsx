@@ -9,7 +9,7 @@ interface Props {
 const AreYouSurePopup: React.FC<Props> = ({ popupPhrase }) => {
   return (
     <>
-      <p className="mb-10 text-2xl text-center font-medium">
+      <p className="mb-10 mx-4 text-2xl text-center font-medium">
         Are you sure you want to {popupPhrase}
       </p>
 

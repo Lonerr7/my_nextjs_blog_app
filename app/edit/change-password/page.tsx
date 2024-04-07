@@ -8,7 +8,7 @@ export const metadata: Metadata = {
 
 const ChangePasswordPage = () => {
   return (
-    <section>
+    <section className="grow">
       <h1 className="page-title">Change password</h1>
       <ChangePasswordForm />
     </section>

@@ -37,7 +37,7 @@ const EditMyProfilePicForm: React.FC = () => {
   };
 
   return (
-    <form className="w-1/2" action={clientAction}>
+    <form className='w-full' action={clientAction}>
       <ImageInputWithDrag
         file={imageFile}
         inputRef={inputRef}

@@ -1,4 +1,4 @@
-import EditMyInfoNav from '@/app/components/my-page/EditMyInfoNav';
+import EditMyInfoNav from '@/app/components/my-page/EditMyInfo/EditMyInfoNav';
 
 interface Props {
   children: React.ReactNode;
@@ -6,7 +6,7 @@ interface Props {
 
 const EditMyPageLayout: React.FC<Props> = ({ children }) => {
   return (
-    <div className="relative">
+    <div className="relative flex">
       <EditMyInfoNav />
       {children}
     </div>

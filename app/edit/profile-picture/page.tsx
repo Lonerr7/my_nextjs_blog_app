@@ -9,7 +9,7 @@ export const metadata: Metadata = {
 
 const UpdateMyProfilePicPage = async () => {
   return (
-    <section className="relative">
+    <section className="relative grow">
       <h1 className="page-title">Update your profile picture</h1>
       <div className="mb-4 flex flex-col items-center">
         <h2 className="page-subtitle">Change my profile picture</h2>

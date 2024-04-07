@@ -1,4 +1,5 @@
 import DeleteMyProfileForm from '@/app/components/my-page/DeleteMyProfileForm';
+import DeleteMyPageSkeleton from '@/app/components/ui/skeletons/my-page/edit/DeleteMyPageSkeleton';
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {
@@ -8,7 +9,7 @@ export const metadata: Metadata = {
 
 const DeleteMyProfilePage = () => {
   return (
-    <section className="relative">
+    <section className="relative grow">
       <h1 className="page-title">Delete your profile</h1>
       <p className="text-center text-lg mb-6">
         Do you really want to delete your profile? Your profile will be deleted
