@@ -31,7 +31,7 @@
     "react-quill": "^2.0.0",
     "react-select": "^5.8.0",
     "react-simple-image-viewer": "^1.2.2",
-    "sharp": "^0.33.1",
+    "sharp": "^0.33.3",
     "use-debounce": "^10.0.0",
     "zod": "^3.22.4"
   },
