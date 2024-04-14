@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@auth/mongodb-adapter": "^2.0.3",
+    "@img/sharp-linux-x64": "^0.33.3",
     "bcrypt": "^5.1.1",
     "cloudinary": "^1.41.0",
     "clsx": "^2.0.0",
