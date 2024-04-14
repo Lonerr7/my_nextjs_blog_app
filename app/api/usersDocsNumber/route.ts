@@ -4,8 +4,9 @@ import { generateMongooseSearchOptions } from '@/utils/generateMongooseSearchOpt
 import { NextRequest } from 'next/server';
 
 export const GET = async (req: NextRequest) => {
+  const searchOptions = generateMongooseSearchOptions(req);
+
   try {
-    const searchOptions = generateMongooseSearchOptions(req);
     console.log(`searchOptions`, searchOptions);
 
     await connectToDB();
