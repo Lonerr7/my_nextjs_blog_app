@@ -13,5 +13,7 @@ export const GET = async (req: NextRequest) => {
     const totalUsersPages = await User.countDocuments(searchOptions);
 
     return new Response(JSON.stringify(totalUsersPages), { status: 200 });
-  } catch (error) {}
+  } catch (error) {
+    console.error(error);
+  }
 };
