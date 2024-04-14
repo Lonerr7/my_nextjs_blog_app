@@ -26,12 +26,15 @@ export const BlogpostSm = ({
   const isLiked = checkIfLikedByMe(mySessionId, blogpost?.likes);
 
   return (
-    <li className="p-4 border rounded-xl border-solid border-blogpost-border-light h-[500px] flex flex-col justify-between hover:bg-light-gray dark:hover:bg-item-bg-dark_x2_hover">
-      <Link className="h-[450px]" href={`/blogposts/${blogpost._id}`}>
+    <li className="p-4 border rounded-xl border-solid border-blogpost-border-light h-[500px] flex flex-col justify-between hover:bg-light-gray dark:hover:bg-item-bg-dark_x2_hover xsm:!h-[420px]">
+      <Link
+        className="h-[450px] xsm:!h-[360px]"
+        href={`/blogposts/${blogpost._id}`}
+      >
         <div>
           <NextImageVithViewer
             imageUrl={blogpost.image.imageUrl}
-            customClassName="mb-6 !max-w-[360px] h-[240px] mx-auto"
+            customClassName="mb-6 !max-w-[360px] h-[240px] mx-auto xsm:!max-w-[510px] xsm:!h-[180px]"
             customImgClassName="border rounded-md border-transparent"
             sizes="400px"
             alt="blogpost_thumbnail"
@@ -40,16 +43,16 @@ export const BlogpostSm = ({
 
           <BlogpostTagSm tag={blogpost.tag} />
 
-          <h2 className="text-2xl leading-7 font-semibold mb-5 dark:text-white">
+          <h2 className="text-2xl leading-7 font-semibold mb-5 dark:text-white xsm:!text-xl">
             {cropStringByLength(blogpost.title, 70, true)}
           </h2>
         </div>
       </Link>
-      <div className="flex items-center justify-between">
-        <div className="flex items-center mr-1">
+      <div className="flex items-center justify-between md:flex-col xsm:flex-row xxsm:flex-col">
+        <div className="flex items-center mr-1 md:mb-2 xsm:mb-0 xxsm:mb-3">
           <Link
             className="flex items-center mr-5"
-            href={isMine ? `/my-page` : `/users/${owner._id}`}
+            href={isMine ? `/` : `/users/${owner._id}`}
           >
             <NextImageVithViewer
               customClassName="!max-w-[36px] !max-h-[36px] min-w-[36px] min-h-[36px] mr-3"
@@ -73,25 +76,27 @@ export const BlogpostSm = ({
           />
         </div>
 
-        <div className="flex items-center">
-          <BlogpostLikes
-            customClassName="mr-3"
-            blogpostLikesCount={blogpost?.likes?.length}
-            isLiked={isLiked}
-            blogpostId={blogpost._id}
-            mySessionId={mySessionId}
-          />
-          <BlogpostComments
-            blogpostId={blogpost._id}
-            commentsCount={blogpost.commentsCount}
-            mySessionId={mySessionId}
-          />
-        </div>
+        <div className="flex justify-between items-center grow">
+          <div className="flex items-center md:mr-3">
+            <BlogpostLikes
+              customClassName="mr-3"
+              blogpostLikesCount={blogpost?.likes?.length}
+              isLiked={isLiked}
+              blogpostId={blogpost._id}
+              mySessionId={mySessionId}
+            />
+            <BlogpostComments
+              blogpostId={blogpost._id}
+              commentsCount={blogpost.commentsCount}
+              mySessionId={mySessionId}
+            />
+          </div>
 
-        {/* Blogpost controls if it's mine */}
-        {isMine ? (
-          <BlogpostControls blogpostId={blogpost._id} withoutDelete />
-        ) : null}
+          {/* Blogpost controls if it's mine */}
+          {isMine ? (
+            <BlogpostControls blogpostId={blogpost._id} withoutDelete />
+          ) : null}
+        </div>
       </div>
     </li>
   );

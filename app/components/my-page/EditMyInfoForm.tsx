@@ -40,7 +40,7 @@ const EditMyInfoForm: FC<Props> = ({
 
     if (!response?.message) {
       toast.success('Successfully updated!');
-      redirect('/my-page');
+      router.push('/');
     }
   };
 
@@ -91,19 +91,8 @@ const EditMyInfoForm: FC<Props> = ({
         placeholder="Enter your twitter"
       />
 
-      <div className="flex justify-between items-center w-full">
-        <button
-          type="button"
-          className="mr-4 form-btn !w-1/2 !bg-light-black"
-          onClick={() => router.back()}
-        >
-          Cancel
-        </button>
-        <FormButton
-          customClassName="!w-1/2"
-          btnText="Edit my page"
-          loadingText="Sending"
-        />
+      <div className="w-full">
+        <FormButton btnText="Edit my page" loadingText="Sending" />
       </div>
     </form>
   );

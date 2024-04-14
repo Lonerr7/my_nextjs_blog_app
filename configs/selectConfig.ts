@@ -1,6 +1,6 @@
-import { BlogpostOption, BlogpostTags } from '@/types/blogTypes';
+import { SelectOption, BlogpostTags } from '@/types/blogTypes';
 
-export const selectOptions: Array<BlogpostOption> = Object.entries(
+export const selectOptions: Array<SelectOption> = Object.entries(
   BlogpostTags
 ).map((value) => ({
   label: value[1],

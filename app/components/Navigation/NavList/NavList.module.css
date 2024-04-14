@@ -1,0 +1,36 @@
+.navList {
+  @apply w-2/5 flex justify-between lg:w-1/2 xsm:!w-full;
+}
+
+.navList__item {
+  @apply mr-2;
+}
+
+@media (max-width: 850px) {
+  .navList {
+    padding: 100px 40px 60px 40px;
+    position: fixed;
+    flex-direction: column;
+    justify-content: start;
+    align-items: flex-start;
+    height: 100vh;
+    top: 0;
+    left: 0;
+    width: 250px;
+    transform: translateX(0);
+    transition: all 0.3s ease-in-out;
+    z-index: 300;
+  }
+
+  .navList__item {
+    margin-bottom: 30px;
+  }
+
+  .navList__item:last-child {
+    margin-bottom: 0;
+  }
+
+  .closed {
+    transform: translateX(-1000%);
+  }
+}

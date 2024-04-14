@@ -37,11 +37,11 @@ const EditMyProfilePicForm: React.FC = () => {
   };
 
   return (
-    <form className="w-1/2" action={clientAction}>
+    <form className='w-full' action={clientAction}>
       <ImageInputWithDrag
         file={imageFile}
         inputRef={inputRef}
-        placeholder='Select or drop here your new profile picture'
+        placeholder="Select or drop here your new profile picture"
         setFile={setFile}
       />
     </form>

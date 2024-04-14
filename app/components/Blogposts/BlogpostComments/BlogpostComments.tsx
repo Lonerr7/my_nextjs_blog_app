@@ -1,11 +1,10 @@
 'use client';
 
 import { useState } from 'react';
-import { FaComment } from 'react-icons/fa';
 import PopupContainer from '../../common/PopupContainer';
 import BlogpostCommentsContainer from './BlogpostCommentsContainer';
 import CommentsLikesBtn from '../../common/CommentsLikesBtn';
-import { FaRegComment } from "react-icons/fa";
+import { FaRegComment } from 'react-icons/fa';
 
 interface Props {
   blogpostId: string;
@@ -23,8 +22,9 @@ const BlogpostComments: React.FC<Props> = ({
   return (
     <div>
       <CommentsLikesBtn
-        IconLiked={<FaComment size={22} />}
-        IconNotLiked={<FaRegComment size={22} />}
+        IconNotLiked={
+          <FaRegComment className="w-[22px] h-[22px] xsm:!w-[18px] xsm:!h-[18px]" />
+        }
         value={commentsCount}
         onBtnClick={() => {
           setIsCommentsViewerOpen(true);

@@ -62,6 +62,8 @@ const LogInForm: FC = () => {
           stateFieldToChange="email"
           setFromState={setFormState}
           htmlFor="email"
+          type="email"
+          placeholder="Enter your email"
           required
         />
         <FormControl
@@ -70,6 +72,8 @@ const LogInForm: FC = () => {
           stateFieldToChange="password"
           setFromState={setFormState}
           htmlFor="password"
+          type="password"
+          placeholder="Enter your password"
           required
         />
         <FormControl
@@ -78,6 +82,8 @@ const LogInForm: FC = () => {
           stateFieldToChange="passwordConfirm"
           setFromState={setFormState}
           htmlFor="passwordConfirm"
+          type="password"
+          placeholder="Confirm your password"
           required
         />
 

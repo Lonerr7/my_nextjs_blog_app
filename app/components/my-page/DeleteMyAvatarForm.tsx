@@ -24,7 +24,7 @@ const DeleteMyAvatarForm = () => {
 
   return (
     <>
-      <form className="w-1/2" action={clientAction}>
+      <form action={clientAction}>
         {isPopupOpen ? (
           <PopupContainer closePopup={closePopup} withoutPortal>
             <AreYouSurePopup popupPhrase="delete your profile picture" />
@@ -32,7 +32,7 @@ const DeleteMyAvatarForm = () => {
         ) : null}
       </form>
       <button
-        className="form-btn !w-1/2 !bg-red-600 disabled:!bg-red-300"
+        className="form-btn !bg-red-600 disabled:!bg-red-300"
         onClick={openPopup}
       >
         Delete my profile picture

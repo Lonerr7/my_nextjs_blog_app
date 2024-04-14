@@ -1,0 +1,29 @@
+.navList {
+  @apply xsm:!w-full;
+}
+
+@media (max-width: 850px) {
+  .navList {
+    padding: 160px 40px 60px 60px;
+    position: fixed;
+    height: 100vh;
+    top: 0;
+    left: 0;
+    width: 300px;
+    transform: translateX(0);
+    transition: all 0.3s ease-in-out;
+    z-index: 200;
+  }
+
+  .navList__item {
+    margin-bottom: 30px;
+  }
+
+  .navList__item:last-child {
+    margin-bottom: 0;
+  }
+
+  .closed {
+    transform: translateX(-1000%);
+  }
+}

@@ -1,4 +1,4 @@
-import UsersPageLoadingSkeleton from '../components/ui/skeletons/UsersPageLoadingSkeleton';
+import UsersPageLoadingSkeleton from '../components/ui/skeletons/users/UsersPageLoadingSkeleton';
 
 const LoadingPage = () => {
   return <UsersPageLoadingSkeleton />;

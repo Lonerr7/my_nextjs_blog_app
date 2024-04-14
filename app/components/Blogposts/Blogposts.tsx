@@ -20,11 +20,12 @@ const Blogposts: React.FC<Props> = ({
   return (
     <div>
       {noTitle || (
-        <h2 className="text-[24px] font-bold leading-7 mb-8">
+        <h2 className="text-[24px] font-bold leading-7 mb-8 xsm:text-center xsm:mb-6">
           Latest blogposts
         </h2>
       )}
-      <ul className="grid grid-cols-3 gap-5">
+
+      <ul className="grid grid-cols-3 gap-5 lg:grid-cols-2 xsm:grid-cols-1">
         {blogposts
           ? blogposts.map((blogpost, i) => (
               <BlogpostSm

@@ -32,6 +32,7 @@ const ForgotPasswordForm = () => {
           labelValue="Email"
           htmlFor={RegisterUserInputFields.EMAIL}
           required
+          type='email'
           placeholder="Enter your email"
         />
 
@@ -40,8 +41,11 @@ const ForgotPasswordForm = () => {
 
       <TextBetweenLines>Or</TextBetweenLines>
 
-      <Link className="form-btn-2" href="/login">
+      <Link className="form-btn-2 mb-4" href="/login">
         Log In
+      </Link>
+      <Link className="form-btn mb-4" href="/">
+        Sign Up
       </Link>
     </div>
   );

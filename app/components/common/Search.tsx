@@ -9,12 +9,14 @@ import { useDebouncedCallback } from 'use-debounce';
 import SearchTag from './SearchTag';
 
 interface Props {
+  customInputContainerClassName?: string;
   palceholder: string;
   queryToChange: SearchQueriesNames;
   blogpostsTagFilter?: BlogpostTags;
 }
 
 const Search: FC<Props> = ({
+  customInputContainerClassName,
   palceholder,
   queryToChange,
   blogpostsTagFilter,
@@ -44,11 +46,13 @@ const Search: FC<Props> = ({
   };
 
   return (
-    <div className="mx-auto w-full mb-8">
+    <div className="mx-auto w-full mb-8 xsm:mb-4">
       <label className="sr-only" htmlFor="search">
         Search
       </label>
-      <div className="relative w-1/2 mx-auto">
+      <div
+        className={`relative w-1/2 mx-auto lg:w-full ${customInputContainerClassName}`}
+      >
         <input
           className="search-input pl-7 pr-5 py-3 mb-2"
           type="text"

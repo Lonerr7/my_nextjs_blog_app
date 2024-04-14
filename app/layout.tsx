@@ -3,7 +3,7 @@ import { workSans, sourceSerifPro } from './ui/fonts';
 import './globals.css';
 import './reset.css';
 import Providers from './components/Providers';
-import Navbar from './components/Navigation/Navbar';
+import NavbarContainer from './components/Navigation/NavbarContainer';
 import Header from './components/semantic/Header';
 import Main from './components/semantic/Main';
 import Footer from './components/semantic/Footer';
@@ -28,7 +28,7 @@ export default function RootLayout({
       >
         <Providers session={session}>
           <Header>
-            <Navbar />
+            <NavbarContainer />
           </Header>
           <Main>{children}</Main>
           <Footer />

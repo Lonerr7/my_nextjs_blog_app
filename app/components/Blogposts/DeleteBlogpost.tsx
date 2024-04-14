@@ -7,6 +7,7 @@ import AreYouSurePopup from '../common/AreYouSurePopup';
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import PopupContainer from '../common/PopupContainer';
+import { usePopup } from '@/hooks/usePopup';
 
 interface Props {
   blogpostId: string;
@@ -19,15 +20,8 @@ const DeleteBlogpost: React.FC<Props> = ({
   iconSize,
   withRedirect,
 }) => {
-  const [isPopupOpen, setIsPopupOpen] = useState(false);
+  const { isOpen, openPopup, closePopup } = usePopup();
   const router = useRouter();
-
-  const openPopup = () => {
-    setIsPopupOpen(true);
-  };
-  const closePopup = () => {
-    setIsPopupOpen(false);
-  };
 
   const bindedAction = deleteBlogpost.bind(null, blogpostId);
   const clientAction = async () => {
@@ -43,14 +37,14 @@ const DeleteBlogpost: React.FC<Props> = ({
       toast.success('Sucessfully deleted blogpost!');
 
       if (withRedirect) {
-        router.replace('/my-page');
+        router.replace('/');
       }
     }
   };
 
   return (
     <>
-      {isPopupOpen ? (
+      {isOpen ? (
         <form action={clientAction}>
           <PopupContainer closePopup={closePopup}>
             <AreYouSurePopup popupPhrase="Are you sure you want to delete this blogpost?" />

@@ -70,3 +70,63 @@
 :global(.dark) .text blockquote {
   @apply text-white bg-dark-blue;
 }
+
+@media (max-width: 640px) {
+  .text h1,
+  .text h2,
+  .text h3,
+  .text h4,
+  .text h5,
+  .text h6 {
+    font-weight: 600;
+    margin-bottom: 12px;
+  }
+
+  .text h1 {
+    font-size: 30px;
+    line-height: 28px;
+  }
+
+  .text h2 {
+    font-size: 28px;
+    line-height: 26px;
+  }
+
+  .text h3 {
+    font-size: 26px;
+    line-height: 24px;
+  }
+
+  .text h4 {
+    font-size: 24px;
+    line-height: 22px;
+  }
+
+  .text h5 {
+    font-size: 22px;
+    line-height: 20px;
+  }
+
+  .text h6 {
+    font-size: 20px;
+    line-height: 18px;
+  }
+
+  .text p {
+    font-size: 18px;
+    line-height: 18px;
+    margin-bottom: 28px;
+  }
+
+  .text a {
+    font-size: 18px;
+    line-height: 18px;
+  }
+
+  .text blockquote {
+    font-size: 20px;
+    line-height: 28px;
+    padding: 22px;
+    margin-bottom: 28px;
+  }
+}

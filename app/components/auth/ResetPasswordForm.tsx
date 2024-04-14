@@ -38,6 +38,7 @@ const ResetPasswordForm: FC<Props> = ({ userId, router }) => {
           labelValue="Password"
           htmlFor={RegisterUserInputFields.PASSWORD}
           required
+          type='password'
           placeholder="Enter your new password"
         />
         <FormStatelessControl
@@ -45,6 +46,7 @@ const ResetPasswordForm: FC<Props> = ({ userId, router }) => {
           labelValue="Password Confirm"
           htmlFor={RegisterUserInputFields.PASSWORD_CONFIRM}
           required
+          type='password'
           placeholder="Confirm your new password"
         />
 

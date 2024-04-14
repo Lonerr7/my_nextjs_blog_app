@@ -7,7 +7,11 @@ import swithcerLoading from '@/public/swithcer_loading.svg';
 import swithcerLight from '@/public/swithcer_light.svg';
 import swithcerDark from '@/public/swithcer_dark.svg';
 
-const ThemeSwitcher: FC = () => {
+interface Props {
+  customClassName?: string;
+}
+
+const ThemeSwitcher: FC<Props> = ({ customClassName }) => {
   const [mounted, setMounted] = useState(false);
   const { resolvedTheme, setTheme } = useTheme();
 
@@ -18,25 +22,24 @@ const ThemeSwitcher: FC = () => {
   if (!mounted) {
     return (
       <Image
-        className="mr-4"
+        className={`mr-4 w-auto h-auto lg:w-[35px] ${customClassName}`}
         src={swithcerLoading}
         alt="theme swithcer"
-        style={{ width: 'auto', height: 'auto' }}
       />
     );
   }
 
   return (
     <button
-      className="mr-4"
+      className={`mr-4 ${customClassName}`}
       onClick={() => {
         resolvedTheme === 'dark' ? setTheme('light') : setTheme('dark');
       }}
     >
       <Image
+        className="w-auto h-auto lg:w-[35px]"
         src={resolvedTheme === 'light' ? swithcerLight : swithcerDark}
         alt="theme swithcer"
-        style={{ width: 'auto', height: 'auto' }}
       />
     </button>
   );

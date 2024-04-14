@@ -76,12 +76,14 @@ const SignUpForm = () => {
           labelValue="Email"
           htmlFor={RegisterUserInputFields.EMAIL}
           required
+          type='email'
           placeholder="Enter your email"
         />
         <FormStatelessControl
           defaultvalue=""
           labelValue="Password"
           htmlFor={RegisterUserInputFields.PASSWORD}
+          type='password'
           required
           placeholder="Eneter your password"
         />
@@ -89,6 +91,7 @@ const SignUpForm = () => {
           defaultvalue=""
           labelValue="Confirm your password"
           htmlFor={RegisterUserInputFields.PASSWORD_CONFIRM}
+          type='password'
           required
           placeholder="Confirm your password"
         />
