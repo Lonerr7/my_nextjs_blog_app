@@ -39,15 +39,18 @@ const Navbar: React.FC<Props> = ({ session, userDoc }) => {
         </span>
       </Link>
 
-      <BurgerBtn
-        customClassName="hidden 2md:block z-[301]"
-        toggleMenuHandler={toggleMenuHandler}
-      />
+      {session?.user ? (
+        <BurgerBtn
+          customClassName="hidden 2md:block z-[301]"
+          toggleMenuHandler={toggleMenuHandler}
+        />
+      ) : null}
 
       {session && <NavList isOpen={isOpen} closeMenu={closeMenu} />}
 
-      <div className="flex items-center justify-between z-[301]">
-        <ThemeSwitcher />
+      <div className="flex items-center justify-between z-[301] 2md:w-full">
+        <ThemeSwitcher customClassName="2md:ml-auto" />
+
         {session && (
           <Link className="link mr-4 dark:text-white" href="/">
             Hello,{' '}
