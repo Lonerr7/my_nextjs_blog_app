@@ -3,9 +3,9 @@ import { connectToDB } from '@/utils/connectToDB';
 import { NextRequest } from 'next/server';
 
 export const GET = async (req: NextRequest) => {
-  try {
-    const blogpostId = req.nextUrl.searchParams.get('blogpostId');
+  const blogpostId = req.nextUrl.searchParams.get('blogpostId');
 
+  try {
     await connectToDB();
 
     // Здесь будет if else в котором если мы передали параметр, чтобы сделать populate лайков, то выполнится одна ветка if else, если нет, то другая ветка

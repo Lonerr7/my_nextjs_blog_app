@@ -27,6 +27,8 @@ interface Props {
 
 const Home: FC<Props> = async ({ searchParams }) => {
   const session = await getServerSession(authConfig);
+  console.log(session);
+
   const { user: myself, error } = await getSingleUser(
     session?.user.id!,
     RequestTags.GET_ME,

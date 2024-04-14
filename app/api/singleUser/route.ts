@@ -4,10 +4,10 @@ import { connectToDB } from '@/utils/connectToDB';
 import { NextRequest } from 'next/server';
 
 export const GET = async (req: NextRequest) => {
+  const id = req.nextUrl.searchParams.get('id')!;
+  const populateBlogs = req.nextUrl.searchParams.get('populateBlogs');
+  
   try {
-    const id = req.nextUrl.searchParams.get('id')!;
-    const populateBlogs = req.nextUrl.searchParams.get('populateBlogs');
-
     let user: any = undefined;
     await connectToDB();
 

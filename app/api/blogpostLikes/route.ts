@@ -3,12 +3,12 @@ import { connectToDB } from '@/utils/connectToDB';
 import { NextRequest } from 'next/server';
 
 export const GET = async (req: NextRequest) => {
+  // 1. Getting params from query URL
+  const blogpostId = req.nextUrl.searchParams.get('blogpostId');
+  const page = req.nextUrl.searchParams.get('page');
+  const searchQuery = req.nextUrl.searchParams.get('searchQuery');
+  
   try {
-    // 1. Getting params from query URL
-    const blogpostId = req.nextUrl.searchParams.get('blogpostId');
-    const page = req.nextUrl.searchParams.get('page');
-    const searchQuery = req.nextUrl.searchParams.get('searchQuery');
-
     await connectToDB();
     const blogpost = await Blog.findById(blogpostId)
       .select('_id likes')

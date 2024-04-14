@@ -6,10 +6,10 @@ import { generateMongooseSearchOptions } from '@/utils/generateMongooseSearchOpt
 import { NextRequest } from 'next/server';
 
 export const GET = async (req: NextRequest) => {
+  const searchOptions = generateMongooseSearchOptions(req);
+  const page = req.nextUrl.searchParams.get('page');
   try {
-    const searchOptions = generateMongooseSearchOptions(req);
-    const page = req.nextUrl.searchParams.get('page');
-
+    
     await connectToDB();
     const allUsers: IUser[] = await User.find(searchOptions)
       .sort({ createdAt: -1 })
