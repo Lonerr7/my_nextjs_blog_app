@@ -14,6 +14,6 @@ export const GET = async (req: NextRequest) => {
 
     return new Response(JSON.stringify(totalUsersPages), { status: 200 });
   } catch (error) {
-    console.log(error);
+    console.error(error);
   }
 };
