@@ -68,7 +68,7 @@ export const createBlogpost = async ({
     }
 
     const response = await fetch(
-      `${process.env.NEXTAUTH_URL}/api/blogs?userId=${validatedUserInput.data.userId}`,
+      `http://localhost:3000/api/blogs?userId=${validatedUserInput.data.userId}`,
       {
         method: 'POST',
         body: JSON.stringify({
@@ -207,7 +207,7 @@ export const getSingleBlogpostLikes = async ({
     no_store();
 
     const response = await fetch(
-      `${process.env.NEXTAUTH_URL}/api/blogpostLikes?blogpostId=${blogpostId}&page=${page}&searchQuery=${searchQuery}`
+      `http://localhost:3000/api/blogpostLikes?blogpostId=${blogpostId}&page=${page}&searchQuery=${searchQuery}`
     );
 
     const data = await response.json();
@@ -244,7 +244,7 @@ export const getBlogpostComments = async ({
     no_store();
 
     const response = await fetch(
-      `${process.env.NEXTAUTH_URL}/api/blogpostComments?blogpostId=${blogpostId}&page=${page}&searchQuery=${searchQuery}`,
+      `http://localhost:3000/api/blogpostComments?blogpostId=${blogpostId}&page=${page}&searchQuery=${searchQuery}`,
       {
         next: { tags: [RequestTags.GET_BLOGPOST_COMMENTS] },
       }
