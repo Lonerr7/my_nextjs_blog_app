@@ -76,6 +76,7 @@ export const authConfig: AuthOptions = {
         return {
           ...token,
           id: user._id,
+          username: user.username,
         };
       }
 
@@ -87,7 +88,7 @@ export const authConfig: AuthOptions = {
         user: {
           ...session.user,
           id: token.id,
-          username: undefined,
+          username: token.username,
           email: undefined,
         },
       };

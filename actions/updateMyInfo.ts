@@ -48,7 +48,6 @@ export const updateMyInfo = async (formData: FormData) => {
     status: formData.get('status'),
   };
   const session = await getServerSession(authConfig);
-  // const token = cookies().get('next-auth.session-token');
 
   // Если мой id взятый из сессии совпадает с id пользователя, что я хочу изменить (то есть себя), то все ок, нет - выдаем ошибку
   // Почитать про серверные экшены и их бонусы в защите
@@ -76,6 +75,19 @@ export const updateMyInfo = async (formData: FormData) => {
 
   try {
     await connectToDB();
+    const existingUserWithSameNickname = await User.findOne({
+      username: query.username,
+    });
+
+    console.log(session);
+    
+
+    if (existingUserWithSameNickname) {
+      return {
+        message: 'User with this nickanme already exists. Try another one!',
+      };
+    }
+
     await User.findByIdAndUpdate(session?.user.id, query, {
       runValidators: true,
     });

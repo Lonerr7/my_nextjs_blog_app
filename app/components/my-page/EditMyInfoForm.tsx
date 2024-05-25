@@ -5,7 +5,6 @@ import { updateMyInfo } from '@/actions/updateMyInfo';
 import FormStatelessControl from '../ui/FormStatelessControl';
 import { toast } from 'react-hot-toast';
 import FormButton from '../ui/FormButton';
-import { redirect, useRouter } from 'next/navigation';
 
 // Данные поля по умолчанию строки, я оставил знак вопроса для того, чтобы не забыть, что они могу быть пустой строкой, то есть falsy value
 interface Props {
@@ -27,8 +26,6 @@ const EditMyInfoForm: FC<Props> = ({
   youtube,
   status,
 }) => {
-  const router = useRouter();
-
   const clientAction = async (formData: FormData) => {
     const response = (await updateMyInfo(formData)) as {
       message?: string;
@@ -40,7 +37,6 @@ const EditMyInfoForm: FC<Props> = ({
 
     if (!response?.message) {
       toast.success('Successfully updated!');
-      router.push('/');
     }
   };
 
