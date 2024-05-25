@@ -248,12 +248,6 @@ export const getBlogpostComments = async ({
       `${requestURL}/api/blogpostComments?blogpostId=${blogpostId}&page=${page}&searchQuery=${searchQuery}`,
       {
         next: { tags: [RequestTags.GET_BLOGPOST_COMMENTS] },
-
-        headers: {
-          'Access-Control-Allow-Origin': '*',
-          'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
-          'Access-Control-Allow-Headers': 'Content-Type, Authorization',
-        },
       }
     );
 
