@@ -1,6 +1,7 @@
 import {
   BLOGS_ITEMS_PER_PAGE,
   MAX_IMAGE_FILE_SIZE_IN_KB,
+  requestURL,
 } from '@/configs/requestConfig';
 import {
   BlogpostTags,
@@ -68,7 +69,7 @@ export const createBlogpost = async ({
     }
 
     const response = await fetch(
-      `http://localhost:3000/api/blogs?userId=${validatedUserInput.data.userId}`,
+      `${requestURL}/api/blogs?userId=${validatedUserInput.data.userId}`,
       {
         method: 'POST',
         body: JSON.stringify({
@@ -207,7 +208,7 @@ export const getSingleBlogpostLikes = async ({
     no_store();
 
     const response = await fetch(
-      `http://localhost:3000/api/blogpostLikes?blogpostId=${blogpostId}&page=${page}&searchQuery=${searchQuery}`
+      `${requestURL}/api/blogpostLikes?blogpostId=${blogpostId}&page=${page}&searchQuery=${searchQuery}`
     );
 
     const data = await response.json();
@@ -244,7 +245,7 @@ export const getBlogpostComments = async ({
     no_store();
 
     const response = await fetch(
-      `http://localhost:3000/api/blogpostComments?blogpostId=${blogpostId}&page=${page}&searchQuery=${searchQuery}`,
+      `${requestURL}/api/blogpostComments?blogpostId=${blogpostId}&page=${page}&searchQuery=${searchQuery}`,
       {
         next: { tags: [RequestTags.GET_BLOGPOST_COMMENTS] },
       }
