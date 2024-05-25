@@ -54,7 +54,7 @@ export const getSingleUser = async (
     noStore();
     const response = await fetch(
       `${process.env.NEXTAUTH_URL}/api/singleUser?id=${userId}&populateBlogs=${populateBlogs}`,
-      { next: { tags: [tag] } }
+      { next: { revalidate: 0 } }
     );
 
     const data = await response.json();

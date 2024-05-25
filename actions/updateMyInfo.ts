@@ -80,7 +80,6 @@ export const updateMyInfo = async (formData: FormData) => {
     });
 
     console.log(session);
-    
 
     if (existingUserWithSameNickname) {
       return {
