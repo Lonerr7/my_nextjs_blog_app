@@ -7,8 +7,6 @@ export const GET = async (req: NextRequest) => {
   const page = req.nextUrl.searchParams.get('page');
   const searchQuery = req.nextUrl.searchParams.get('searchQuery');
   try {
-    // 1. Getting params from query URL
-
     await connectToDB();
     const comments = await Comment.find({
       to: blogpostId,
@@ -21,8 +19,6 @@ export const GET = async (req: NextRequest) => {
         match: { username: { $regex: searchQuery, $options: 'i' } },
         select: 'username image',
       });
-
-    console.log(comments.length);
 
     return new Response(JSON.stringify(comments), {
       status: 200,
