@@ -74,22 +74,35 @@ export const updateMyInfo = async (formData: FormData) => {
   }
 
   try {
+  
+
     await connectToDB();
-    const existingUserWithSameNickname = await User.findOne({
-      username: query.username,
-    });
+
+    if (username === session?.user.username) {
+      
+    } else {
+
+    }
+
+    
 
     console.log(session);
 
-    if (existingUserWithSameNickname) {
+    if (username !== session?.user.username) {
+      const existingUserWithSameNickname = await User.findOne({ //! Зафиксить баг с именем пользователя
+        username: query.username,
+      });
+      if (existingUserWithSameNickname) {
       return {
         message: 'User with this nickanme already exists. Try another one!',
       };
+    }
     }
 
     await User.findByIdAndUpdate(session?.user.id, query, {
       runValidators: true,
     });
+    
   } catch (error: any) {
     return handleServerActionError(error);
   }
