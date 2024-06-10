@@ -1,3 +1,4 @@
+import { requestURL } from "@/configs/requestConfig";
 import { IResetPasswordUser } from "@/types/authTypes";
 
 export const registerUser = async ({
@@ -12,7 +13,7 @@ export const registerUser = async ({
   passwordConfirm: string;
 }) => {
   try {
-    const response = await fetch('http://localhost:3000/api/register', {
+    const response = await fetch(`${requestURL}/api/register`, {
       method: 'POST',
       body: JSON.stringify({
         username,
@@ -50,7 +51,7 @@ export const registerUser = async ({
 
 export const verifyPasswordResetToken = async (resetToken: string) => {
   try {
-    const response = await fetch(`http://localhost:3000/api/verifyToken`, {
+    const response = await fetch(`${requestURL}/api/verifyToken`, {
       method: 'POST',
       body: JSON.stringify({
         token: resetToken,

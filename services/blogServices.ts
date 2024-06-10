@@ -122,7 +122,7 @@ export const getBlogposts = async (
   try {
     no_store();
     const response = await fetch(
-      `${process.env.NEXTAUTH_URL}/api/blogs?ownerId=${ownerId}&${SearchQueriesNames.BLOGPOSTS_SEARCH_QUERY}=${query}&page=${page}&${SearchQueriesNames.BLOGPOSTS_TAG_FILTER}=${blogpostTagFilter}`,
+      `${requestURL}/api/blogs?ownerId=${ownerId}&${SearchQueriesNames.BLOGPOSTS_SEARCH_QUERY}=${query}&page=${page}&${SearchQueriesNames.BLOGPOSTS_TAG_FILTER}=${blogpostTagFilter}`,
       {
         next: {
           tags: [RequestTags.GET_BLOGPOSTS],
@@ -156,7 +156,7 @@ export const getBlogpostsPages = async (
   try {
     no_store();
     const response = await fetch(
-      `${process.env.NEXTAUTH_URL}/api/blogpostsPageCount?${SearchQueriesNames.BLOGPOSTS_SEARCH_QUERY}=${query}&${SearchQueriesNames.BLOGPOSTS_TAG_FILTER}=${tagFilter}&owner=${owner}`
+      `${requestURL}/api/blogpostsPageCount?${SearchQueriesNames.BLOGPOSTS_SEARCH_QUERY}=${query}&${SearchQueriesNames.BLOGPOSTS_TAG_FILTER}=${tagFilter}&owner=${owner}`
     );
 
     const data: number = await response.json();
@@ -172,7 +172,7 @@ export const getSingleBlogpost = async (blogpostId: string) => {
   try {
     no_store();
     const resposne = await fetch(
-      `${process.env.NEXTAUTH_URL}/api/singleBlogpost?blogpostId=${blogpostId}`
+      `${requestURL}/api/singleBlogpost?blogpostId=${blogpostId}`
     );
 
     const data = await resposne.json();

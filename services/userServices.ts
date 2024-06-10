@@ -1,4 +1,4 @@
-import { USERS_ITEMS_PER_PAGE } from '@/configs/requestConfig';
+import { USERS_ITEMS_PER_PAGE, requestURL } from '@/configs/requestConfig';
 import { RequestTags, SearchQueriesNames } from '@/types/requestTypes';
 import { IUser } from '@/types/userTypes';
 import { unstable_noStore as noStore } from 'next/cache';
@@ -6,7 +6,7 @@ import { unstable_noStore as noStore } from 'next/cache';
 export const getUsers = async (query: string, page: number) => {
   try {
     const response = await fetch(
-      `${process.env.NEXTAUTH_URL}/api/users?${SearchQueriesNames.USERS_SEARCH_QUERY}=${query}&page=${page}`,
+      `${requestURL}/api/users?${SearchQueriesNames.USERS_SEARCH_QUERY}=${query}&page=${page}`,
       {
         next: {
           revalidate: 15,
@@ -33,7 +33,7 @@ export const getUsersPages = async (query: string) => {
   try {
     noStore();
     const response = await fetch(
-      `${process.env.NEXTAUTH_URL}/api/usersDocsNumber?${SearchQueriesNames.USERS_SEARCH_QUERY}=${query}`
+      `${requestURL}/api/usersDocsNumber?${SearchQueriesNames.USERS_SEARCH_QUERY}=${query}`
     );
 
     const data: number = await response.json();
@@ -53,7 +53,7 @@ export const getSingleUser = async (
   try {
     noStore();
     const response = await fetch(
-      `${process.env.NEXTAUTH_URL}/api/singleUser?id=${userId}&populateBlogs=${populateBlogs}`,
+      `${requestURL}/api/singleUser?id=${userId}&populateBlogs=${populateBlogs}`,
       { next: { revalidate: 0 } }
     );
 
